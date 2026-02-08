@@ -223,11 +223,10 @@ Ejemplos:
 ---
 
 ### 🛠️ Herramientas QA
-
-- TestRail – Casos de prueba  
-- Postman – APIs  
-- VS Code – Revisión JSON  
-- Excel – Matriz QA  
+Excel / Google Sheets – Casos de prueba (estructura compatible con TestRail)
+Postman – Pruebas de APIs
+VS Code – Revisión de JSON y validación de datos
+TestRail – Referencia de estructura y reporting
 
 ---
 
