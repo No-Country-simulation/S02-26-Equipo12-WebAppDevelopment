@@ -153,3 +153,85 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
     </tr>
   </tbody>
 </table>
+
+---
+
+## 🧪 QA Guidelines – FitBot / RiderFit
+
+Esta sección define las buenas prácticas de QA para asegurar la calidad del asistente funcional de tallas (FitBot), enfocado en recomendaciones precisas para jinete y caballo.
+
+---
+
+### 🎯 Objetivos de QA
+
+- Garantizar que las recomendaciones de talles sean precisas y consistentes.
+- Reducir errores que generen devoluciones o mala experiencia de usuario.
+- Validar la integración entre Frontend, Backend y lógica del asistente.
+
+---
+
+### 📂 Validación de Datos (Inputs / JSON)
+
+QA debe verificar:
+
+- Codificación UTF-8 correcta (ej: evitar `RelÃ¡mpago` → debe ser `Relámpago`).
+- Formato de fechas: `YYYY-MM-DD`.
+- Unidades explícitas en campos: `height_cm`, `weight_kg`, `boot_size_eu`, `chest_cm`.
+- Patrones de IDs: `horse_001`, `rider_001`, `HELMET-001`.
+- Campos obligatorios no nulos.
+
+---
+
+### 🧠 Lógica del Asistente (FitBot)
+
+Validar que:
+
+- El asistente combine correctamente:
+  - Datos del jinete
+  - Datos del caballo
+  - Propiedades del producto
+- Las recomendaciones respeten:
+  - Rangos de talles
+  - Disciplina
+  - Compatibilidad jinete–caballo
+
+Ejemplos:
+- Jinete fuera de rango → FitBot debe mostrar advertencia.
+- Caballo incompatible → No debe recomendar ese producto.
+
+---
+
+### 🧪 Tipos de Pruebas
+
+- Pruebas funcionales (end-to-end).
+- Validación de formularios.
+- Integración Front-Back.
+- Casos borde (edge cases).
+- Datos inválidos.
+
+---
+
+### 🗂️ Casos de Prueba Base
+
+| ID    | Escenario                  | Resultado Esperado     |
+|-------|----------------------------|------------------------|
+| QA-01 | Jinete con datos válidos   | Recomendación correcta|
+| QA-02 | Jinete fuera de rango      | Mensaje de error      |
+| QA-03 | Caballo sin datos          | No permite continuar  |
+| QA-04 | Producto incompatible     | No se recomienda      |
+
+---
+
+### 🛠️ Herramientas QA
+
+- TestRail – Casos de prueba  
+- Postman – APIs  
+- VS Code – Revisión JSON  
+- Excel – Matriz QA  
+
+---
+
+### 🔁 QA en el Sprint
+
+- QA participa en dailys, demos y revisiones.
+- QA valida antes de pasar una historia a “Done”.
