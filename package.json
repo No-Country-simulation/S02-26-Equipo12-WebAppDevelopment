@@ -1,0 +1,22 @@
+{
+  "name": "s02-26-equipo12-webappdevelopment",
+  "version": "1.0.0",
+  "description": "**FitBot** es una herramienta inteligente que se integra con plataformas de e-commerce para asistir a los compradores en la elección del talle correcto según sus medidas físicas.",
+  "main": "index.js",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isakiDev/S02-26-Equipo12-WebAppDevelopment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isakiDev/S02-26-Equipo12-WebAppDevelopment/issues"
+  },
+  "homepage": "https://github.com/isakiDev/S02-26-Equipo12-WebAppDevelopment#readme"
+}
