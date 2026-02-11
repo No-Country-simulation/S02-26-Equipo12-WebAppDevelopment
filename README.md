@@ -13,15 +13,16 @@ A partir de esta información, FitBot utiliza un **asistente inteligente** que c
 El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y una experiencia de usuario fluida.
 
 ### **Frontend**
-![Astro](https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Astro](https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css&logoColor=white)
 
 ### **Backend**
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
 ---
@@ -148,6 +149,7 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
     </tr>
     <tr>
       <td align="center">
+        <a href="https://github.com/webale65"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/github.svg"></a>
         <a href="https://www.linkedin.com/in/alberto-alejandro-pedraza/"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/linkedin.svg"></a>
       </td>
     </tr>
@@ -213,12 +215,12 @@ Ejemplos:
 
 ### 🗂️ Casos de Prueba Base
 
-| ID    | Escenario                  | Resultado Esperado     |
-|-------|----------------------------|------------------------|
-| QA-01 | Jinete con datos válidos   | Recomendación correcta|
-| QA-02 | Jinete fuera de rango      | Mensaje de error      |
-| QA-03 | Caballo sin datos          | No permite continuar  |
-| QA-04 | Producto incompatible     | No se recomienda      |
+| ID    | Escenario                | Resultado Esperado     |
+| ----- | ------------------------ | ---------------------- |
+| QA-01 | Jinete con datos válidos | Recomendación correcta |
+| QA-02 | Jinete fuera de rango    | Mensaje de error       |
+| QA-03 | Caballo sin datos        | No permite continuar   |
+| QA-04 | Producto incompatible    | No se recomienda       |
 
 ---
 
