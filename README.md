@@ -34,20 +34,29 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
   <thead>
     <tr>
       <th align="center"><img src="https://github.com/Onimusha-IO.png" width="120"></th>
-      <th align="center"><img src="https://ui-avatars.com/api/?name=Danna+Rengel&background=random&size=120" width="120"></th>
+      <th align="center"><img src="https://github.com/dannaelizabeth.png" width="120"></th>
+      <th align="center"><img src="https://avatars.githubusercontent.com/u/143692299?v=4" width="120"></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td align="center"><strong>Gustavo Bracho</strong></td>
       <td align="center"><strong>Danna Rengel</strong></td>
+      <td align="center"><strong>Gaspar Castillo Catrifol</strong></td>
     </tr>
     <tr>
       <td align="center">
         <a href="https://github.com/Onimusha-IO"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/github.svg"></a>
         <a href="https://www.linkedin.com/in/gustavo-bracho-b2125a108/"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/linkedin.svg"></a>
       </td>
-      <td align="center"></td>
+      <td align="center">
+        <a href="https://github.com/dannaelizabeth"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/github.svg"></a>
+        <a href="https://www.linkedin.com/in/dannarengel/"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/linkedin.svg"></a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/isakiDev"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/github.svg"></a>
+        <a href="https://www.linkedin.com/in/isakidev/"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/linkedin.svg"></a>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -56,20 +65,14 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
 <table>
   <thead>
     <tr>
-      <th align="center"><img src="https://avatars.githubusercontent.com/u/143692299?v=4" width="120"></th>
       <th align="center"><img src="https://github.com/jcutruzzola.png" width="120"></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td align="center"><strong>Gaspar Castillo Catrifol</strong></td>
       <td align="center"><strong>Jorge Cutruzzola</strong></td>
     </tr>
     <tr>
-      <td align="center">
-        <a href="https://github.com/isakiDev"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/github.svg"></a>
-        <a href="https://www.linkedin.com/in/isakidev/"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/linkedin.svg"></a>
-      </td>
       <td align="center">
         <a href="https://github.com/jcutruzzola"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/github.svg"></a>
         <a href="https://www.linkedin.com/in/jorgecutruzzola"><img src="https://raw.githubusercontent.com/LionelStaricoff/c16-84-ft-java/615dd2bb3247fd67184c5c9a3c0ff80d58c8da9f/proyecto/linkedin.svg"></a>
@@ -140,7 +143,7 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
 <table>
   <thead>
     <tr>
-      <th align="center"><img src="https://ui-avatars.com/api/?name=Alberto+Alejandro+Pedraza&background=random&size=120" width="120"></th>
+      <th align="center"><img src="https://github.com/webale65.png" width="120"></th>
     </tr>
   </thead>
   <tbody>
