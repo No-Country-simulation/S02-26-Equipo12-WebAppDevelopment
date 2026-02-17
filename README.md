@@ -61,6 +61,34 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
 
 ---
 
+## ✅ Definition of Done (DoD)
+
+Una historia de usuario en RiderFit se considera "Done" cuando cumple con los siguientes criterios:
+
+### 📌 Desarrollo
+
+- Funcionalidad implementada según criterios de aceptación.
+- Código revisado y sin errores críticos.
+- Integración correcta entre frontend y backend.
+
+### 🧪 QA
+
+- Casos de prueba ejecutados.
+- Resultados documentados en herramienta de gestión (TestRail / Excel).
+- Validación de datos de entrada y salida.
+- Pruebas de integración realizadas.
+- No existen bugs críticos abiertos.
+
+### 🚀 Entrega
+
+- Aprobado en Sprint Demo.
+- Validado por el equipo.
+- Desplegado en entorno correspondiente si aplica.
+
+Esta definición asegura calidad, trazabilidad y consistencia en cada sprint.
+
+---
+
 ## 👥 Equipo de Desarrollo
 
 ### 💻 Full Stack Developers
