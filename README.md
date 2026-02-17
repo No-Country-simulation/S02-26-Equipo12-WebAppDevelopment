@@ -61,6 +61,118 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
 
 ---
 
+## 🧪 QA Guidelines – FitBot / RiderFit
+
+Esta sección define las buenas prácticas de QA para asegurar la calidad del asistente funcional de tallas (FitBot), enfocado en recomendaciones precisas para jinete y caballo.
+
+---
+
+### 🎯 Objetivos de QA
+
+- Garantizar que las recomendaciones de talles sean precisas y consistentes.
+- Reducir errores que generen devoluciones o mala experiencia de usuario.
+- Validar la integración entre Frontend, Backend y lógica del asistente.
+
+---
+
+### 📂 Validación de Datos (Inputs / JSON)
+
+QA debe verificar:
+
+- Codificación UTF-8 correcta (ej: evitar `RelÃ¡mpago` → debe ser `Relámpago`).
+- Formato de fechas: `YYYY-MM-DD`.
+- Unidades explícitas en campos: `height_cm`, `weight_kg`, `boot_size_eu`, `chest_cm`.
+- Patrones de IDs: `horse_001`, `rider_001`, `HELMET-001`.
+- Campos obligatorios no nulos.
+
+---
+
+### 🧩 Validación del Modelo de Datos
+
+QA verificará que el modelo relacional del sistema RiderFit se utilice correctamente, asegurando la integridad, consistencia y confiabilidad de los datos utilizados por el asistente FitBot.
+
+Se validarán los siguientes aspectos:
+
+- **Consistencia en la tabla `measurement_types`:**
+  - El campo `code` debe ser único para cada tipo de medición.
+  - La unidad (`unit`) debe corresponder correctamente al tipo de medición (ej: `cm`, `kg`, `eu`).
+  - El campo `applies_to` debe indicar correctamente la entidad aplicable (`rider` o `horse`).
+  - No deben existir tipos de medición duplicados o inconsistentes.
+
+- **Uso correcto de mediciones en `rider_measurements` y `horse_measurements`:**
+  - El sistema debe utilizar la medición más reciente basada en el campo `measured_at`.
+  - No deben utilizarse registros obsoletos si existe uno más reciente.
+  - Las mediciones deben estar correctamente asociadas a su entidad correspondiente mediante claves foráneas.
+
+- **Validación de medidas requeridas según `cat_required_measurements`:**
+  - Cada subcategoría de producto debe tener definidas sus mediciones obligatorias.
+  - QA verificará que el sistema valide la existencia de estas mediciones antes de generar recomendaciones.
+  - El sistema no debe recomendar productos si faltan mediciones requeridas.
+
+- **Integridad de rangos en `product_size_ranges`:**
+  - El valor `min_value` debe ser menor que `max_value`.
+  - No deben existir rangos solapados incorrectamente para el mismo producto, dimensión y sistema de talles.
+  - Los rangos deben ser coherentes con la lógica del producto y permitir una correcta asignación de talles.
+
+---
+
+### 🧠 Lógica del Asistente (FitBot)
+
+Validar que:
+
+- El asistente combine correctamente:
+  - Datos del jinete
+  - Datos del caballo
+  - Propiedades del producto
+- Las recomendaciones respeten:
+  - Rangos de talles
+  - Disciplina
+  - Compatibilidad jinete–caballo
+
+Ejemplos:
+
+- Jinete fuera de rango → FitBot debe mostrar advertencia.
+- Caballo incompatible → No debe recomendar ese producto.
+
+---
+
+### 🧪 Tipos de Pruebas
+
+- Pruebas funcionales (end-to-end).
+- Validación de formularios.
+- Integración Frontend–Backend.
+- Casos borde (edge cases).
+- Datos inválidos.
+
+---
+
+### 🗂️ Casos de Prueba Base
+
+| ID    | Escenario                | Resultado Esperado     |
+| ----- | ------------------------ | ---------------------- |
+| QA-01 | Jinete con datos válidos | Recomendación correcta |
+| QA-02 | Jinete fuera de rango    | Mensaje de error       |
+| QA-03 | Caballo sin datos        | No permite continuar   |
+| QA-04 | Producto incompatible    | No se recomienda       |
+
+---
+
+### 🛠️ Herramientas QA
+
+- Excel / Google Sheets – Casos de prueba
+- Postman – Pruebas de APIs
+- VS Code – Revisión de JSON
+- TestRail – Reporting y trazabilidad
+
+---
+
+### 🔁 QA en el Sprint
+
+- QA participa en dailys, demos y revisiones.
+- QA valida antes de pasar una historia a “Done”.
+
+---
+
 ## ✅ Definition of Done (DoD)
 
 Una historia de usuario en RiderFit se considera "Done" cuando cumple con los siguientes criterios:
@@ -224,113 +336,3 @@ Esta definición asegura calidad, trazabilidad y consistencia en cada sprint.
     </tr>
   </tbody>
 </table>
-
----
-
-## 🧪 QA Guidelines – FitBot / RiderFit
-
-Esta sección define las buenas prácticas de QA para asegurar la calidad del asistente funcional de tallas (FitBot), enfocado en recomendaciones precisas para jinete y caballo.
-
----
-
-### 🎯 Objetivos de QA
-
-- Garantizar que las recomendaciones de talles sean precisas y consistentes.
-- Reducir errores que generen devoluciones o mala experiencia de usuario.
-- Validar la integración entre Frontend, Backend y lógica del asistente.
-
----
-
-### 📂 Validación de Datos (Inputs / JSON)
-
-QA debe verificar:
-
-- Codificación UTF-8 correcta (ej: evitar `RelÃ¡mpago` → debe ser `Relámpago`).
-- Formato de fechas: `YYYY-MM-DD`.
-- Unidades explícitas en campos: `height_cm`, `weight_kg`, `boot_size_eu`, `chest_cm`.
-- Patrones de IDs: `horse_001`, `rider_001`, `HELMET-001`.
-- Campos obligatorios no nulos.
-
-### 🧩 Validación del Modelo de Datos
-
-QA verificará que el modelo relacional del sistema RiderFit se utilice correctamente, asegurando la integridad, consistencia y confiabilidad de los datos utilizados por el asistente FitBot.
-
-Se validarán los siguientes aspectos:
-
-- **Consistencia en la tabla `measurement_types`:**
-  - El campo `code` debe ser único para cada tipo de medición.
-  - La unidad (`unit`) debe corresponder correctamente al tipo de medición (ej: `cm`, `kg`, `eu`).
-  - El campo `applies_to` debe indicar correctamente la entidad aplicable (`rider` o `horse`).
-  - No deben existir tipos de medición duplicados o inconsistentes.
-
-- **Uso correcto de mediciones en `rider_measurements` y `horse_measurements`:**
-  - El sistema debe utilizar la medición más reciente basada en el campo `measured_at`.
-  - No deben utilizarse registros obsoletos si existe uno más reciente.
-  - Las mediciones deben estar correctamente asociadas a su entidad correspondiente mediante claves foráneas.
-
-- **Validación de medidas requeridas según `cat_required_measurements`:**
-  - Cada subcategoría de producto debe tener definidas sus mediciones obligatorias.
-  - QA verificará que el sistema valide la existencia de estas mediciones antes de generar recomendaciones.
-  - El sistema no debe recomendar productos si faltan mediciones requeridas.
-
-- **Integridad de rangos en `product_size_ranges`:**
-  - El valor `min_value` debe ser menor que `max_value`.
-  - No deben existir rangos solapados incorrectamente para el mismo producto, dimensión y sistema de talles.
-  - Los rangos deben ser coherentes con la lógica del producto y permitir una correcta asignación de talles.
-
----
-
-### 🧠 Lógica del Asistente (FitBot)
-
-Validar que:
-
-- El asistente combine correctamente:
-  - Datos del jinete
-  - Datos del caballo
-  - Propiedades del producto
-- Las recomendaciones respeten:
-  - Rangos de talles
-  - Disciplina
-  - Compatibilidad jinete–caballo
-
-Ejemplos:
-
-- Jinete fuera de rango → FitBot debe mostrar advertencia.
-- Caballo incompatible → No debe recomendar ese producto.
-
----
-
-### 🧪 Tipos de Pruebas
-
-- Pruebas funcionales (end-to-end).
-- Validación de formularios.
-- Integración Front-Back.
-- Casos borde (edge cases).
-- Datos inválidos.
-
----
-
-### 🗂️ Casos de Prueba Base
-
-| ID    | Escenario                | Resultado Esperado     |
-| ----- | ------------------------ | ---------------------- |
-| QA-01 | Jinete con datos válidos | Recomendación correcta |
-| QA-02 | Jinete fuera de rango    | Mensaje de error       |
-| QA-03 | Caballo sin datos        | No permite continuar   |
-| QA-04 | Producto incompatible    | No se recomienda       |
-
----
-
-### 🛠️ Herramientas QA
-
-Excel / Google Sheets – Casos de prueba (estructura compatible con TestRail)
-Postman – Pruebas de APIs
-VS Code – Revisión de JSON y validación de datos
-TestRail – Referencia de estructura y reporting
-
----
-
-### 🔁 QA en el Sprint
-
-- QA participa en dailys, demos y revisiones.
-- QA valida antes de pasar una historia a “Done”.
