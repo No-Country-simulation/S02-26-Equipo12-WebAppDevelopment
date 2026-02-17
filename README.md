@@ -8,17 +8,51 @@ A partir de esta información, FitBot utiliza un **asistente inteligente** que c
 
 ---
 
+## 🏗️ Arquitectura del Sistema
+
+RiderFit implementa una arquitectura cliente-servidor desacoplada, diseñada para garantizar escalabilidad, mantenibilidad y separación clara de responsabilidades entre capas.
+
+### Cliente (`client/`)
+
+El cliente contiene la interfaz de usuario y es responsable de:
+
+- Capturar las medidas del jinete y del caballo.
+- Gestionar validaciones iniciales en formularios.
+- Enviar solicitudes al servidor mediante API REST.
+- Mostrar recomendaciones de productos y talles sugeridos.
+
+Esta capa se enfoca exclusivamente en la experiencia del usuario y la presentación de datos.
+
+### Servidor (`server/`)
+
+El servidor implementa:
+
+- Endpoints REST para recepción y procesamiento de datos.
+- La lógica central del motor de recomendación (FitBot).
+- Validaciones estructurales y reglas de negocio.
+- Interacción con la base de datos relacional.
+
+Esta capa procesa la información recibida, aplica las reglas de negocio y devuelve resultados consistentes al cliente.
+
+### Comunicación
+
+La comunicación entre cliente y servidor se realiza mediante solicitudes HTTP a través de una API REST, permitiendo independencia entre capas y facilitando futuras integraciones o escalabilidad del sistema.
+
+---
+
 ## 🛠️ Stack Tecnológico
 
 El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y una experiencia de usuario fluida.
 
 ### **Frontend**
+
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Astro](https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css&logoColor=white)
 
 ### **Backend**
+
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -30,6 +64,7 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
 ## 👥 Equipo de Desarrollo
 
 ### 💻 Full Stack Developers
+
 <table>
   <thead>
     <tr>
@@ -62,6 +97,7 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
 </table>
 
 ### 🎨 Frontend Developers
+
 <table>
   <thead>
     <tr>
@@ -82,6 +118,7 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
 </table>
 
 ### ⚙️ Backend Developers
+
 <table>
   <thead>
     <tr>
@@ -140,6 +177,7 @@ El proyecto ha sido desarrollado con un enfoque en rendimiento, escalabilidad y 
 </table>
 
 ### 🛡️ QA & Testing
+
 <table>
   <thead>
     <tr>
@@ -185,6 +223,33 @@ QA debe verificar:
 - Patrones de IDs: `horse_001`, `rider_001`, `HELMET-001`.
 - Campos obligatorios no nulos.
 
+### 🧩 Validación del Modelo de Datos
+
+QA verificará que el modelo relacional del sistema RiderFit se utilice correctamente, asegurando la integridad, consistencia y confiabilidad de los datos utilizados por el asistente FitBot.
+
+Se validarán los siguientes aspectos:
+
+- **Consistencia en la tabla `measurement_types`:**
+  - El campo `code` debe ser único para cada tipo de medición.
+  - La unidad (`unit`) debe corresponder correctamente al tipo de medición (ej: `cm`, `kg`, `eu`).
+  - El campo `applies_to` debe indicar correctamente la entidad aplicable (`rider` o `horse`).
+  - No deben existir tipos de medición duplicados o inconsistentes.
+
+- **Uso correcto de mediciones en `rider_measurements` y `horse_measurements`:**
+  - El sistema debe utilizar la medición más reciente basada en el campo `measured_at`.
+  - No deben utilizarse registros obsoletos si existe uno más reciente.
+  - Las mediciones deben estar correctamente asociadas a su entidad correspondiente mediante claves foráneas.
+
+- **Validación de medidas requeridas según `cat_required_measurements`:**
+  - Cada subcategoría de producto debe tener definidas sus mediciones obligatorias.
+  - QA verificará que el sistema valide la existencia de estas mediciones antes de generar recomendaciones.
+  - El sistema no debe recomendar productos si faltan mediciones requeridas.
+
+- **Integridad de rangos en `product_size_ranges`:**
+  - El valor `min_value` debe ser menor que `max_value`.
+  - No deben existir rangos solapados incorrectamente para el mismo producto, dimensión y sistema de talles.
+  - Los rangos deben ser coherentes con la lógica del producto y permitir una correcta asignación de talles.
+
 ---
 
 ### 🧠 Lógica del Asistente (FitBot)
@@ -201,6 +266,7 @@ Validar que:
   - Compatibilidad jinete–caballo
 
 Ejemplos:
+
 - Jinete fuera de rango → FitBot debe mostrar advertencia.
 - Caballo incompatible → No debe recomendar ese producto.
 
@@ -228,6 +294,7 @@ Ejemplos:
 ---
 
 ### 🛠️ Herramientas QA
+
 Excel / Google Sheets – Casos de prueba (estructura compatible con TestRail)
 Postman – Pruebas de APIs
 VS Code – Revisión de JSON y validación de datos
