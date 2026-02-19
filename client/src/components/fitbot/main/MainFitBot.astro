@@ -1,0 +1,94 @@
+---
+import "../styles/index.css";
+import Header from "../../shared/Header.astro";
+import HorseProfile from "../profiles/HorseProfile.astro";
+import RiderProfile from "../profiles/RiderProfile.astro";
+---
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitbot AI - RiderFit</title>
+</head>
+
+<body>
+    <Header />
+
+    <main class="container">
+        <section class="hero">
+            <div class="pill-badge">
+                <span class="pill-dot"></span>
+                AI Sizing Assistant
+            </div>
+            <h1>Welcome to Fitbot.</h1>
+            <p class="subtitle">
+                Create your specialized profiles below. Our AI analyzes your
+                biometrics to recommend the perfect gear for you and your horse.
+            </p>
+        </section>
+
+        <section class="cards-container">
+
+            <RiderProfile/>
+            
+            <HorseProfile/>
+
+            </div>
+        </section>
+
+        <section class="trust-indicators">
+            <div class="indicator">
+                <div class="indicator-icon">
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><path d="M2 12h20"></path><path d="M6 12v-2"
+                        ></path><path d="M10 12v-2"></path><path d="M14 12v-2"
+                        ></path><path d="M18 12v-2"></path></svg
+                    >
+                </div>
+                <span>99% Fit Accuracy</span>
+            </div>
+            <div class="indicator">
+                <div class="indicator-icon">
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                        ></path></svg
+                    >
+                </div>
+                <span>Secure Data Privacy</span>
+            </div>
+            <div class="indicator">
+                <div class="indicator-icon">
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><circle cx="12" cy="12" r="10"></circle><polyline
+                            points="12 6 12 12 16 14"></polyline></svg
+                    >
+                </div>
+                <span>Instant Recommendations</span>
+            </div>
+        </section>
+    </main>
+</body>

@@ -1,0 +1,115 @@
+
+        /* --- Utilities --- */
+
+        a { text-decoration: none; color: inherit; }
+
+
+            /* --- Header --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px;
+            /* background: transparent; */
+            /* background-color: aqua; */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .logo-icon {
+            background: var(--button-dark);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            color: white;
+        }
+
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.2rem;
+        }
+
+        .cart-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            border: 1px solid var(--bg-color);
+        }
+
+        .btn-signin {
+            background-color: var(--button-dark);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+
+        /*  4 DESIGN DELETE */
+        
+        nav {
+            border: solid 1px rgb(237, 21, 21);
+        } 
+
+        /*  4 DESIGN DELETE */
+
+        nav ul {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a.active {
+            color: var(--accent-green);
+        }
+
+
+
+
+         /* --- Footer --- */
+        footer {
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            color: #999;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(0,0,0,0.03);
+            margin-top: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+   
+    

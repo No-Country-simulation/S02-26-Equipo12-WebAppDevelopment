@@ -1,0 +1,65 @@
+:root {
+
+    --bg-color: #F4F6F3;
+    --card-bg: #FFFFFF;
+    --text-primary: #3B2F28;
+    /* Dark Brown */
+    --text-secondary: #7e7e7e;
+    --accent-green: #2ED178;
+    --accent-light-green: #E8FBF2;
+    --button-dark: #463A31;
+    --border-color: #E5E5E5;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+
+
+}
+
+.fitbot-root {
+
+    --accent-green: #2D3E32;
+
+    /*  forms */
+    --primary: #17cf54;
+    --primary-dark: #12a342;
+    --primary-hover: #12b549;
+    --primary-light: rgba(23, 207, 84, 0.2);
+    --primary-lightest: rgba(23, 207, 84, 0.05);
+
+    --bg-page: #f6f8f6;
+    --bg-panel-left: #f9fafb;
+    --bg-white: #ffffff;
+
+    --background-light: #f6f8f6;
+    --background-dark: #112116;
+    --surface-light: #ffffff;
+    --surface-dark: #1a2e22;
+    --primary-green: #10B981;
+
+    /* Vibrant green */
+    --primary-light: #ECFDF5;
+    /* Very light green bg */
+    --text-dark: #111827;
+    --text-gray: #6B7280;
+    --border-color: #E5E7EB;
+    --bg-white: #ffffff;
+    --bg-canvas: #F9FAFB;
+
+
+    --text-dark: #111827;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --text-light: #9ca3af;
+
+    --border-light: #e5e7eb;
+    --border-focus: #17cf54;
+
+    /* --font-display: "Manrope", sans-serif; */
+    --nav-height: 4rem; /* 64px */
+
+}
+
+.ecommerce-root {
+    --accent-green: #8fe067;
+
+}
