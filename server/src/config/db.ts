@@ -1,16 +1,6 @@
 import {Sequelize} from 'sequelize-typescript'
 import dotenv from 'dotenv'
-import { Brand } from '../models/brandModel'
-import { Category } from '../models/categoryModel';
-import { SubCategory } from '../models/subCategoryModel';
-import { MeasurementType } from '../models/measurementTypesModel';
-import { Product } from '../models/productModel';
-import { Rider } from '../models/riderModel';
-import { Horse } from '../models/horseModel';
-import { CategoryRequirement } from '../models/categoryRequirement';
-import { HorseMeasurement } from '../models/horseMeasurement';
-import { ProductSizeRange } from '../models/productSizeRange';
-import { RiderMeasurement } from '../models/riderMeasurement';
+import { Brand, Category, SubCategory, Horse, HorseMeasurement, MeasurementType,Product, Rider, RiderMeasurement, CategoryRequirement, ProductSizeRange } from '../models/index';
 
 
 dotenv.config()
@@ -22,5 +12,11 @@ export const sequelize = new Sequelize({
   database: process.env.DB_NAME,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  models: [Brand, Category,SubCategory, MeasurementType, Product, Rider, Horse, CategoryRequirement, HorseMeasurement, ProductSizeRange,RiderMeasurement]
+  models: [Brand, Category,SubCategory, MeasurementType, Product, Rider, Horse, CategoryRequirement, HorseMeasurement, ProductSizeRange,RiderMeasurement],
+
+  define:{
+    timestamps:true,
+    underscored:true
+  }
+
 });
