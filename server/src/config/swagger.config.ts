@@ -15,6 +15,10 @@ const options: OAS3Options = {
       {
         name: 'Example',
         description: 'Example endpoints'
+      },
+      {
+        name: 'Auth',
+        description: 'Authentication endpoints'
       }
     ],
     security: [
