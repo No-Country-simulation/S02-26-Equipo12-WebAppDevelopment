@@ -1,0 +1,135 @@
+---
+
+---
+
+<div class="panel-right">
+    <div class="form-container">
+        <header style="margin-bottom: 2.5rem;">
+            <span class="tag">Fitbot Assistant</span>
+            <h1 class="form-title">Let's find the perfect fit.</h1>
+            <p class="form-subtitle">
+                Enter your horse's measurements below. Fitbot will analyze the
+                data to recommend the ideal saddle size.
+            </p>
+        </header>
+
+        <form>
+            <div class="unit-toggle">
+                <div class="unit-toggle-bg">
+                    <button class="unit-btn active" type="button"
+                        >Imperial (in)</button
+                    >
+                    <button class="unit-btn" type="button">Metric (cm)</button>
+                </div>
+            </div>
+
+            <div class="input-fields-wrapper">
+                <div class="input-group active">
+                    <div class="input-header">
+                        <label for="back_length">A. Back Length</label>
+                        <span class="material-icons status-icon"
+                            >check_circle</span
+                        >
+                    </div>
+                    <div class="input-wrapper">
+                        <input
+                            class="input-field"
+                            id="back_length"
+                            name="back_length"
+                            placeholder="0.0"
+                            type="number"
+                        />
+                        <span class="input-unit">in</span>
+                    </div>
+                    <p class="input-hint">
+                        Measure from the highest point of the wither to the top
+                        of the tail dock.
+                    </p>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-header">
+                        <label for="height">B. Height</label>
+                        <span class="material-icons status-icon">circle</span>
+                    </div>
+                    <div class="input-wrapper">
+                        <input
+                            class="input-field"
+                            id="height"
+                            name="height"
+                            placeholder="15.2"
+                            step="0.1"
+                            type="number"
+                        />
+                        <span class="input-unit">hh</span>
+                    </div>
+                    <p class="input-hint">
+                        Enter height in hands (e.g., 16.2).
+                    </p>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-header">
+                        <label for="girth">C. Girth Circumference</label>
+                        <span class="material-icons status-icon">circle</span>
+                    </div>
+                    <div class="input-wrapper">
+                        <input
+                            class="input-field"
+                            id="girth"
+                            name="girth"
+                            placeholder="0.0"
+                            type="number"
+                        />
+                        <span class="input-unit">in</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-header">
+                        <label for="neck">D. Neck/Head Length</label>
+                        <span class="material-icons status-icon">circle</span>
+                    </div>
+                    <div class="input-wrapper">
+                        <input
+                            class="input-field"
+                            id="neck"
+                            name="neck"
+                            placeholder="0.0"
+                            type="number"
+                        />
+                        <span class="input-unit">in</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ai-insight">
+                <div class="ai-icon-wrapper">
+                    <span class="material-icons">auto_awesome</span>
+                </div>
+                <div class="ai-content">
+                    <h4>Fitbot Prediction</h4>
+                    <p>
+                        Based on current trends, a horse with these dimensions
+                        typically fits a <strong>Medium-Wide</strong> tree. Complete
+                        the form to confirm.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn-back" type="button">
+                    <span class="material-icons">arrow_back</span>
+                    Go Back
+                </button>
+                <div class="action-group">
+                    <button class="btn-skip" type="button">Skip for now</button>
+                    <button class="btn-primary" type="submit">
+                        Analyze Fit
+                        <span class="material-icons">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

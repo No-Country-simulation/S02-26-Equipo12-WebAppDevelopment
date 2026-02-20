@@ -1,0 +1,18 @@
+/*   --- CSS Reset & Variables --- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    /* Subtle background gradient to match the glow effect */
+    background-image: radial-gradient(circle at 10% 10%, #ebfdf5 0%, #F4F6F3 40%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
