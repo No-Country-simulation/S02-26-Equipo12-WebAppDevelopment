@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 
-import { sequelize } from './config/db'
+import { sequelize } from './config/db.config'
 import { errorHandler } from './middleware/errorHandler'
 
 import { AppRoutes } from './routes/app.routes'
