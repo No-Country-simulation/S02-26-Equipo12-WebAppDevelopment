@@ -1,7 +1,7 @@
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import { RiderMeasurement } from './riderMeasurement';
+import { RiderMeasurement } from './riderMeasurement.ts';
 import { HorseMeasurement } from './horseMeasurement';
-import { ProductSizeRange } from './productSizeRange';
+import { ProductSizeRange } from './productSizeRange.ts';
 import { CategoryRequirement } from './categoryRequirement';
 
 @Table({
