@@ -1,0 +1,258 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.logo-icon {
+    background: var(--button-dark);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: white;
+}
+
+nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+nav a {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+nav a.active {
+    color: var(--accent-green);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-icon {
+    position: relative;
+    font-size: 1.2rem;
+}
+
+.cart-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    border: 1px solid var(--bg-color);
+}
+
+.btn-signin {
+    background-color: var(--button-dark);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* --- Main Content --- */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+/* --- Hero Section --- */
+
+.hero {
+    text-align: center;
+    margin-bottom: 48px;
+    max-width: 600px;
+}
+
+.pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #888;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    margin-bottom: 24px;
+}
+
+.pill-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+    color: var(--button-dark);
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* --- Profile Cards Grid --- */
+.cards-container {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 900px;
+    justify-content: center;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 48px 32px;
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+/* Specific styling for the completed card */
+.card.completed {
+    border: 2px solid #E1F7EB;
+    box-shadow: 0 0 0 4px #F6FBF8;
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #F0EEEB;
+    /* Beige for rider */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    font-size: 2rem;
+    color: var(--button-dark);
+}
+
+.card.completed .card-icon {
+    background-color: var(--accent-light-green);
+    color: var(--accent-green);
+}
+
+.status-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--accent-light-green);
+    color: var(--accent-green);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    color: var(--button-dark);
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 32px;
+    max-width: 300px;
+}
+
+/* Card Buttons */
+.btn-primary {
+    background-color: var(--button-dark);
+    color: white;
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: var(--button-dark);
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #E5E5E5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- Trust Indicators (Bottom) --- */
+.trust-indicators {
+    display: flex;
+    gap: 60px;
+    margin-top: 80px;
+    color: var(--text-secondary);
+}
+
+.indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+}
+
+.indicator-icon {
+    color: #C1B195;
+    /* Gold/Tan color */
+    font-size: 1.5rem;
+}

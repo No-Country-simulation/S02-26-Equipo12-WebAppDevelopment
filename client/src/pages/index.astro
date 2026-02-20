@@ -1,14 +1,20 @@
 ---
 import { Example } from "../components/Example";
 
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import NavBar from "../components/shared/NavBar.astro";
+import Footer from "../components/shared/Footer.astro";
+import Fitbot from "./Fitbot.astro";
+import LoginPage from "./LoginPage.astro";
 ---
 
 <Layout>
 	<Example client:load />
-	<Welcome />
+
+	<NavBar />
+
+	<!-- <Fitbot /> -->
+	<LoginPage />
+
+	<Footer />
 </Layout>
