@@ -55,7 +55,23 @@
     --border-focus: #17cf54;
 
     /* --font-display: "Manrope", sans-serif; */
-    --nav-height: 4rem; /* 64px */
+    --nav-height: 4rem;
+    /* 64px */
+
+
+    /* Login */
+
+    /* --- Design Tokens --- */
+    /* --primary-green: #10B981; */
+
+    /* Matches the vibrant green button */
+    --primary-green-hover: #059669;
+    --text-dark: #111827;
+    --text-secondary: #6B7280;
+    --border-color: #E5E7EB;
+    --bg-color: #F9FAFB;
+    --card-bg: #FFFFFF;
+    --input-focus-ring: rgba(16, 185, 129, 0.2);
 
 }
 
