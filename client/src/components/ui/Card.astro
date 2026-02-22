@@ -1,0 +1,75 @@
+---
+/*  Debe contener el card container con los estilos condicionales de estado completado y no completado */
+
+/*  Los icons deben estar separados, para optimirzar.  */
+
+import type { HTMLAttributes } from "astro/types";
+import StatusBadge from "./StatusBadge.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+    completed?: boolean;
+}
+
+const { completed = false, class: className, ...props } = Astro.props;
+---
+
+<div class:list={["ui-card", { completed }, className]} {...props}>
+
+    { completed && <StatusBadge/>}
+    
+    <slot />
+</div>
+
+<style>
+    .ui-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 48px 32px;
+        flex: 1;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s;
+    }
+
+    .ui-card.completed {
+        border: 2px solid #e1f7eb;
+        box-shadow: 0 0 0 4px #f6fbf8;
+    }
+
+    .card-icon {
+        width: 80px;
+        height: 80px;
+        background-color: #f0eeeb;
+        /* Beige for rider */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        font-size: 2rem;
+        color: var(--button-dark);
+    }
+
+    .ui-card.completed .card-icon {
+        background-color: var(--accent-light-green);
+        color: var(--accent-green);
+    }
+
+    .card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        color: var(--button-dark);
+    }
+
+    .card p {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        margin-bottom: 32px;
+        max-width: 300px;
+    }
+</style>
