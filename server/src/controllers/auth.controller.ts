@@ -25,6 +25,8 @@ export class AuthController {
             res.status(200).json({
                 message: 'login success', result
             })
+          
+
         } catch (error) {
             next(error)
         }
