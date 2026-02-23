@@ -1,0 +1,52 @@
+---
+import Form from "../ui/Form/Form.astro";
+import FormSection from "../ui/Form/FormSection.astro";
+import Field from "../ui/Form/Field.astro";
+import Input from "../ui/Form/Input.astro";
+
+const error = ""
+---
+
+<Form title="tituloform" description="descriptionform" class="">
+        <FormSection title="Medidas" description="Esto es una description">
+            <Field
+                label="Ingrese su peso"
+                name="weight"
+                error={error}
+                helperText="Texto de ayuda"
+                class=""
+            >
+                <Input suffix="kg" icon="autorenew" hasError={!!error} />
+            </Field>
+
+            <Field
+                label="Ingrese su altura"
+                name="height"
+                error={error}
+                helperText="Texto de ayuda"
+                class=""
+            >
+                <Input suffix="cm" icon="autorenew" hasError={!!error} />
+            </Field>
+
+            <Field
+                label="Ingrese su peso"
+                name="weight"
+                error={error}
+                helperText="Texto de ayuda"
+                class=""
+            >
+                <Input suffix="kg" icon="autorenew" hasError={!!error} />
+            </Field>
+
+            <Field
+                label="Ingrese su peso"
+                name="weight"
+                error={error}
+                helperText="Texto de ayuda"
+                class=""
+            >
+                <Input suffix="kg" icon="autorenew" hasError={!!error} />
+            </Field>
+        </FormSection>
+    </Form>

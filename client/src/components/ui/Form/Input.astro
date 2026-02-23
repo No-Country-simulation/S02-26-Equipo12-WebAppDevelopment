@@ -1,0 +1,111 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"input"> {
+    suffix?: string;
+    icon?: string;
+    hasError?: boolean;
+}
+
+const {
+    suffix,
+    icon,
+    hasError = false,
+    class: className,
+    type = "text",
+    ...props
+} = Astro.props;
+---
+
+<div
+    class:list={["input-wrapper", { "has-error": hasError, "has-icon": icon }]}
+>
+    {icon && <span class="material-icons input-icon"> {icon} </span>}
+
+    <input type={type} class:list={["input-field", className]} {...props} />
+
+    {suffix && <span class="input-suffix"> {suffix} </span>}
+</div>
+
+<style>
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        background-color: var(--bg-white);
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s,
+            background-color 0.2s;
+        overflow: hidden;
+    }
+
+    .input-wrapper:focus-within {
+        border-color: var(--border-focus, var(--primary));
+        box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .input-wrapper.has-error {
+        border-color: #ef4444;
+    }
+
+    .input-wrapper.has-error:focus-within {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+    }
+
+    .input-field {
+        flex: 1;
+        width: 100%;
+
+        border: 0;
+        background: transparent;
+
+        padding: 14px 16px;
+        font-size: 1rem;
+        color: var(--text-main);
+        font-family: inherit;
+        outline: none;
+    }
+
+    .input-field::placeholder {
+        color: var(--text-muted);
+    }
+
+    .input-field[type="number"] {
+        appearance: textfield;
+        -moz-appearance: textfield;
+    }
+
+    .input-icon {
+        padding-left: 16px;
+        color: var(--text-muted);
+        font-size: 1.25rem;
+        pointer-events: none;
+    }
+
+    .input-wrapper.has-icon .input-field {
+        padding-left: 12px;
+    }
+
+    .input-suffix {
+        padding-right: 16px;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-weight: 600;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .input-field:disabled {
+        color: var(--text-muted);
+        cursor: not-allowed;
+    }
+    .input-wrapper:has(.input-field:disabled) {
+        background-color: var(--bg-color);
+        opacity: 0.85;
+    }
+</style>

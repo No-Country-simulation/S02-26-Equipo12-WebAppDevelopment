@@ -1,0 +1,63 @@
+---
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<section class="form-section">
+    <header class="section-header">
+        <h2 class="section-title">{title}</h2>
+        {description && <p class="section-description">{description}</p>}
+    </header>
+
+    <div class="section-grid">
+        <slot />
+    </div>
+</section>
+
+<style>
+    
+    .form-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border-light);
+        padding-bottom: 0.75rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin: 0;
+    }
+
+    .section-description {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+        margin-bottom: 0;
+    }
+
+
+    .section-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .section-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    :global(.span-full) {
+        grid-column: 1 / -1;
+    }
+</style>

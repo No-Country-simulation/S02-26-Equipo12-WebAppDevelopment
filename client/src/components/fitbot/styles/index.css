@@ -64,7 +64,7 @@ nav a.active {
 }
 
 .btn-signin {
-    background-color: var(--button-dark);
+    background-color: var(--brown-dark);
     color: white;
     padding: 10px 24px;
     border-radius: 6px;
@@ -174,21 +174,6 @@ h1 {
     color: var(--accent-green);
 }
 
-.status-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--accent-light-green);
-    color: var(--accent-green);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
 
 .card h2 {
     font-size: 1.5rem;
@@ -206,7 +191,7 @@ h1 {
 
 /* Card Buttons */
 .btn-primary {
-    background-color: var(--button-dark);
+    background-color: var(--brown-dark);
     color: white;
     width: 100%;
     padding: 14px;
