@@ -1,27 +1,34 @@
-<div class="card">
-    <div class="card-icon">
-        <svg
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            ><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle
-                cx="12"
-                cy="7"
-                r="4"></circle></svg
-        >
+---
+
+import Card from "../../ui/Card.astro";
+import Button from "../../ui/Button.astro";
+import HumanProfileLogo from "../../ui/icons/humanProfile.svg";
+import EditLogo from "../../ui/Icons/edit.svg";
+
+const { completed = false } = Astro.props;
+
+---
+
+<Card completed={completed}>
+    <div class="card-icon" slot="icon">
+        <HumanProfileLogo />
     </div>
-    <h2>Rider Profile</h2>
-    <p>
-        Get perfectly sized breeches, boots, and helmets tailored to your
-        measurements.
-    </p>
-    <button class="btn-primary">
-        Configure Rider
-        <span>&rarr;</span>
-    </button>
-</div>
+
+    <div slot="content" >
+
+        <h2>Rider Profile</h2>
+        <p>
+            Get perfectly sized breeches, boots, and helmets tailored to your
+            measurements.
+        </p>
+
+        {
+
+            completed 
+            ? <Button size="md"> Edit Profile <EditLogo/> </Button>
+            : <Button size="md"> Configure Rider <span>&rarr;</span> </Button>
+
+        }
+        
+    </div>
+</Card>

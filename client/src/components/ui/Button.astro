@@ -19,7 +19,6 @@ const isDisabled = disabled || loading;
     disabled={isDisabled}
 >
     <slot />
-
 </button>
 
 <style>
@@ -38,7 +37,6 @@ const isDisabled = disabled || loading;
 
     /*  Variants */
 
-
     .ui-button[data-variant="primary"] {
         background-color: var(--brown-dark);
         color: white;
@@ -48,7 +46,6 @@ const isDisabled = disabled || loading;
             color: var(--brown-dark);
         }
     }
-
 
     .ui-button[data-variant="secondary"] {
         background-color: white;
@@ -80,6 +77,9 @@ const isDisabled = disabled || loading;
     }
 
     .ui-button[data-size="md"] {
+        height: 2.5rem;
+        width: 100%;
+        padding: 14px;
     }
 
     .ui-button[data-size="lg"] {

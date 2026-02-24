@@ -1,106 +1,98 @@
 ---
-import "../styles/index.css";
 import Header from "../../shared/Header.astro";
 import HorseProfile from "../profiles/HorseProfile.astro";
 import RiderProfile from "../profiles/RiderProfile.astro";
+import PillBadge from "../../ui/PillBadge.astro";
+
+/* Icons */
+
+import ClockIcon from "../../ui/Icons/clock.svg";
+import ShieldIcon from "../../ui/icons/shield.svg";
+import AccuracyIcon from "../../ui/icons/accuracy.svg";
 ---
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fitbot AI - RiderFit</title>
-</head>
+<Header />
 
-<body>
-    <Header />
+<main class="container">
+    <section class="hero">
+        <PillBadge title="AI Sizing Assistant" />
 
-    <main class="container">
-        <section class="hero">
-            <div class="pill-badge">
-                <span class="pill-dot"></span>
-                AI Sizing Assistant
-            </div>
+        <div>
             <h1>Welcome to Fitbot.</h1>
             <p class="subtitle">
                 Create your specialized profiles below. Our AI analyzes your
                 biometrics to recommend the perfect gear for you and your horse.
             </p>
-        </section>
+        </div>
+    </section>
 
-        <section class="cards-container">
+    <section class="cards-container">
+        <RiderProfile />
+        <HorseProfile />
+    </section>
 
-            <RiderProfile/>
-            
-            <HorseProfile/>
-
+    <section class="trust-indicators">
+        <div class="indicator">
+            <div class="indicator-icon">
+                <AccuracyIcon />
             </div>
-        </section>
-
-        <section class="trust-indicators">
-            <div class="indicator">
-                <div class="indicator-icon">
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        ><path d="M2 12h20"></path><path d="M6 12v-2"
-                        ></path><path d="M10 12v-2"></path><path d="M14 12v-2"
-                        ></path><path d="M18 12v-2"></path></svg
-                    >
-                </div>
-                <span>99% Fit Accuracy</span>
+            <span>99% Fit Accuracy</span>
+        </div>
+        <div class="indicator">
+            <div class="indicator-icon">
+                <ShieldIcon />
             </div>
-            <div class="indicator">
-                <div class="indicator-icon">
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        ><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-                        ></path></svg
-                    >
-                </div>
-                <span>Secure Data Privacy</span>
+            <span>Secure Data Privacy</span>
+        </div>
+        <div class="indicator">
+            <div class="indicator-icon">
+                <ClockIcon />
             </div>
-            <div class="indicator">
-                <div class="indicator-icon">
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        ><circle cx="12" cy="12" r="10"></circle><polyline
-                            points="12 6 12 12 16 14"></polyline></svg
-                    >
-                </div>
-                <span>Instant Recommendations</span>
-            </div>
-        </section>
-    </main>
-</body>
+            <span>Instant Recommendations</span>
+        </div>
+    </section>
+</main>
 
 <style>
+    .hero {
+        text-align: center;
+        margin-bottom: 48px;
+        max-width: 600px;
+    }
 
-.cards-container {
-    display: flex;
-    gap: 24px;
-    width: 100%;
-    max-width: 900px;
-    justify-content: center;
-}
+    h1 {
+        font-size: 3.5rem;
+        margin-bottom: 16px;
+        color: var(--button-dark);
+        letter-spacing: -1px;
+    }
 
+    .subtitle {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    /* --- Trust Indicators --- */
+
+    .trust-indicators {
+        display: flex;
+        gap: 60px;
+        margin-top: 80px;
+        color: var(--text-secondary);
+    }
+
+    .indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.9rem;
+    }
+
+    .indicator-icon {
+        color: #c1b195;
+        /* Gold/Tan color */
+        font-size: 1.5rem;
+    }
 </style>

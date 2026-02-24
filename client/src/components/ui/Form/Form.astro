@@ -1,30 +1,46 @@
 ---
-interface Props {
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"form"> {
     title?: string;
     description?: string;
     class?: string;
 }
 
-const { title, description, class: className } = Astro.props;
+const {
+    action,
+    method = "POST",
+    id,
+    title,
+    description,
+    class: className,
+} = Astro.props;
 ---
 
 <section class:list={["form-panel", className]}>
+
     {
         (title || description) && (
             <header class="form-header">
-                {title && <h1 class="form-title">{title}</h1>}
+                {title && <h2 class="form-title">{title}</h2>}
                 {description && <p class="form-description">{description}</p>}
             </header>
         )
     }
 
-    <div class="form-body">
-        <slot />
-    </div>
+    <form action={action} method={method} id={id}>
+        <div class="form-body">
+            <slot />
+        </div>
+    </form>
 
-    <footer class="form-footer">
-        <slot name="footer" />
-    </footer>
+    {
+        Astro.slots.has("footer") && (
+            <footer class="form-footer">
+                <slot name="footer" />
+            </footer>
+        )
+    }
 </section>
 
 <style>
