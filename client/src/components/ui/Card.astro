@@ -13,14 +13,20 @@ interface Props extends HTMLAttributes<"div"> {
 const { completed = false, class: className, ...props } = Astro.props;
 ---
 
-<div class:list={["ui-card", { completed }, className]} {...props}>
+{completed && <StatusBadge />}
 
-    { completed && <StatusBadge/>}
-    
-    <slot />
+<div class:list={["ui-card", { completed }, className]} {...props}>
+    <div class="card-icon">
+        <slot name="icon" />
+    </div>
+
+    <div>
+        <slot name="content" />
+    </div>
 </div>
 
 <style>
+
     .ui-card {
         background: var(--card-bg);
         border-radius: 12px;
@@ -44,7 +50,6 @@ const { completed = false, class: className, ...props } = Astro.props;
         width: 80px;
         height: 80px;
         background-color: #f0eeeb;
-        /* Beige for rider */
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -59,13 +64,13 @@ const { completed = false, class: className, ...props } = Astro.props;
         color: var(--accent-green);
     }
 
-    .card h2 {
+    :global(.ui-card h2) {
         font-size: 1.5rem;
         margin-bottom: 12px;
         color: var(--button-dark);
     }
 
-    .card p {
+    :global(.ui-card p) {
         font-size: 0.95rem;
         color: var(--text-secondary);
         line-height: 1.5;

@@ -1,5 +1,5 @@
 ---
-import "./styles/index.css";
+
 ---
 
 <nav>
@@ -10,3 +10,26 @@ import "./styles/index.css";
         <li><a href="#">About</a></li>
     </ul>
 </nav>
+
+<style>
+    nav {
+        border: solid 1px rgb(237, 21, 21);
+    }
+
+    nav ul {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+    }
+
+    nav a {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    nav a.active {
+        color: var(--accent-green);
+    }
+</style>

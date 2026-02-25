@@ -1,10 +1,14 @@
 ---
 
+interface Props {
+    title?: string;
+}
+const { title } = Astro.props
 ---
 
 <div class="pill-badge">
     <span class="pill-dot"></span>
-    AI Sizing Assistant
+    { title }
 </div>
 
 <style>

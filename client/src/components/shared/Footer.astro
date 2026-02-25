@@ -1,15 +1,29 @@
 ---
-import "./styles/index.css"
 
 ---
 
-    <footer>
-        <div class="copyright">
-            &copy; 2026 RiderFit. Powered by Fitbot AI.
-        </div>
-        <div class="footer-links">
-            <a href="#">Support</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-        </div>
-    </footer>
+<footer>
+    <div class="copyright">&copy; 2026 RiderFit. Powered by Fitbot AI.</div>
+    <div class="footer-links">
+        <a href="#">Support</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+    </div>
+</footer>
+
+<style>
+    footer {
+        padding: 40px;
+        display: flex;
+        justify-content: space-between;
+        color: #999;
+        font-size: 0.85rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.03);
+        margin-top: auto;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 24px;
+    }
+</style>
