@@ -1,0 +1,848 @@
+---
+
+---
+
+<style>
+    button {
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        font-family: inherit;
+    }
+
+    .material-icons {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* --- Global Header --- */
+    .app-header {
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        border-bottom: 1px solid var(--border-light);
+        background-color: var(--bg-white);
+        flex-shrink: 0;
+        z-index: 10;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+    }
+
+    .brand-icon {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.5rem;
+        background-color: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .main-nav {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .main-nav a {
+        text-decoration: none;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+    }
+
+    .main-nav a:hover {
+        color: var(--text-main);
+    }
+    .main-nav a.active {
+        color: var(--primary);
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        color: var(--text-muted);
+    }
+
+    .cart-wrapper {
+        position: relative;
+    }
+    .cart-badge {
+        position: absolute;
+        top: 0;
+        right: -4px;
+        width: 8px;
+        height: 8px;
+        background-color: var(--primary);
+        border-radius: 50%;
+    }
+
+    .avatar {
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        background-color: #fca5a5;
+        overflow: hidden;
+    }
+
+    /* --- App Layout (Split Screen) --- */
+    .app-body {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    /* --- Left Sidebar (Chatbot) --- */
+    .chat-sidebar {
+        width: 380px;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg-white);
+        border-right: 1px solid var(--border-light);
+        flex-shrink: 0;
+    }
+
+    .chat-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--border-light);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .chat-agent-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .agent-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    .agent-status {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 10px;
+        height: 10px;
+        background-color: var(--primary);
+        border: 2px solid white;
+        border-radius: 50%;
+    }
+    .agent-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--text-main);
+        line-height: 1.2;
+    }
+    .agent-role {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+    }
+
+    /* Chat Messages Area */
+    .chat-scroll-area {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    /* Hide scrollbar */
+    .chat-scroll-area::-webkit-scrollbar {
+        width: 0px;
+    }
+    .chat-scroll-area {
+        scrollbar-width: none;
+    }
+
+    .chat-date-divider {
+        text-align: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+        margin: 0.5rem 0;
+        background-color: var(--bg-canvas);
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        align-self: center;
+        text-transform: uppercase;
+    }
+
+    .message-row {
+        display: flex;
+        gap: 0.75rem;
+        max-width: 90%;
+    }
+    .message-row.user {
+        align-self: flex-end;
+        justify-content: flex-end;
+        flex-direction: row-reverse;
+    }
+
+    .msg-avatar {
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 1rem;
+    }
+
+    .msg-bubble {
+        padding: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        border-radius: 0.75rem;
+        position: relative;
+    }
+
+    .message-row.ai .msg-bubble {
+        background-color: var(--bg-chat-ai);
+        color: var(--text-main);
+        border-top-left-radius: 0;
+    }
+
+    .message-row.user .msg-bubble {
+        background-color: var(--bg-chat-user);
+        color: white;
+        border-bottom-right-radius: 0;
+    }
+
+    .msg-time {
+        font-size: 0.7rem;
+        color: var(--text-light);
+        margin-top: 0.25rem;
+    }
+    .message-row.user .msg-time {
+        text-align: right;
+    }
+
+    /* Internal Card in Chat */
+    .chat-inner-card {
+        background-color: var(--bg-white);
+        border: 1px solid var(--border-light);
+        border-radius: 0.75rem;
+        padding: 1rem;
+        margin-top: 0.75rem;
+    }
+    .chat-inner-card-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: var(--text-main);
+        margin-bottom: 0.75rem;
+    }
+    .chat-inner-card-title .material-icons {
+        color: var(--primary);
+        font-size: 1.1rem;
+    }
+    .filter-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    .filter-tag {
+        background-color: var(--primary-light);
+        color: var(--primary-hover);
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+    }
+
+    /* Chat Input Area */
+    .chat-input-section {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid var(--border-light);
+        background-color: var(--bg-white);
+    }
+
+    .suggestion-chips {
+        display: flex;
+        gap: 0.5rem;
+        overflow-x: auto;
+        margin-bottom: 1rem;
+        scrollbar-width: none;
+    }
+    .suggestion-chips::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chip {
+        padding: 0.4rem 1rem;
+        border: 1px solid var(--border-light);
+        border-radius: 999px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        white-space: nowrap;
+        transition: all 0.2s;
+    }
+    .chip:hover {
+        border-color: var(--border-medium);
+        color: var(--text-main);
+    }
+
+    .input-bar {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+    }
+    .input-bar input {
+        flex: 1;
+        padding: 0.875rem 1rem;
+        border: 1px solid var(--border-light);
+        border-radius: 0.5rem;
+        font-family: inherit;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .input-bar input:focus {
+        border-color: var(--primary);
+    }
+    .btn-send {
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 0.5rem;
+        background-color: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background-color 0.2s;
+    }
+    .btn-send:hover {
+        background-color: var(--primary-hover);
+    }
+
+    /* --- Right Content (Curated Matches) --- */
+    .main-content {
+        flex: 1;
+        background-color: var(--bg-canvas);
+        overflow-y: auto;
+        padding: 2.5rem;
+    }
+
+    /* Content Header */
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2rem;
+    }
+
+    .content-title h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 0.25rem;
+    }
+    .content-title p {
+        font-size: 1rem;
+        color: var(--text-muted);
+    }
+    .content-title strong {
+        color: var(--text-main);
+        font-weight: 700;
+    }
+
+    .content-actions {
+        display: flex;
+        gap: 0.75rem;
+    }
+    .btn-outline {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.25rem;
+        border: 1px solid var(--border-medium);
+        border-radius: 0.5rem;
+        background-color: var(--bg-white);
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: var(--text-main);
+        transition: all 0.2s;
+    }
+    .btn-outline:hover {
+        background-color: var(--bg-canvas);
+    }
+    .btn-outline .material-icons {
+        font-size: 1rem;
+        color: var(--text-muted);
+    }
+
+    /* Product Grid */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    /* Product Card */
+    .product-card {
+        background-color: var(--bg-white);
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow:
+            0 4px 6px -1px rgba(0, 0, 0, 0.05),
+            0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        display: flex;
+        flex-direction: column;
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s;
+    }
+    .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-image-wrap {
+        position: relative;
+        height: 260px;
+        background-color: #eef2f6; /* Placeholder gray */
+    }
+    .card-image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Badges */
+    .match-badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .match-badge .material-icons {
+        font-size: 0.85rem;
+    }
+    .match-perfect {
+        background-color: var(--primary);
+    }
+    .match-high {
+        background-color: #22c55e;
+    } /* slightly different green */
+    .match-good {
+        background-color: #eab308;
+    } /* yellow */
+    .match-neutral {
+        background-color: #94a3b8;
+    } /* slate */
+
+    .btn-favorite {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        transition:
+            color 0.2s,
+            transform 0.2s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .btn-favorite:hover {
+        color: #ef4444;
+        transform: scale(1.05);
+    }
+    .btn-favorite .material-icons {
+        font-size: 1.25rem;
+    }
+
+    /* Card Body */
+    .card-body {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .brand-name {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+    }
+    .product-name {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+
+    /* Fit Notes */
+    .fit-note {
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
+        align-items: flex-start;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 1.5rem;
+    }
+    .fit-note .material-icons {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .fit-note.green {
+        background-color: var(--note-green-bg);
+        color: var(--note-green-text);
+    }
+    .fit-note.yellow {
+        background-color: var(--note-yellow-bg);
+        color: var(--note-yellow-text);
+    }
+    .fit-note.gray {
+        background-color: var(--note-gray-bg);
+        color: var(--note-gray-text);
+    }
+
+    /* Card Footer */
+    .card-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .price {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--text-main);
+    }
+
+    .btn-action {
+        padding: 0.6rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: 700;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+    }
+    .btn-action.primary {
+        background-color: var(--primary);
+        color: white;
+    }
+    .btn-action.primary:hover {
+        background-color: var(--primary-hover);
+    }
+
+    .btn-action.secondary {
+        background-color: var(--bg-white);
+        border: 1px solid var(--border-medium);
+        color: var(--text-main);
+    }
+    .btn-action.secondary:hover {
+        background-color: var(--bg-canvas);
+    }
+</style>
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Curated Matches - EquiFit</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+    />
+</head>
+
+<header class="app-header">
+    <div class="brand">
+        <div class="brand-icon">E</div>
+        <span>EquiFit</span>
+    </div>
+
+    <nav class="main-nav">
+        <a href="#" class="active">Fitbot Assistant</a>
+        <a href="#">Women</a>
+        <a href="#">Men</a>
+        <a href="#">Horses</a>
+        <a href="#">Sale</a>
+    </nav>
+
+    <div class="header-actions">
+        <button aria-label="Search"
+            ><span class="material-icons">search</span></button
+        >
+        <button class="cart-wrapper" aria-label="Cart">
+            <span class="material-icons">shopping_bag</span>
+            <span class="cart-badge"></span>
+        </button>
+        <div class="avatar"></div>
+    </div>
+</header>
+
+<main class="app-body">
+    <aside class="chat-sidebar">
+        <div class="chat-header">
+            <div class="chat-agent-info">
+                <div class="agent-avatar">
+                    <span class="material-icons">smart_toy</span>
+                    <div class="agent-status"></div>
+                </div>
+                <div>
+                    <div class="agent-name">Fitbot AI</div>
+                    <div class="agent-role">Sizing Assistant • Online</div>
+                </div>
+            </div>
+            <button aria-label="Refresh Chat"
+                ><span
+                    class="material-icons"
+                    style="color: var(--text-light); font-size: 1.1rem;"
+                    >refresh</span
+                ></button
+            >
+        </div>
+
+        <div class="chat-scroll-area">
+            <div class="chat-date-divider">TODAY, 10:23 AM</div>
+
+            <div class="message-row ai">
+                <div class="msg-avatar">
+                    <span class="material-icons">smart_toy</span>
+                </div>
+                <div>
+                    <div class="msg-bubble">
+                        Hi Sarah! Based on your uploaded calf measurements (34cm
+                        width, 45cm height), I've curated a list of field boots
+                        for you.
+                    </div>
+                    <div class="msg-bubble" style="margin-top: 0.5rem;">
+                        Do you plan to wear thick winter socks with these boots?
+                    </div>
+                    <div class="msg-time">10:24 AM</div>
+                </div>
+            </div>
+
+            <div class="message-row user">
+                <div>
+                    <div class="msg-bubble">
+                        Yes, I usually wear wool socks in the winter. I prefer a
+                        slightly looser fit around the ankle too.
+                    </div>
+                    <div class="msg-time">10:25 AM</div>
+                </div>
+            </div>
+
+            <div class="message-row ai">
+                <div class="msg-avatar">
+                    <span class="material-icons">smart_toy</span>
+                </div>
+                <div>
+                    <div class="msg-bubble">
+                        Got it. I'm adjusting the recommendations to account for
+                        the extra volume (+0.5cm) and filtering for models known
+                        for flexible ankle designs.
+
+                        <div class="chat-inner-card">
+                            <div class="chat-inner-card-title">
+                                <span class="material-icons">check_circle</span>
+                                Filters Updated
+                            </div>
+                            <div class="filter-tags">
+                                <span class="filter-tag">Wide Calf</span>
+                                <span class="filter-tag"
+                                    >Wool Sock Allowance</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-section">
+            <div class="suggestion-chips">
+                <button class="chip">I have high arches</button>
+                <button class="chip">Show me saddles instead</button>
+            </div>
+            <div class="input-bar">
+                <input type="text" placeholder="Type a message..." />
+                <button class="btn-send"
+                    ><span class="material-icons">send</span></button
+                >
+            </div>
+        </div>
+    </aside>
+
+    <section class="main-content">
+        <div class="content-header">
+            <div class="content-title">
+                <h1>Your Curated Matches</h1>
+                <p>
+                    Showing 6 results optimized for <strong
+                        >Winter Wool Socks</strong
+                    > and <strong>Wide Calf</strong>.
+                </p>
+            </div>
+            <div class="content-actions">
+                <button class="btn-outline">
+                    <span class="material-icons">tune</span> Filters
+                </button>
+                <button class="btn-outline">
+                    <span class="material-icons">sort</span> Sort by Fit
+                </button>
+            </div>
+        </div>
+
+        <div class="product-grid">
+            <article class="product-card">
+                <div class="card-image-wrap">
+                    <div class="match-badge match-perfect">
+                        <span class="material-icons">verified</span> 100% Perfect
+                        Match
+                    </div>
+                    <button class="btn-favorite"
+                        ><span class="material-icons">favorite_border</span
+                        ></button
+                    >
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-name">ARIAT</div>
+                        <h2 class="product-name">
+                            Heritage Contour II Field Boot
+                        </h2>
+                        <div class="fit-note green">
+                            <span class="material-icons">info</span>
+                            Elasticized panel provides exact 0.5cm expansion needed
+                            for socks.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">$329.95</span>
+                        <button class="btn-action primary">Add to Cart</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="card-image-wrap">
+                    <div class="match-badge match-high">98% Fit</div>
+                    <button class="btn-favorite"
+                        ><span class="material-icons">favorite_border</span
+                        ></button
+                    >
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-name">TREDSTEP</div>
+                        <h2 class="product-name">Donatello III Dress Boot</h2>
+                        <div class="fit-note yellow">
+                            <span class="material-icons">warning_amber</span>
+                            Slightly snug at the ankle break-in period required.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">$299.00</span>
+                        <button class="btn-action secondary"
+                            >View Details</button
+                        >
+                    </div>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="card-image-wrap">
+                    <div class="match-badge match-good">95% Fit</div>
+                    <button class="btn-favorite"
+                        ><span class="material-icons">favorite_border</span
+                        ></button
+                    >
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-name">DUBLIN</div>
+                        <h2 class="product-name">River Boots III</h2>
+                        <div class="fit-note yellow">
+                            <span class="material-icons">warning_amber</span>
+                            Calf width is generous, might feel loose with thin socks.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">$169.99</span>
+                        <button class="btn-action secondary"
+                            >View Details</button
+                        >
+                    </div>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="card-image-wrap">
+                    <div class="match-badge match-neutral">Accessory</div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="brand-name">SMARTWOOL</div>
+                        <h2 class="product-name">Performance Hunt Socks</h2>
+                        <div class="fit-note gray">
+                            <span class="material-icons">lightbulb</span>
+                            Recommended to ensure snug fit with Tredstep boots.
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">$24.00</span>
+                        <button class="btn-action secondary">Add</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>

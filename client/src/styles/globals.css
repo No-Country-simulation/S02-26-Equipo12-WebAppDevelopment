@@ -1,0 +1,57 @@
+/*   --- CSS Reset & Variables --- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    /* Subtle background gradient to match the glow effect */
+    background-image: radial-gradient(circle at 10% 10%, #ebfdf5 0%, #F4F6F3 40%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px;
+    /* background: transparent; */
+    /* background-color: aqua; */
+}
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.cards-container {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 900px;
+    justify-content: center;
+}

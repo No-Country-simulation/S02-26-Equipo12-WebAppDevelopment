@@ -1,0 +1,102 @@
+---
+interface Props {
+    label?: string;
+    name?: string;
+    error?: string;
+    helperText?: string;
+    class?: string;
+    required?: boolean;
+}
+
+const {
+    label,
+    name,
+    error,
+    helperText,
+    class: className,
+    required = false,
+} = Astro.props;
+---
+
+<div class:list={["field-root", className, { "has-error": !!error }]}>
+    {
+        label && (
+            <div class="label-row">
+                <label for={name}>
+                    {label} {required && <span class="required">*</span>}
+                </label>
+                <slot name="label-action" />
+            </div>
+        )
+    }
+
+    <slot />
+
+    {
+        error ? (
+            <p class="error-msg">
+                <span class="material-icons" aria-hidden="true">
+                    error
+                </span>
+                {error}
+            </p>
+        ) : helperText ? (
+            <p class="helper-text">{helperText}</p>
+        ) : null
+    }
+</div>
+
+<style>
+    .field-root {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .field-root .label-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .field-root label {
+        font-size: 0.9rem;
+        color: var(--text-gray);
+        transition: color 0.2s;
+    }
+
+    .field-root:focus-within label {
+        color: var(--primary-green);
+        font-weight: 500;
+    }
+
+    .field-root .required {
+        color: var(--primary-green);
+        margin-left: 4px;
+    }
+
+    .field-root .helper-text {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+    }
+
+    .field-root .error-msg {
+        font-size: 0.75rem;
+        color: #ef4444;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 0.25rem;
+    }
+
+    .field-root .error-msg .material-icons {
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    .field-root.has-error label {
+        color: #ef4444;
+    }
+</style>

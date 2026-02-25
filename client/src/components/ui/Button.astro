@@ -1,0 +1,91 @@
+---
+const {
+    variant = "primary",
+    size = "sm",
+    disabled = false,
+    loading = false,
+    type = "button",
+} = Astro.props;
+
+const isDisabled = disabled || loading;
+---
+
+<button
+    type={type}
+    class="ui-button"
+    data-variant={variant}
+    data-size={size}
+    data-loading={loading ? "true" : "false"}
+    disabled={isDisabled}
+>
+    <slot />
+</button>
+
+<style>
+    /* base */
+
+    .ui-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 6px;
+        gap: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    /*  Variants */
+
+    .ui-button[data-variant="primary"] {
+        background-color: var(--brown-dark);
+        color: white;
+
+        &:hover {
+            background-color: white;
+            color: var(--brown-dark);
+        }
+    }
+
+    .ui-button[data-variant="secondary"] {
+        background-color: white;
+        color: var(--brown-dark);
+
+        &:hover {
+            background-color: var(--brown-dark);
+            color: white;
+        }
+    }
+
+    .ui-button[data-variant="ghost"] {
+        background: transparent;
+        border-color: var(--color-border);
+        color: var(--color-text);
+    }
+
+    .ui-button[data-variant="cancel"] {
+        background-color: var(--button-cancel);
+        color: white;
+    }
+
+    /* Sizes */
+
+    .ui-button[data-size="sm"] {
+        height: 2.5rem;
+        padding: 10px 24px;
+        font-size: 0.8rem;
+    }
+
+    .ui-button[data-size="md"] {
+        height: 2.5rem;
+        width: 100%;
+        padding: 14px;
+    }
+
+    .ui-button[data-size="lg"] {
+        height: 2.5rem;
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+    }
+</style>

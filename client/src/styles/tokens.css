@@ -1,0 +1,92 @@
+:root {
+    /* Backgrounds */
+    --bg-white: #ffffff;
+    --bg-color: #F4F6F3;
+    --card-bg: #FFFFFF;
+
+    /* Text */
+    --text-primary: #3B2F28;
+    --text-secondary: #7e7e7e;
+    /* Dark Brown */
+
+    /* Accents */
+    --accent-green: #2ED178;
+    --accent-light-green: #E8FBF2;
+    --brown-dark: #463A31;
+
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    /* Unused */
+    /* --border-color: #E5E5E5; */
+}
+
+.fitbot-root {
+    /* Brand & Accents */
+    --accent-green: #2D3E32;
+    --primary-green: #10B981;
+    --primary-green-hover: #059669;
+    /* Matches vibrant green button */
+
+    /* Forms & Primary Colors */
+    --primary: #17cf54;
+    --primary-dark: #12a342;
+    --primary-hover: #12b549;
+    --primary-light: rgba(23, 207, 84, 0.2);
+    --primary-lightest: rgba(23, 207, 84, 0.05);
+
+    /* Backgrounds & Surfaces */
+    --bg-page: #f6f8f6;
+    --bg-panel-left: #f9fafb;
+    --bg-white: #ffffff;
+    --bg-light: #f6f8f6;
+    --bg-dark: #112116;
+    --bg-canvas: #f8fafc;
+    --bg-color: #F9FAFB;
+    --surface-light: #ffffff;
+    --surface-dark: #1a2e22;
+
+
+    /* Chat UI */
+    --bg-chat-ai: #f1f5f9;
+    --bg-chat-user: #17cf54;
+
+    /* Actions */
+    --button-cancel: #c32929;
+    --button-confirm: ;
+
+    /* Text */
+    --text-dark: #111827;
+    --text-gray: #6B7280;
+    --text-main: #1e293b;
+    --text-muted: #94a3b8;
+    --text-light: #cbd5e1;
+    --text-secondary: #6B7280;
+
+    /* Borders & Inputs */
+    --border-light: #e5e7eb;
+    --border-medium: #cbd5e1;
+    --border-focus: #17cf54;
+    --border-color: #E5E7EB;
+    --track-bg: #e2e8f0;
+    --input-focus-ring: rgba(16, 185, 129, 0.2);
+
+    /* Layout & Typography */
+    --nav-height: 4rem;
+    /* 64px */
+    /* --font-display: "Manrope", sans-serif; */
+
+    /* Status / Fit Note Colors */
+    --note-green-bg: #f0fdf4;
+    --note-green-text: #166534;
+    --note-yellow-bg: #fefce8;
+    --note-yellow-text: #854d0e;
+    --note-gray-bg: #f8fafc;
+    --note-gray-text: #475569;
+
+}
+
+
+.ecommerce-root {
+    --accent-green: #8fe067;
+}

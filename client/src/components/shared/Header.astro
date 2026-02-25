@@ -1,0 +1,87 @@
+---
+
+
+---
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">
+            <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M6 3h12l4 6-10 13L2 9z"></path></svg
+            >
+        </div>
+        FitBot
+    </div>
+
+    <div class="header-actions">
+        <div class="cart-icon">
+            <span class="material-symbols-outlined cart-icon">
+                shopping_bag
+            </span>
+
+            <span class="cart-dot"></span>
+        </div>
+        <a href="#" class="btn-signin">Sign In</a>
+    </div>
+</header>
+
+<style>
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+
+    .logo-icon {
+        background: var(--button-dark);
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        color: white;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .cart-icon {
+        position: relative;
+        font-size: 1.2rem;
+    }
+
+    .cart-dot {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent-green);
+        border-radius: 50%;
+        border: 1px solid var(--bg-color);
+    }
+
+    .btn-signin {
+        background-color: var(--brown-dark);
+        color: white;
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+</style>
