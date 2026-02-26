@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ExampleRoutes } from "./example.routes";
 import { AuthRoutes } from "./auth.routes";
-import { RiderRoutes } from "./rider.routes";
+import { RiderMeasurementsRoutes } from "./riderMeasurements.routes";
 
 export class AppRoutes {
   static get routes() {
@@ -12,8 +12,8 @@ export class AppRoutes {
     //Autentication
     router.use('/auth', AuthRoutes.routes)
 
-    //RIDER
-    router.use('/riders', RiderRoutes.routes)
+    //Rider Measurements
+    router.use('/riders', RiderMeasurementsRoutes.routes)
 
     return router
   }
