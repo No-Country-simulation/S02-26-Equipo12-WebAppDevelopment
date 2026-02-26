@@ -1,0 +1,32 @@
+---
+import Card from "../../ui/Card.astro";
+import Button from "../../ui/Button.astro";
+import HorseIcon from "../../ui/Icons/horse.svg";
+import EditLogo from "../../ui/Icons/edit.svg";
+
+const { completed = false } = Astro.props;
+
+---
+
+<Card completed={completed}>
+    <div class="card-icon" slot="icon">
+        <HorseIcon />
+    </div>
+
+    <div slot="content">
+        <h2>Horse Profile</h2>
+        <p>
+            Find the perfect tack, saddle fit, and blankets for your equine
+            partner.
+        </p>
+
+        {
+            completed
+            ? <Button size="md"> Edit Horse Profile <EditLogo/> </Button>
+            : <Button size="md"> Configure Horse <span>&rarr;</span> </Button>
+        }
+
+    </div>
+
+</Card>
+

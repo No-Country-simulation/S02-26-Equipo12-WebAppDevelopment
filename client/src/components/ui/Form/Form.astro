@@ -1,0 +1,80 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"form"> {
+    title?: string;
+    description?: string;
+    class?: string;
+}
+
+const {
+    action,
+    method = "POST",
+    id,
+    title,
+    description,
+    class: className,
+} = Astro.props;
+---
+
+<section class:list={["form-panel", className]}>
+
+    {
+        (title || description) && (
+            <header class="form-header">
+                {title && <h2 class="form-title">{title}</h2>}
+                {description && <p class="form-description">{description}</p>}
+            </header>
+        )
+    }
+
+    <form action={action} method={method} id={id}>
+        <div class="form-body">
+            <slot />
+        </div>
+    </form>
+
+    {
+        Astro.slots.has("footer") && (
+            <footer class="form-footer">
+                <slot name="footer" />
+            </footer>
+        )
+    }
+</section>
+
+<style>
+    .form-panel {
+        width: 50%;
+        overflow-y: auto;
+        padding: 40px 60px 120px;
+        background: var(--bg-white);
+    }
+
+    .form-header {
+        margin-bottom: 2rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin: 0;
+    }
+
+    .form-description {
+        margin-top: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+
+    .form-body {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .form-footer {
+        margin-top: 2.5rem;
+    }
+</style>

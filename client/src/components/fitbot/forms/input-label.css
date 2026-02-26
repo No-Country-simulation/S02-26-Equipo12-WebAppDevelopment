@@ -1,0 +1,76 @@
+
+/* Right Panel: Form */
+.form-panel {
+    width: 50%;
+    overflow-y: auto;
+    padding: 40px 60px;
+    padding-bottom: 120px;
+    /* Space for footer */
+}
+
+.form-section {
+    margin-bottom: 40px;
+}
+
+.form-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 24px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.col {
+    flex: 1;
+}
+
+/* Input Styles */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.input-wrapper .unit {
+    position: absolute;
+    right: 16px;
+    color: #9CA3AF;
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+
+.input-group.active label {
+    color: var(--primary-green);
+    font-weight: 500;
+}
+
+.input-group.active input {
+    border-color: var(--primary-green);
+    background-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}

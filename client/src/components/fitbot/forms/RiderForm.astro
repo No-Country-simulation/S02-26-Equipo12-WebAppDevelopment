@@ -1,0 +1,130 @@
+---
+import "./index.css";
+
+---
+
+<div class="form-panel">
+    <div class="form-section">
+        <h2>Basic Info</h2>
+        <div class="row">
+            <div class="col input-group">
+                <label>Total Height</label>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="number" />
+                    <span class="unit">cm</span>
+                </div>
+            </div>
+            <div class="col input-group">
+                <label>Weight (Approx)</label>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="number" />
+                    <span class="unit">kg</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>Head & Torso</h2>
+        <div class="row">
+            <div class="col input-group">
+                <div style="display:flex; justify-content:space-between;">
+                    <label>Head Circumference</label>
+                    <span class="how-to">
+                        <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            ><circle cx="12" cy="12" r="10"></circle><path
+                                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+                            ></path><line x1="12" y1="17" x2="12.01" y2="17"
+                            ></line></svg
+                        >
+                        How to measure
+                    </span>
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" value="56" />
+                    <span class="unit">cm</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col input-group">
+                <label>Chest</label>
+                <div class="input-wrapper">
+                    <input type="text" value="0" />
+                    <span class="unit">cm</span>
+                </div>
+            </div>
+            <div class="col input-group">
+                <label>Waist</label>
+                <div class="input-wrapper">
+                    <input type="text" value="0" />
+                    <span class="unit">cm</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>Legs & Feet</h2>
+
+        <div class="alert-box">
+            <h4>Boots Sizing Critical</h4>
+            <p>
+                Accurate calf and height measurements are essential for custom
+                boot fitting
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col input-group">
+                <label>Inside Leg (Inseam)</label>
+                <div class="input-wrapper">
+                    <input type="text" value="0" />
+                    <span class="unit">cm</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col input-group active">
+                <div
+                    style="display:flex; justify-content:space-between; position:relative;"
+                >
+                    <label>Calf Width (Widest Point)</label>
+                    <span class="measuring-badge">Currently Measuring</span>
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" value="0" autofocus />
+                    <span class="unit">cm</span>
+                </div>
+                <div class="helper-text">
+                    Measure the widest part of your calf muscle while seated.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col input-group">
+                <label>Foot Length</label>
+                <div class="input-wrapper">
+                    <input type="text" value="0" />
+                    <span class="unit">cm</span>
+                </div>
+            </div>
+            <div class="col input-group">
+                <label>Foot Width</label>
+                <div class="input-wrapper">
+                    <input type="text" value="0" />
+                    <span class="unit">cm</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
