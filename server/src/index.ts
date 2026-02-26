@@ -5,6 +5,7 @@ import { sequelize } from './config/db.config'
 import { errorHandler } from './middleware/errorHandler'
 
 import { runSeeds } from './seed'
+
 import { AppRoutes } from './routes/app.routes'
 import { setupSwagger } from './config/swagger.config'
 
