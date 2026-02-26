@@ -1,7 +1,7 @@
 ---
 import "../styles/globals.css";
 import "../styles/tokens.css";
-
+import { Toaster } from "sonner";
 const { title = "FitBot" } = Astro.props;
 ---
 
@@ -24,6 +24,7 @@ const { title = "FitBot" } = Astro.props;
     </head>
 
     <body>
+        <Toaster client:load richColors position="top-right" />
         <slot />
     </body>
 </html>

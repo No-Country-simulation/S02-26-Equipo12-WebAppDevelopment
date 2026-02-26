@@ -29,7 +29,11 @@
 
             <span class="cart-dot"></span>
         </div>
-        <a href="#" class="btn-signin">Sign In</a>
+        <!-- <a href="#" class="btn-signin">Sign In</a> -->
+        <a href="/LoginPage" class="btn-signin" >
+            Sign In
+        </a>
+        <button id="btn-signout" class="btn-signin" style="display: none">Sign Out</button>
     </div>
 </header>
 
@@ -85,3 +89,9 @@
         font-size: 0.9rem;
     }
 </style>
+<script>
+    const token = localStorage.getItem("token")
+    const btnSignIn = document.querySelector("#btn-signin") as HTMLButtonElement;
+    const btnSignOut = document.querySelector("#btn-signout") as HTMLButtonElement;
+    if (token)
+</script>
