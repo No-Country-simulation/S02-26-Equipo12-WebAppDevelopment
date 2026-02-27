@@ -397,7 +397,8 @@ import Button from "../ui/Button.astro";
 
         try {
             const data = await loginUser(emailInput.value, passwordInput.value);
-            localStorage.setItem("token", data.result.token);
+            // localStorage.setItem("token", data.result.token);
+            document.cookie = `token=${data.result.token}; path=/; max-age=${60*60*24}; SameSite=Strict`; 
             window.location.href = "/Fitbot";
         } catch (err:any) {
             const msg = err.response?.data?.message || "Error signing in. Please try again.";

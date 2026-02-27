@@ -90,8 +90,21 @@
     }
 </style>
 <script>
-    const token = localStorage.getItem("token")
-    const btnSignIn = document.querySelector("#btn-signin") as HTMLButtonElement;
-    const btnSignOut = document.querySelector("#btn-signout") as HTMLButtonElement;
-    if (token)
+    const getCookie = (name: string)=>{
+        const parts = `; ${document.cookie}`.split(`; ${name}=`);
+        if(parts.length === 2) return parts.pop()?.split(';').shift();
+    }
+
+    const token = getCookie("token");
+    const btnSignIn = document.querySelector("a.btn-signin") as HTMLElement;
+    const btnSignOut = document.querySelector("button#btn-signout") as HTMLButtonElement;
+
+    if(token){
+        btnSignIn.style.display = "none";
+        btnSignOut.style.display = "block";
+        }
+    btnSignOut.addEventListener("click", ()=>{
+        document.cookie = "token=; path=/; max-age=0"
+        window.location.href = "/LoginPage"
+    })
 </script>

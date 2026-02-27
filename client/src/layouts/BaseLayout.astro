@@ -1,6 +1,7 @@
 ---
 import "../styles/globals.css";
 import "../styles/tokens.css";
+import { AuthProvider } from "../components/shared/AuthProvider";
 import { Toaster } from "sonner";
 const { title = "FitBot" } = Astro.props;
 ---
@@ -25,6 +26,7 @@ const { title = "FitBot" } = Astro.props;
 
     <body>
         <Toaster client:load richColors position="top-right" />
+        <AuthProvider client:load />
         <slot />
     </body>
 </html>
