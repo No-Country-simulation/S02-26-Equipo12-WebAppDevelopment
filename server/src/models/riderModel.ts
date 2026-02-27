@@ -18,13 +18,13 @@ export class Rider extends Model {
     declare id: string;
 
     @Column({
-        type: DataType.STRING(20),
+        type: DataType.STRING,
         allowNull: false
     })
     declare name: string;
 
     @Column({
-        type: DataType.STRING(20),
+        type: DataType.STRING,
         allowNull: false,
     })
     declare lastName: string;
@@ -36,13 +36,13 @@ export class Rider extends Model {
     declare birthDate: Date;
 
     @Column({
-        type: DataType.ENUM('male', 'female', 'other'),
+        type: DataType.ENUM('male', 'female'),
         allowNull: false,
     })
-    declare gender: 'male' | 'female' | 'other';
+    declare gender: 'male' | 'female';
 
     @Column({
-        type: DataType.STRING(40),
+        type: DataType.STRING,
         allowNull: false,
         unique: true,
         validate:{
@@ -52,7 +52,7 @@ export class Rider extends Model {
     declare email: string;
 
     @Column({
-        type:DataType.STRING(200),
+        type:DataType.STRING,
         allowNull: false,
     })
     declare password: string;
