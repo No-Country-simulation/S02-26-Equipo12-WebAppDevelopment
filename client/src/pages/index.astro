@@ -4,13 +4,15 @@ import NavBar from "../components/shared/NavBar.astro";
 import Footer from "../components/shared/Footer.astro";
 import Fitbot from "./Fitbot.astro";
 import LoginPage from "./LoginPage.astro";
+import Bubble from "../components/chat/Bubble";
 ---
 
 <Layout>
 	<NavBar />
 
 	<!-- <LoginPage /> -->
-	 <Fitbot />
+	<Fitbot />
 
+	<Bubble client:load />
 	<Footer />
 </Layout>
