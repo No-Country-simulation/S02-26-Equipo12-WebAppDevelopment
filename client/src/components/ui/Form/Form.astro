@@ -18,7 +18,6 @@ const {
 ---
 
 <section class:list={["form-panel", className]}>
-
     {
         (title || description) && (
             <header class="form-header">
@@ -47,7 +46,7 @@ const {
     .form-panel {
         width: 100%;
         overflow-y: auto;
-        padding: 40px 60px 60px;
+        padding: 1.5rem;
         background: var(--bg-white);
     }
 
@@ -74,7 +73,7 @@ const {
         padding: 1em 0 1em;
         /* gap: 2.5rem; */
         height: auto;
-        width: 600px;
+        max-width: 440px;
     }
 
     .form-footer {

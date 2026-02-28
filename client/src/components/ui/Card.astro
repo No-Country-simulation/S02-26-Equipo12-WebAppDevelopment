@@ -16,7 +16,6 @@ const { completed = false, class: className, ...props } = Astro.props;
 {completed && <StatusBadge />}
 
 <div class:list={["ui-card", { completed }, className]} {...props}>
-    
     {
         Astro.slots.has("header") && (
             <div class="card-header">
@@ -33,16 +32,27 @@ const { completed = false, class: className, ...props } = Astro.props;
         )
     }
 
-    <div>
+    <div class="slot-content">
         <slot name="content" />
     </div>
 </div>
 
 <style>
+    .card-header {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .slot-content {
+        width: 100%;
+    }
+
     .ui-card {
+        width: 100%;
         background: var(--card-bg);
         border-radius: 12px;
-        padding: 48px 32px;
+        padding: 2em 1em;
         flex: 1;
         text-align: center;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
@@ -51,6 +61,7 @@ const { completed = false, class: className, ...props } = Astro.props;
         flex-direction: column;
         align-items: center;
         transition: transform 0.2s;
+        max-width: 440px;
     }
 
     .ui-card.completed {
@@ -86,7 +97,7 @@ const { completed = false, class: className, ...props } = Astro.props;
         font-size: 0.95rem;
         color: var(--text-secondary);
         line-height: 1.5;
-        margin-bottom: 32px;
+        /* margin-bottom: 32px; */
         max-width: 300px;
     }
 </style>
