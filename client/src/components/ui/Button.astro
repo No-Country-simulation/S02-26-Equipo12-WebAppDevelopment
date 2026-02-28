@@ -63,6 +63,20 @@ const isDisabled = disabled || loading;
         color: var(--color-text);
     }
 
+    .ui-button[data-variant="signin"] {
+        width: 100%;
+        background-color: var(--primary-green);
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: background-color 0.2s;
+    }
+
     .ui-button[data-variant="cancel"] {
         background-color: var(--button-cancel);
         color: white;

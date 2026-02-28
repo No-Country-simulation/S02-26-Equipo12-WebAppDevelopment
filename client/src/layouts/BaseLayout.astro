@@ -1,8 +1,9 @@
 ---
 import "../styles/globals.css";
 import "../styles/tokens.css";
+import FitbotLogo from "../components/ui/icons/fitbot-logo.svg";
 
-const { title = "FitBot" } = Astro.props;
+const { title = "EquiFit by FitBot" } = Astro.props;
 ---
 
 <!doctype html>
@@ -10,7 +11,10 @@ const { title = "FitBot" } = Astro.props;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <title>{title}</title>
+
+     	<link rel="icon" href="/logo.png" type="image/png" />
 
         <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -27,3 +31,14 @@ const { title = "FitBot" } = Astro.props;
         <slot />
     </body>
 </html>
+
+<style>
+
+
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
