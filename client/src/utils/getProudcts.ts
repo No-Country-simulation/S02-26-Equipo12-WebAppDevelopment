@@ -46,17 +46,22 @@ export const getProduct = async (
   });
 };
 
-export const getProductPdpById = async (
-  horze_product_id: string,
-): Promise<ProductPdpItem | null> => {
+const PDP_ATTRIBUTES_TO_RETRIEVE =
+  "id,handle,title,vendor,product_image,price,market_pricing_eur,inventory_available,sku,variant_title,option1,option2,meta";
+
+type PdpSearchField = "meta.custom.horze_product_id" | "handle";
+
+const fetchPdpHits = async (
+  query: string,
+  field: PdpSearchField,
+): Promise<Product[]> => {
   const params = new URLSearchParams({
-    query: horze_product_id.trim(),
+    query,
     clickAnalytics: "true",
     distinct: "false",
     hitsPerPage: "250",
-    restrictSearchableAttributes: "meta.custom.horze_product_id",
-    attributesToRetrieve:
-      "id,handle,title,vendor,product_image,price,market_pricing_eur,inventory_available,sku,variant_title,option1,option2,meta",
+    restrictSearchableAttributes: field,
+    attributesToRetrieve: PDP_ATTRIBUTES_TO_RETRIEVE,
   });
 
   const res = await fetch(
@@ -80,8 +85,10 @@ export const getProductPdpById = async (
   );
 
   const data = await res.json();
-  const hits: Product[] = data.results?.[0]?.hits ?? [];
+  return data.results?.[0]?.hits ?? [];
+};
 
+const mapHitsToPdpItem = (hits: Product[]): ProductPdpItem | null => {
   if (!hits.length) {
     return null;
   }
@@ -122,83 +129,31 @@ export const getProductPdpById = async (
   };
 };
 
+const getProductPdp = async (
+  query: string,
+  field: PdpSearchField,
+  exactHandle?: string,
+): Promise<ProductPdpItem | null> => {
+  const hits = await fetchPdpHits(query, field);
+  const sourceHits = exactHandle
+    ? hits.filter((item) => item.handle === exactHandle)
+    : hits;
+
+  return mapHitsToPdpItem(sourceHits.length ? sourceHits : hits);
+};
+
+export const getProductPdpById = async (
+  horze_product_id: string,
+): Promise<ProductPdpItem | null> => {
+  return getProductPdp(
+    horze_product_id.trim(),
+    "meta.custom.horze_product_id",
+  );
+};
+
 export const getProductPdpByHandle = async (
   handle: string,
 ): Promise<ProductPdpItem | null> => {
   const normalizedHandle = handle.trim();
-
-  const params = new URLSearchParams({
-    query: normalizedHandle,
-    clickAnalytics: "true",
-    distinct: "false",
-    hitsPerPage: "250",
-    restrictSearchableAttributes: "handle",
-    attributesToRetrieve:
-      "id,handle,title,vendor,product_image,price,market_pricing_eur,inventory_available,sku,variant_title,option1,option2,meta",
-  });
-
-  const res = await fetch(
-    "https://07meeixg9b-dsn.algolia.net/1/indexes/*/queries",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-algolia-application-id": "07MEEIXG9B",
-        "x-algolia-api-key": "622026376cff99b9aec6f2409c29ec2e",
-      },
-      body: JSON.stringify({
-        requests: [
-          {
-            indexName: "shopify_horze_products_spain_es",
-            params: params.toString(),
-          },
-        ],
-      }),
-    },
-  );
-
-  const data = await res.json();
-  const hits: Product[] = data.results?.[0]?.hits ?? [];
-
-  const scopedHits = hits.filter((item) => item.handle === normalizedHandle);
-  const sourceHits = scopedHits.length ? scopedHits : hits;
-
-  if (!sourceHits.length) {
-    return null;
-  }
-
-  const sizes = new Set<string>();
-  const variants = sourceHits.map((item) => {
-    const size =
-      item.meta?.custom?.size_name?.trim() ||
-      item.option1?.trim() ||
-      item.option2?.trim() ||
-      null;
-
-    if (size) {
-      sizes.add(size);
-    }
-
-    return {
-      id: item.id,
-      sku: item.sku,
-      variantTitle: item.variant_title,
-      size,
-      color: item.option2,
-      price: item.price ?? item.market_pricing_eur?.price ?? null,
-      available: item.inventory_available,
-    };
-  });
-
-  const base = sourceHits[0];
-
-  return {
-    productId: base.id,
-    handle: base.handle,
-    title: base.title,
-    brand: base.vendor,
-    image: base.product_image ?? null,
-    sizes: Array.from(sizes),
-    variants,
-  };
+  return getProductPdp(normalizedHandle, "handle", normalizedHandle);
 };
