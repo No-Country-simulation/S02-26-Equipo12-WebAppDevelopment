@@ -127,6 +127,9 @@ const mapHitsToPdpItem = (hits: Product[]): ProductPdpItem | null => {
     brand: base.vendor,
     image: base.product_image ?? null,
     sizes: Array.from(sizes),
+    features: hits[0]?.meta?.custom?.features ?? null,
+    description: hits[0]?.meta?.custom?.product_bulletpoints ?? null,
+    season: hits[0]?.meta?.custom?.season ?? null,
     variants,
   };
 };

@@ -87,6 +87,9 @@ export type ProductPdpItem = {
     brand: string;
     image: string | null;
     sizes: string[];
+    features: string | null;
+    description: string | null;
+    season: string | null;
     variants: ProductVariantItem[];
 };
 

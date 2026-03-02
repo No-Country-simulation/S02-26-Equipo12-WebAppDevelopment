@@ -116,7 +116,7 @@ const ProductDetail = () => {
                 alt={product.title}
                 sx={{
                   width: "100%",
-                  maxWidth: 500,
+                  maxWidth: 650,
                   height: "auto",
                   borderRadius: 3,
                   objectFit: "cover",
@@ -202,6 +202,29 @@ const ProductDetail = () => {
             {selectedVariant && (
               <Typography variant="body2" color="#000" sx={{ mt: 1 }}>
                 SKU: {selectedVariant.sku}
+              </Typography>
+            )}
+
+            {product.features && (
+              <Typography variant="body1" color="#000" sx={{ mt: 1 }}>
+                Características:
+                <ul>
+                  {product.features.split(",").map((str: string, index: number) => (
+                    <li key={index}>{str.replace(/[\[\]"]/g, "")}</li>
+                  ))}
+                </ul>
+              </Typography>
+            )}
+  
+            {product.description && (
+              <Typography variant="body1" color="#000" sx={{ mt: 1 }}>
+                Descripción: {product.description.replace(/[\[\]"]/g, "")}
+              </Typography>
+            )}
+
+            {product.season && (
+              <Typography variant="body1" color="#000" sx={{ mt: 1 }}>
+                Temporada: {product.season}
               </Typography>
             )}
           </Box>
