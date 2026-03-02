@@ -34,6 +34,7 @@ const ProductDetail = () => {
 
     fetchPdp()
         .then((productData) => {
+          console.log('%cclient\src\components\product\ProductDetail.tsx:37 productData', 'color: white; background-color: #007acc;', productData);
           setProduct(productData);
           setSelectedSize(productData?.sizes[0] ?? null);
         })

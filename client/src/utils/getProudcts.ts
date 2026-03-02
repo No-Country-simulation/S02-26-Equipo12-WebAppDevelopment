@@ -93,6 +93,8 @@ const mapHitsToPdpItem = (hits: Product[]): ProductPdpItem | null => {
     return null;
   }
 
+  console.log('%cclient\\src\\utils\\getProudcts.ts:96 hits', 'color: white; background-color: #007acc;', hits);
+
   const sizes = new Set<string>();
   const variants = hits.map((item) => {
     const size =
@@ -135,6 +137,9 @@ const getProductPdp = async (
   exactHandle?: string,
 ): Promise<ProductPdpItem | null> => {
   const hits = await fetchPdpHits(query, field);
+
+  console.log('%cclient\\src\\utils\\getProudcts.ts:116 hits', 'color: white; background-color: #007acc;', hits);
+
   const sourceHits = exactHandle
     ? hits.filter((item) => item.handle === exactHandle)
     : hits;

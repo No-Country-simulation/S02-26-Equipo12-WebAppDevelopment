@@ -276,10 +276,14 @@ const processTarget = async (
       break;
     }
 
+    console.log(`  - Consultando página ${page + 1}...`);
     const listProducts = await fetchCollectionProducts(collectionId, page);
     if (!listProducts.length) {
+      console.log(`  - Página ${page + 1} sin resultados, fin de target.`);
       break;
     }
+
+    console.log(`  - Página ${page + 1}: ${listProducts.length} productos`);
 
     for (const productHit of listProducts) {
       try {
@@ -361,6 +365,16 @@ const seed = async (): Promise<void> => {
   const maxTargets = Number(process.env.SEED_LIMIT_TARGETS ?? 0);
   const maxPagesPerTarget = Number(process.env.SEED_MAX_PAGES ?? 0);
 
+  if (maxTargets > 0 || maxPagesPerTarget > 0) {
+    console.warn('⚠ Seed con limites activos. Esto no pobla toda la base.');
+    if (maxTargets > 0) {
+      console.warn(`  - SEED_LIMIT_TARGETS=${maxTargets}`);
+    }
+    if (maxPagesPerTarget > 0) {
+      console.warn(`  - SEED_MAX_PAGES=${maxPagesPerTarget}`);
+    }
+  }
+
   await sequelize.sync({ alter: true });
 
   const targets = loadSeedTargetsFromClientMenu();
@@ -405,3 +419,6 @@ seed()
   .finally(async () => {
     await sequelize.close();
   });
+
+
+  //$env:SEED_DRY_RUN=1; Remove-Item Env:SEED_LIMIT_TARGETS -ErrorAction SilentlyContinue; Remove-Item Env:SEED_MAX_PAGES -ErrorAction SilentlyContinue; pnpm --filter server run seed
