@@ -1,0 +1,391 @@
+---
+
+---
+
+<style>
+    /* --- Header --- */
+    .app-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 2rem;
+        flex-shrink: 0;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-main);
+        letter-spacing: -0.025em;
+    }
+
+    .brand-icon {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.5rem;
+        background-color: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Hanger icon using simple CSS shapes */
+    .brand-icon::before {
+        content: "";
+        width: 12px;
+        height: 6px;
+        border-top: 2px solid white;
+        border-right: 2px solid white;
+        border-left: 2px solid white;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        transform: translateY(-2px);
+    }
+
+    .close-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .close-btn:hover {
+        color: var(--text-main);
+    }
+    .close-btn .material-icons {
+        font-size: 1.5rem;
+    }
+
+    /* --- Main Content Layout --- */
+    .app-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    /* --- Radar Graphic --- */
+    .radar-wrapper {
+        position: relative;
+        width: 280px;
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .radar-bg {
+        position: absolute;
+        inset: 0;
+        background-color: var(--primary-lightest);
+        border-radius: 50%;
+    }
+
+    .radar-ring-1 {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border: 1px dashed rgba(23, 207, 84, 0.3);
+        border-radius: 50%;
+        animation: spin 30s linear infinite;
+    }
+
+    .radar-ring-2 {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        border: 1px solid rgba(23, 207, 84, 0.15);
+        border-radius: 50%;
+    }
+
+    .radar-svg {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        z-index: 2;
+    }
+
+    /* Animations for the graphic */
+    @keyframes spin {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes draw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    /* --- Typography --- */
+    .title {
+        font-size: 2.25rem;
+        font-weight: 600;
+        color: var(--text-main);
+        letter-spacing: -0.025em;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+
+    .subtitle {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        margin-bottom: 3rem;
+    }
+
+    /* --- Progress Section --- */
+    .progress-container {
+        width: 100%;
+        max-width: 440px;
+        margin-bottom: 2rem;
+    }
+
+    .progress-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+    }
+
+    .progress-track {
+        height: 8px;
+        background-color: var(--track-bg);
+        border-radius: 999px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 72%;
+        background-color: var(--primary);
+        border-radius: 999px;
+        overflow: hidden;
+        transition: width 0.5s ease-out;
+    }
+
+    /* Shimmer effect for active processing */
+    .progress-fill::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+        );
+        transform: translateX(-100%);
+        animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    /* --- Steps Indicator --- */
+    .steps {
+        display: flex;
+        gap: 3rem;
+    }
+
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .step-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--text-light);
+        position: relative;
+    }
+
+    .step-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-muted);
+    }
+
+    /* Step States */
+    .step.done .step-dot {
+        background-color: var(--primary);
+    }
+
+    .step.current .step-dot {
+        background-color: var(--primary);
+    }
+
+    .step.current .step-dot::after {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    @keyframes pulse-ring {
+        0% {
+            transform: scale(0.8);
+            opacity: 0.5;
+        }
+        80%,
+        100% {
+            transform: scale(2.5);
+            opacity: 0;
+        }
+    }
+
+    /* --- Footer --- */
+    .app-footer {
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .tip-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background-color: var(--bg-white);
+        border: 1px solid var(--border-light);
+        border-radius: 999px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .tip-pill .material-icons {
+        font-size: 1.125rem;
+        color: var(--primary);
+    }
+</style>
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Analyzing Measurements - Fitbot.ai</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+    />
+</head>
+
+<!-- <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon"></div>
+                <span>Fitbot.ai</span>
+            </div>
+            <button class="close-btn" aria-label="Close">
+                <span class="material-icons">close</span>
+            </button>
+        </header> -->
+
+<main class="app-main">
+    <div class="radar-wrapper">
+        <div class="radar-bg"></div>
+        <div class="radar-ring-1"></div>
+        <div class="radar-ring-2"></div>
+
+        <svg
+            class="radar-svg"
+            viewBox="0 0 100 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <circle cx="15" cy="45" r="2" fill="#17cf54" opacity="0.6"></circle>
+            <circle cx="85" cy="20" r="2.5" fill="#17cf54"></circle>
+            <circle cx="25" cy="25" r="1.5" fill="#17cf54" opacity="0.4"
+            ></circle>
+
+            <path
+                d="M 20 60 C 35 30, 45 20, 55 25 C 75 35, 45 45, 65 75"
+                stroke="#17cf54"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-dasharray="150"
+                stroke-dashoffset="150"
+                style="animation: draw 2s ease-out forwards;"></path>
+
+            <circle
+                cx="65"
+                cy="75"
+                r="3"
+                stroke="#17cf54"
+                stroke-width="2"
+                fill="#ffffff"></circle>
+        </svg>
+    </div>
+
+    <h1 class="title">Fitbot is analyzing your<br />measurements...</h1>
+    <p class="subtitle">Scanning dimension data points...</p>
+
+    <div class="progress-container">
+        <div class="progress-labels">
+            <span>Processing</span>
+            <span>72%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
+    <div class="steps">
+        <div class="step current">
+            <div class="step-dot"></div>
+            <span class="step-label">Scanning</span>
+        </div>
+        <div class="step done">
+            <div class="step-dot"></div>
+            <span class="step-label">Matching</span>
+        </div>
+        <div class="step">
+            <div class="step-dot"></div>
+            <span class="step-label">Suggesting</span>
+        </div>
+    </div>
+</main>
+
+<!-- <footer class="app-footer">
+            <div class="tip-pill">
+                <span class="material-icons">lightbulb</span>
+                Tip: Proper sizing reduces returns by 40%.
+            </div>
+        </footer> -->

@@ -1,0 +1,98 @@
+---
+import Header from "../../shared/Header.astro";
+import HorseProfile from "../profiles/HorseProfile.astro";
+import RiderProfile from "../profiles/RiderProfile.astro";
+import PillBadge from "../../ui/PillBadge.astro";
+
+/* Icons */
+
+import ClockIcon from "../../ui/Icons/clock.svg";
+import ShieldIcon from "../../ui/icons/shield.svg";
+import AccuracyIcon from "../../ui/icons/accuracy.svg";
+---
+
+<Header />
+
+<main class="container">
+    <section class="hero">
+        <PillBadge title="AI Sizing Assistant" />
+
+        <div>
+            <h1>Welcome to Fitbot.</h1>
+            <p class="subtitle">
+                Create your specialized profiles below. Our AI analyzes your
+                biometrics to recommend the perfect gear for you and your horse.
+            </p>
+        </div>
+    </section>
+
+    <section class="cards-container">
+        <RiderProfile />
+        <HorseProfile />
+    </section>
+
+    <section class="trust-indicators">
+        <div class="indicator">
+            <div class="indicator-icon">
+                <AccuracyIcon />
+            </div>
+            <span>99% Fit Accuracy</span>
+        </div>
+        <div class="indicator">
+            <div class="indicator-icon">
+                <ShieldIcon />
+            </div>
+            <span>Secure Data Privacy</span>
+        </div>
+        <div class="indicator">
+            <div class="indicator-icon">
+                <ClockIcon />
+            </div>
+            <span>Instant Recommendations</span>
+        </div>
+    </section>
+</main>
+
+<style>
+    .hero {
+        text-align: center;
+        margin-bottom: 48px;
+        max-width: 600px;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+        margin-bottom: 16px;
+        color: var(--button-dark);
+        letter-spacing: -1px;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    /* --- Trust Indicators --- */
+
+    .trust-indicators {
+        display: flex;
+        gap: 60px;
+        margin-top: 80px;
+        color: var(--text-secondary);
+    }
+
+    .indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.9rem;
+    }
+
+    .indicator-icon {
+        color: #c1b195;
+        /* Gold/Tan color */
+        font-size: 1.5rem;
+    }
+</style>

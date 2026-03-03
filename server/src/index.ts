@@ -1,8 +1,10 @@
-import express from 'express'
-import cors from 'cors'
+import express from 'express';
+import cors from 'cors';
 
 import { sequelize } from './config/db.config'
 import { errorHandler } from './middleware/errorHandler'
+
+import { runSeeds } from './seed'
 
 import { AppRoutes } from './routes/app.routes'
 import { setupSwagger } from './config/swagger.config'
@@ -17,12 +19,16 @@ const routes = AppRoutes.routes
 
 setupSwagger(app)
 
+//Routes
 app.use('/api/v1/', routes)
 
 const main = async () => {
   try {
     await sequelize.sync({ alter: true })
     console.log('Database synced')
+
+    await runSeeds()
+
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`)
     })

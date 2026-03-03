@@ -1,0 +1,34 @@
+---
+
+import Card from "../../ui/Card.astro";
+import Button from "../../ui/Button.astro";
+import HumanProfileLogo from "../../ui/icons/humanProfile.svg";
+import EditLogo from "../../ui/Icons/edit.svg";
+
+const { completed = false } = Astro.props;
+
+---
+
+<Card completed={completed}>
+    <div class="card-icon" slot="icon">
+        <HumanProfileLogo />
+    </div>
+
+    <div slot="content" >
+
+        <h2>Rider Profile</h2>
+        <p>
+            Get perfectly sized breeches, boots, and helmets tailored to your
+            measurements.
+        </p>
+
+        {
+
+            completed 
+            ? <Button size="md"> Edit Profile <EditLogo/> </Button>
+            : <Button size="md"> Configure Rider <span>&rarr;</span> </Button>
+
+        }
+        
+    </div>
+</Card>

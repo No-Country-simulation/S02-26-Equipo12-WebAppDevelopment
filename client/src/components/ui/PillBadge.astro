@@ -1,0 +1,37 @@
+---
+
+interface Props {
+    title?: string;
+}
+const { title } = Astro.props
+---
+
+<div class="pill-badge">
+    <span class="pill-dot"></span>
+    { title }
+</div>
+
+<style>
+    .pill-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background-color: white;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #888;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        margin-bottom: 24px;
+    }
+
+    .pill-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent-green);
+        border-radius: 50%;
+    }
+</style>
