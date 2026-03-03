@@ -1,35 +1,66 @@
 ---
+const { pathname } = Astro.url;
 
+const NAV_ITEMS = [
+  { href: "/", label: "Shop" },
+  { href: "/fitbot", label: "Fitbot AI" },
+  { href: "/journal", label: "Journal" },
+  { href: "/about", label: "About" },
+] as const;
 ---
 
 <nav>
-    <ul>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#" class="active">Fitbot AI</a></li>
-        <li><a href="#">Journal</a></li>
-        <li><a href="#">About</a></li>
-    </ul>
+  <ul>
+    {
+      NAV_ITEMS.map(({ href, label }) => {
+        const isCurrentPath = href === pathname;
+
+        return (
+          <li>
+            <a
+              class:list={[{ active: isCurrentPath }]}
+              href={href}
+              aria-current="page"
+            >
+              {label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
 </nav>
 
 <style>
-    nav {
-        border: solid 1px rgb(237, 21, 21);
-    }
+  nav {
+    visibility: hidden;
+    display: none;
 
-    nav ul {
-        display: flex;
-        gap: 32px;
-        list-style: none;
+    @media (min-width: 640px) {
+      visibility: visible;
+      display: block;
     }
+  }
 
-    nav a {
-        font-size: 0.95rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-        transition: color 0.2s;
-    }
+  nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
 
-    nav a.active {
-        color: var(--accent-green);
-    }
+  nav a {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  nav a.active {
+    color: var(--accent-green);
+  }
+
+  nav a:hover {
+    color: var(--text-primary);
+    transition-duration: 300ms;
+  }
 </style>
