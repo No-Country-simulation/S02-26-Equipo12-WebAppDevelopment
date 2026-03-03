@@ -1,0 +1,98 @@
+<div class="products-skeleton">
+  {
+    Array.from({ length: 8 }).map(() => (
+      <div class="skeleton-card">
+        <div class="skeleton-image" />
+        <div class="skeleton-content">
+          <div class="skeleton-line skeleton-title" />
+          <div class="skeleton-line skeleton-desc" />
+          <div class="skeleton-footer">
+            <div class="skeleton-line skeleton-price" />
+            <div class="skeleton-button" />
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .products-skeleton {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .skeleton-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .skeleton-image {
+    aspect-ratio: 4/3;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-content {
+    padding: 20px;
+  }
+
+  .skeleton-line {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+
+  .skeleton-title {
+    height: 24px;
+    width: 70%;
+    margin-bottom: 12px;
+  }
+
+  .skeleton-desc {
+    height: 16px;
+    width: 90%;
+    margin-bottom: 16px;
+  }
+
+  .skeleton-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .skeleton-price {
+    height: 24px;
+    width: 60px;
+  }
+
+  .skeleton-button {
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .products-skeleton {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+  }
+</style>
