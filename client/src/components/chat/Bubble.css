@@ -6,7 +6,7 @@
   height: 60px;
   border-radius: 50%;
   border: none;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background-color: var(--accent-green);
   color: white;
   cursor: pointer;
   display: flex;

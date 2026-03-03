@@ -1,1 +1,39 @@
 ---
+import ProductsGrid from "./ProductsGrid.astro";
+import ProductsSkeleton from "./ProductsSkeleton.astro";
+---
+
+<section id="products" class="products-section">
+  <div class="section-header">
+    <h2 class="section-title">Featured Products</h2>
+    <p class="section-subtitle">Explore our selection of quality products</p>
+  </div>
+
+  <ProductsGrid server:defer>
+    <ProductsSkeleton slot="fallback" />
+  </ProductsGrid>
+</section>
+
+<style>
+  .products-section {
+    padding-bottom: 80px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+</style>
