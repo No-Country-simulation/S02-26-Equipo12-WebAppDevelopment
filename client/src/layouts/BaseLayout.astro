@@ -1,8 +1,12 @@
 ---
+import { Toaster } from "sonner";
+
 import Bubble from "../components/chat/Bubble";
 import Footer from "../components/shared/Footer.astro";
 import Header from "../components/shared/Header.astro";
 import Layout from "./Layout.astro";
+
+import { AuthProvider } from "../components/shared/AuthProvider";
 
 import "../styles/globals.css";
 import "../styles/tokens.css";
@@ -36,6 +40,9 @@ const { title = "FitBot" } = Astro.props;
     <Bubble client:load />
 
     <Footer />
+
+    <Toaster client:load richColors position="top-right" />
+    <AuthProvider client:load />
   </Layout>
 
 

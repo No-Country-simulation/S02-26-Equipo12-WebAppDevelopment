@@ -1,5 +1,7 @@
 ---
-
+import Field from "../ui/Form/Field.astro";
+import Input from "../ui/Form/Input.astro";
+import Button from "../ui/Button.astro";
 ---
 
 <style>
@@ -18,19 +20,15 @@
             );
     }
 
-
     .main-container {
-
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 5rem;
-    
     }
 
     /* --- Card Container --- */
     .login-card {
-
         background: var(--card-bg);
         width: 100%;
         max-width: 440px;
@@ -274,13 +272,15 @@
         <p class="subtitle">Log in to manage your gear.</p>
 
         <form action="#">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <div class="label-row">
                     <label for="email">Email Address</label>
                 </div>
                 <input type="email" id="email" placeholder="Enter your email" />
-            </div>
-
+            </div> -->
+            <Field label="Email Address" name="email">
+                <Input type="email" id="email" placeholder="Enter your email" />
+            </Field>
             <div class="form-group">
                 <div class="label-row">
                     <label for="password">Password</label>
@@ -309,8 +309,14 @@
                     </div>
                 </div>
             </div>
+            <p
+                id="error-msg"
+                style="display:none; color: #ef4444; font-size: 0.875rem; margin-bottom: 8px; text-align: left;"
+            >
+            </p>
 
             <button type="submit" class="btn-primary">Sign In</button>
+            <!-- <Button type="submit" size="md">Sign In</Button> -->
         </form>
 
         <div class="divider">
@@ -371,3 +377,37 @@
         <span>Secure equestrian management platform</span>
     </div>
 </main>
+<script>
+    import { loginUser } from "../../services/auth.services";
+    import { toast } from "sonner";
+    
+    const form = document.querySelector("form");
+    const emailInput = document.querySelector("#email") as HTMLInputElement;
+    const passwordInput = document.querySelector(
+        "#password",
+    ) as HTMLInputElement;
+    const submitBtn = document.querySelector(
+        'button[type="submit"]',
+    ) as HTMLButtonElement;
+    form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Signing in ...";
+
+        try {
+            const data = await loginUser(emailInput.value, passwordInput.value);
+            // localStorage.setItem("token", data.result.token);
+            document.cookie = `token=${data.result.token}; path=/; max-age=${60*60*24}; SameSite=Strict`; 
+            window.location.href = "/Fitbot";
+        } catch (err:any) {
+            const msg = err.response?.data?.message || "Error signing in. Please try again.";
+            const errorMsg = document.querySelector("#error-msg") as HTMLParagraphElement;
+            errorMsg.textContent = msg;
+            errorMsg.style.display = "block";
+            toast.error(msg);
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Sign In";
+        }
+    });
+</script>
