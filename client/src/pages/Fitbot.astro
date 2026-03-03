@@ -1,33 +1,10 @@
 ---
 import MainFitBot from "../components/fitbot/main/MainFitBot.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import RiderMeasuresModule from "../components/fitbot/modules/RiderMeasuresModule.astro";
-import HorseMeasuresModule from "../components/fitbot/modules/HorseMeasuresModule.astro";
-import Loading from "../components/fitbot/modules/Loading.astro";
-import ChatModule from "../components/fitbot/modules/ChatModule.astro";
-import UITest from "./UI-test.astro";
 ---
 
 <BaseLayout>
     <div class="fitbot-root">
-
-
-        <!-- <UITest /> -->
         <MainFitBot />
-        <!-- <Loading /> -->
-        <!-- <ChatModule/> -->
-        <!-- <RiderMeasuresModule /> -->
-
-        <UITest/>
-
-        <!-- <HorseMeasuresModule/> -->
-
     </div>
 </BaseLayout>
-<!-- <script>
-    console.log("Fitbot page loaded");
-    const token = localStorage.getItem('token')
-    if (!token){
-        window.location.href = '/LoginPage'
-    }
-</script> -->
