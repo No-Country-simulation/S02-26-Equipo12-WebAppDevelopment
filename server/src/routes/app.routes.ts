@@ -2,6 +2,9 @@ import { Router } from "express";
 import { ExampleRoutes } from "./example.routes";
 import { AuthRoutes } from "./auth.routes";
 import { RiderMeasurementsRoutes } from "./riderMeasurements.routes";
+import { HorseRoutes } from "./horse.routes";
+import { HorseMeasurementsRoutes } from "./horseMeasurements.routes";
+//import { AIRoutes } from "./ai.routes";
 
 export class AppRoutes {
   static get routes() {
@@ -15,6 +18,15 @@ export class AppRoutes {
     //Rider Measurements
     router.use('/riders', RiderMeasurementsRoutes.routes)
 
+    //Horses
+    router.use('/riders', HorseRoutes.routes)
+
+    //Horse Measurements
+    router.use('/horses', HorseMeasurementsRoutes.routes)
+
+
+    //AI
+    //router.use('/ai', AIRoutes.routes);
     return router
   }
 }
