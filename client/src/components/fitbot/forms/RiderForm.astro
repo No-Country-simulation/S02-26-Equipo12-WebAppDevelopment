@@ -5,6 +5,7 @@ import Form from "../../ui/Form/Form.astro";
 import FormSection from "../../ui/Form/FormSection.astro";
 import Field from "../../ui/Form/Field.astro";
 import Input from "../../ui/Form/Input.astro";
+import Button from "../../ui/Button.astro";
 ---
 
 <div class="form-panel">
@@ -12,18 +13,27 @@ import Input from "../../ui/Form/Input.astro";
         <div>
             <FormSection class="section-grid">
                 <div slot="form-header">
-                    <h2>Basic Info</h2>
+                    <header>
+                        <h2>Basic Info</h2>
+                    </header>
                 </div>
-                <Field label="Total Height " name="riderHeight">
-                    <Input type="number" suffix="cm" />
+                <Field label="Total Height" name="riderHeight">
+                    <Input type="number" suffix="cm" id="riderHeight" />
                 </Field>
 
                 <Field label="Weight (Aprox)" name="riderWeight">
-                    <Input type={"number"} suffix="kg" />
+                    <Input type="number" suffix="kg" id="riderWeight" />
                 </Field>
 
                 <Field label="Gender Preference" name="riderGender">
-                    <Input type="text" />
+                    <div class="select-wrapper">
+                        <select name="gender" class="select-field">
+                            <option value="male" class="options"> Male </option>
+                            <option value="female" class="options">
+                                Female
+                            </option>
+                        </select>
+                    </div>
                 </Field>
 
                 <Field label=" Fit Prefence" name="riderFitPreference">
@@ -33,10 +43,10 @@ import Input from "../../ui/Form/Input.astro";
 
             <FormSection class="section-grid">
                 <div slot="form-header">
-                    <h2>Head & Torso</h2>
-                </div>
+                    <header>
+                        <h2>Head & Torso</h2>
+                    </header>
 
-                <Field label="Head Circumference" name="riderHead">
                     <span class="how-to">
                         <svg
                             width="12"
@@ -52,6 +62,9 @@ import Input from "../../ui/Form/Input.astro";
                         >
                         How to measure
                     </span>
+                </div>
+
+                <Field label="Head Circumference" name="riderHead">
                     <Input type="number" suffix="cm" />
                 </Field>
 
@@ -73,6 +86,11 @@ import Input from "../../ui/Form/Input.astro";
             </FormSection>
 
             <FormSection class="section-grid">
+                <div slot="form-header">
+                    <header>
+                        <h2>Hands & Palms</h2>
+                    </header>
+                </div>
                 <Field label="Hand" name="riderHand">
                     <Input type="number" suffix="cm" />
                 </Field>
@@ -83,7 +101,9 @@ import Input from "../../ui/Form/Input.astro";
 
             <FormSection class="section-grid">
                 <div slot="form-header">
-                    <h2>Legs & Feet</h2>
+                    <header>
+                        <h2>Legs & Feet</h2>
+                    </header>
                     <!-- <p>Accurate calf and height measurements are essential for custom boot fitting</p> -->
                 </div>
 
@@ -111,112 +131,78 @@ import Input from "../../ui/Form/Input.astro";
                     <Input type="number" suffix="cm" />
                 </Field>
             </FormSection>
+
+            <div class="button-container">
+                <Button type="submit" variant="signin" size="sm"> Enviar </Button>
+                <Button type="reset" variant="primary"> Reset </Button>
+            </div>
         </div>
     </Form>
-
-    <!-- 
-    <div class="form-section">
-        <h2>Head & Torso</h2>
-        <div class="row">
-            <div class="col input-group">
-                <div style="display:flex; justify-content:space-between;">
-                    <label>Head Circumference</label>
-                    <span class="how-to">
-                        <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            ><circle cx="12" cy="12" r="10"></circle><path
-                                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-                            ></path><line x1="12" y1="17" x2="12.01" y2="17"
-                            ></line></svg
-                        >
-                        How to measure
-                    </span>
-                </div>
-                <div class="input-wrapper">
-                    <input type="text" value="56" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col input-group">
-                <label>Chest</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-            <div class="col input-group">
-                <label>Waist</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- <div class="form-section">
-        <h2>Legs & Feet</h2>
-
-        <div class="alert-box">
-            <h4>Boots Sizing Critical</h4>
-            <p>
-                Accurate calf and height measurements are essential for custom
-                boot fitting
-            </p>
-        </div>
-
-        <div class="row">
-            <div class="col input-group">
-                <label>Inside Leg (Inseam)</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col input-group active">
-                <div
-                    style="display:flex; justify-content:space-between; position:relative;"
-                >
-                    <label>Calf Width (Widest Point)</label>
-                    <span class="measuring-badge">Currently Measuring</span>
-                </div>
-                <div class="input-wrapper">
-                    <input type="text" value="0" autofocus />
-                    <span class="unit">cm</span>
-                </div>
-                <div class="helper-text">
-                    Measure the widest part of your calf muscle while seated.
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col input-group">
-                <label>Foot Length</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-            <div class="col input-group">
-                <label>Foot Width</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 </div>
+
+<style>
+    .select-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        background-color: var(--bg-white);
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s,
+            background-color 0.2s;
+
+        overflow: hidden;
+    }
+
+    .select-field {
+        flex: 1;
+        width: 100%;
+
+        border: 0;
+        background: transparent;
+
+        padding: 14px 16px;
+        font-size: 1rem;
+        color: var(--text-main);
+        font-family: inherit;
+        outline: none;
+    }
+
+    .options {
+        padding-right: 16px;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-weight: 600;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .input-field:focus {
+        border-color: var(--primary);
+        /* box-shadow: 0 0 0 3px rgba(23, 207, 84, 0.2); */
+    }
+
+    .how-to {
+        float: right;
+        font-size: 0.8rem;
+        color: var(--text-gray);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        &:hover {
+            color: var(--primary-green-hover);
+        }
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-around;
+        
+    }
+</style>
