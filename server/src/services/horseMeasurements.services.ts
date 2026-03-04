@@ -1,8 +1,8 @@
-import { Rider, RiderMeasurement, MeasurementType } from "../models";
+import { Horse, HorseMeasurement, MeasurementType } from "../models";
 
-export class RiderMeasurementsService {
+export class HorseMeasurementsService {
 
-  async create(riderId: string, data: any) {
+  async create(horseId: string, data: any) {
     const { measurementTypeId, value, measurementDate } = data;
 
     if (!measurementTypeId || value === undefined) {
@@ -17,9 +17,9 @@ export class RiderMeasurementsService {
       throw error;
     }
 
-    const rider = await Rider.findByPk(riderId);
-    if (!rider) {
-      const error: any = new Error("Rider not found");
+    const horse = await Horse.findByPk(horseId);
+    if (!horse) {
+      const error: any = new Error("Horse not found");
       error.statusCode = 404;
       throw error;
     }
@@ -31,31 +31,31 @@ export class RiderMeasurementsService {
       throw error;
     }
 
-    if (measurementType.appliesTo !== "rider") {
-      const error: any = new Error("Measurement type does not apply to rider");
+    if (measurementType.appliesTo !== "horse") {
+      const error: any = new Error("Measurement type does not apply to horse");
       error.statusCode = 400;
       throw error;
     }
 
-    return await RiderMeasurement.create({
-      riderId,
+    return await HorseMeasurement.create({
+      horseId,
       measurementTypeId,
       value,
       measurementDate,
     });
   }
 
-  async getAll(riderId: string) {
+  async getAll(horseId: string) {
 
-    const rider = await Rider.findByPk(riderId);
-    if (!rider) {
-      const error: any = new Error("Rider not found");
+    const horse = await Horse.findByPk(horseId);
+    if (!horse) {
+      const error: any = new Error("Horse not found");
       error.statusCode = 404;
       throw error;
     }
 
-    const measurements = await RiderMeasurement.findAll({
-      where: { riderId },
+    const measurements = await HorseMeasurement.findAll({
+      where: { horseId },
       include: [{
         model: MeasurementType,
         attributes: ["code", "unit", "description"],
@@ -72,7 +72,7 @@ export class RiderMeasurementsService {
     }));
   }
 
-  async update(riderId: string, measurementId: string, data: any) {
+  async update(horseId: string, measurementId: string, data: any) {
     const { value, measurementDate } = data;
 
     if (value !== undefined && typeof value !== "number") {
@@ -81,15 +81,15 @@ export class RiderMeasurementsService {
       throw error;
     }
 
-    const measurement = await RiderMeasurement.findByPk(measurementId);
+    const measurement = await HorseMeasurement.findByPk(measurementId);
     if (!measurement) {
       const error: any = new Error("Measurement not found");
       error.statusCode = 404;
       throw error;
     }
 
-    if (measurement.riderId !== riderId) {
-      const error: any = new Error("Measurement does not belong to rider");
+    if (measurement.horseId !== horseId) {
+      const error: any = new Error("Measurement does not belong to horse");
       error.statusCode = 403;
       throw error;
     }
@@ -98,17 +98,17 @@ export class RiderMeasurementsService {
     return measurement;
   }
 
-  async delete(riderId: string, measurementId: string) {
+  async delete(horseId: string, measurementId: string) {
 
-    const measurement = await RiderMeasurement.findByPk(measurementId);
+    const measurement = await HorseMeasurement.findByPk(measurementId);
     if (!measurement) {
       const error: any = new Error("Measurement not found");
       error.statusCode = 404;
       throw error;
     }
 
-    if (measurement.riderId !== riderId) {
-      const error: any = new Error("Measurement does not belong to rider");
+    if (measurement.horseId !== horseId) {
+      const error: any = new Error("Measurement does not belong to horse");
       error.statusCode = 403;
       throw error;
     }
