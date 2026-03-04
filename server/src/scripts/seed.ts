@@ -317,6 +317,7 @@ const processTarget = async (
               description: normalized.description,
               price: normalized.price,
               stock: normalized.stock,
+              image: normalized.image,
             });
           }
           counters.productsUpdated += 1;
@@ -327,6 +328,7 @@ const processTarget = async (
           } else {
             const product = await Product.create({
               name: normalized.name,
+              image: normalized.image,
               description: normalized.description,
               price: normalized.price,
               stock: normalized.stock,
