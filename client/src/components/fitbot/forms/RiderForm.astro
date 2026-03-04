@@ -1,9 +1,65 @@
 ---
 import "./index.css";
 
+import Form from "../../ui/Form/Form.astro";
+import FormSection from "../../ui/Form/FormSection.astro";
+import Field from "../../ui/Form/Field.astro";
+import Input from "../../ui/Form/Input.astro";
 ---
 
 <div class="form-panel">
+    
+    <Form>
+        <div>
+            <FormSection class="section-grid">
+                <div slot="form-header">
+                    <h2>Basic Info</h2>
+                </div>
+                <Field label="Total Height " name="riderHeight">
+                    <Input type="number" suffix="cm" />
+                </Field>
+
+                <Field label="Weight (Aprox)" name="riderWeight">
+                    <Input type={"number"} suffix="kg" />
+                </Field>
+            </FormSection>
+
+            <FormSection class="section-grid">
+
+                <div slot="form-header">
+                    <h2>Head & Torso</h2>
+                </div>
+
+                <Field label="Head Circumference" name="riderHead">
+                     <span class="how-to">
+                        <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            ><circle cx="12" cy="12" r="10"></circle><path
+                                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+                            ></path><line x1="12" y1="17" x2="12.01" y2="17"
+                            ></line></svg
+                        >
+                        How to measure
+                    </span>
+                    <Input type="number" suffix="cm" />
+                </Field>
+
+                <Field label="Chest" name="riderChest">
+                    <Input type="number" suffix="kg" />
+                </Field>
+
+                <Field label="Waist" name="raiderWaist">
+                    <Input type="number" suffix="cm" />
+                </Field>
+            </FormSection>
+        </div>
+    </Form>
+
     <div class="form-section">
         <h2>Basic Info</h2>
         <div class="row">
@@ -71,7 +127,7 @@ import "./index.css";
         </div>
     </div>
 
-    <div class="form-section">
+    <!-- <div class="form-section">
         <h2>Legs & Feet</h2>
 
         <div class="alert-box">
@@ -126,5 +182,5 @@ import "./index.css";
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
