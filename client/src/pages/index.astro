@@ -2,16 +2,21 @@
 import Products from "../components/ecommerce/Products.astro";
 
 import Layout from "../layouts/Layout.astro";
+import UITest from "./ui-test.astro";
 ---
 
 <Layout title="Shop - Home">
-  <main class="home">
+  <div class="fitbot-root">
+
+    <UITest />
+  </div>
+
+  <!-- <main class="home">
     <section class="hero">
       <div class="hero-content">
         <span class="hero-tag">Welcome to</span>
         <h1 class="hero-title">Equestrian Shop</h1>
         <p class="hero-subtitle">
-          Find the best products for your horse and equestrian practice
         </p>
         <a href="#products" class="hero-cta">View Products</a>
       </div>
@@ -19,7 +24,7 @@ import Layout from "../layouts/Layout.astro";
     </section>
 
     <Products />
-  </main>
+  </main> -->
 </Layout>
 
 <style>
