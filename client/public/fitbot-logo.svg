@@ -1,0 +1,21 @@
+<svg id="a" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 191.95 146.91">
+  <defs>
+    <clipPath id="c">
+      <polygon points="40.21 47.79 40.21 47.79 60.71 47.79 60.71 99.12 40.21 99.12 40.21 47.79" style="fill: none;"/>
+    </clipPath>
+    <clipPath id="e">
+      <polygon points="151.75 47.79 151.75 47.79 131.24 47.79 131.24 99.12 151.75 99.12 151.75 47.79" style="fill: none;"/>
+    </clipPath>
+  </defs>
+  <g id="b" data-name="&amp;lt;Mirror Repeat&amp;gt;">
+    <g style="clip-path: url(#c);">
+      <polygon points="55.46 99.12 40.21 73.7 55.46 47.79 60.71 55.52 50.58 73.7 60.71 91.16 55.46 99.12" style="fill: #161616;"/>
+    </g>
+  </g>
+  <g id="d" data-name="&amp;lt;Mirror Repeat&amp;gt;">
+    <g style="clip-path: url(#e);">
+      <polygon points="136.49 99.12 151.75 73.7 136.49 47.79 131.24 55.52 141.38 73.7 131.24 91.16 136.49 99.12" style="fill: #161616;"/>
+    </g>
+  </g>
+  <path d="M113.63,42.85h-35.34l-17.67,30.6,17.67,30.6h35.34l17.67-30.6-17.67-30.6ZM112.31,43.83l-3.43,5.91h-25.8l-3.46-5.92h32.69ZM79.62,102.95l3.43-5.91h25.8l3.46,5.92h-32.69ZM107.86,94.06h-23.79l-11.9-20.6,11.9-20.6h23.79l11.9,20.6-11.9,20.6Z" style="fill: #161616;"/>
+</svg>

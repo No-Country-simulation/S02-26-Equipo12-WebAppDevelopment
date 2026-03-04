@@ -10,7 +10,7 @@
     /* Dark Brown */
 
     /* Accents */
-    --accent-green: #2D3E32;
+    --accent-green: #2ED178;
     --accent-light-green: #E8FBF2;
     --brown-dark: #463A31;
 
@@ -85,6 +85,7 @@
     --note-gray-text: #475569;
 
 }
+
 
 .ecommerce-root {
     --accent-green: #8fe067;
