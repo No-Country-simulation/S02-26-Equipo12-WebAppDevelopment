@@ -10,7 +10,10 @@ const { id } = Astro.params;
 const url = new URL(Astro.request.url);
 const page = parseInt(url.searchParams.get("page") || "1");
 
-const { data: productsResponse, error } = await getProductsByCategoryId(id!);
+const { data: productsResponse, error } = await getProductsByCategoryId(
+  id!,
+  page,
+);
 
 const products = productsResponse?.data || [];
 const totalPages = productsResponse?.totalPages || 1;
