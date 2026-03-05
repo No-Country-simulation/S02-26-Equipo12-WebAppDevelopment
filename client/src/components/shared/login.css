@@ -1,0 +1,234 @@
+body {
+  /* Background Blooms/Gradients */
+  background-image:
+    radial-gradient(
+      circle at 15% 85%,
+      rgba(16, 185, 129, 0.08) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(16, 185, 129, 0.08) 0%,
+      transparent 25%
+    );
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem;
+}
+
+/* --- Card Container --- */
+.login-card {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 440px;
+  padding: 48px 40px;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* --- Header Section --- */
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary-green);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+/* --- Form Elements --- */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.forgot-link {
+  font-size: 0.875rem;
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.2s ease;
+  color: var(--text-dark);
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+input:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px var(--input-focus-ring);
+}
+
+.eye-icon {
+  position: absolute;
+  right: 14px;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+  width: 100%;
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-green-hover);
+}
+
+/* --- Divider --- */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 28px 0;
+  color: #9ca3af;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.divider span {
+  padding: 0 12px;
+  text-transform: uppercase;
+}
+
+/* --- Social Buttons --- */
+.social-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.btn-social {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: white;
+  border: 1px solid var(--border-light);
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-social:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.signup-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.signup-link {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* --- Footer Badge --- */
+.footer-secure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9ca3af;
+  font-size: 0.85rem;
+}

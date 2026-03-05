@@ -1,47 +1,36 @@
-import { type StateCreator } from 'zustand'
-
-// TODO: import from user interface folder
-interface User {
-  id: string
-  name: string
-  lastname: string
-  gender: string
-  email: string
-}
+import { type StateCreator } from "zustand";
+import type { Rider } from "../../interfaces/auth.interface";
 
 export const AUTH_STATUS = {
-  UNAUTHENTICATED: 'unauthenticated',
-  AUTHENTICATED: 'authenticated',
-  LOADING: 'loading'
-} as const
+  UNAUTHENTICATED: "unauthenticated",
+  AUTHENTICATED: "authenticated",
+  LOADING: "loading",
+} as const;
 
-export type AuthStatus =
-  typeof AUTH_STATUS[keyof typeof AUTH_STATUS]
+export type AuthStatus = (typeof AUTH_STATUS)[keyof typeof AUTH_STATUS];
 
 export interface AuthSlice {
-  user: User | null
-  state: AuthStatus
+  user: Rider | null;
+  state: AuthStatus;
 
-  login: (user: User) => void
-  logout: () => void
+  login: (user: Rider) => void;
+  logout: () => void;
 }
 
-export const createAuthSlice: StateCreator<
-  AuthSlice
-> = (set) => ({
+export const createAuthSlice: StateCreator<AuthSlice> = (set) => ({
   user: null,
   state: AUTH_STATUS.LOADING,
 
-  login(user: User) {
-    set(({
+  login(user: Rider) {
+    set({
       user,
-      state: AUTH_STATUS.AUTHENTICATED
-    }))
+      state: AUTH_STATUS.AUTHENTICATED,
+    });
   },
   logout() {
-    set(({
+    set({
       user: null,
-      state: AUTH_STATUS.UNAUTHENTICATED
-    }))
-  }
-})
+      state: AUTH_STATUS.UNAUTHENTICATED,
+    });
+  },
+});

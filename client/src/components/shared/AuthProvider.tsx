@@ -1,45 +1,23 @@
-import { useEffect } from 'react'
-import { jwtDecode } from 'jwt-decode'
-import { useBoundStore } from '../../context'
+import { useEffect } from "react";
+import { useBoundStore } from "../../context";
+import type { Rider } from "../../interfaces/auth.interface";
 
-interface TokenPayload {
-    id: string
-    email: string
-    name: string
-    lastName: string
-    gender: string
+interface Props {
+  initialUser?: Rider | null;
+  isAuthenticated?: boolean;
 }
 
-const getCookie = (name: string)=>{
-    const parts = `; ${document.cookie}`.split(`; ${name}=`)
-    if (parts.length === 2) return parts.pop()?.split(';').shift()
-}
+export const AuthProvider = ({ initialUser, isAuthenticated }: Props) => {
+  const login = useBoundStore((state) => state.login);
+  const logout = useBoundStore((state) => state.logout);
 
-export const AuthProvider = ()=>{
-    const login = useBoundStore((state)=> state.login)
-    const logout = useBoundStore((state)=> state.logout)
+  useEffect(() => {
+    if (isAuthenticated && initialUser) {
+      login(initialUser);
+    } else if (!isAuthenticated) {
+      logout();
+    }
+  }, [initialUser, isAuthenticated, login, logout]);
 
-    useEffect(()=>{
-        const token = getCookie('token')
-
-        if(!token){
-            logout()
-            return
-        }
-
-        try {
-            const decoded = jwtDecode<TokenPayload>(token)
-            login({
-                id: decoded.id,
-                email: decoded.email,
-                name: decoded.name,
-                lastname: decoded.lastName,
-                gender: decoded.gender,
-
-            })
-        } catch (error) {
-            logout()
-        }
-},[])
-    return null
-}
+  return null;
+};
