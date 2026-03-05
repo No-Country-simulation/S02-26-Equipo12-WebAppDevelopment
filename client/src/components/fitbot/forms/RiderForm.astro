@@ -8,8 +8,8 @@ import Input from "../../ui/Form/Input.astro";
 import Button from "../../ui/Button.astro";
 ---
 
-<div class="form-panel">
-    <Form method="POST" action="/api/rider">
+<div class="form-panel-container">
+    <Form id="rider-measurements-form" method="POST" action="#">
         <div>
             <FormSection class="section-grid">
                 <div slot="form-header">
@@ -18,16 +18,16 @@ import Button from "../../ui/Button.astro";
                     </header>
                 </div>
 
-                <Field label="Total Height" name="riderHeight">
+                <Field label="Height" name="riderHeight">
                     <Input
                         type="number"
                         suffix="cm"
-                        name="riderHeight "
+                        name="riderHeight"
                         id="riderHeight"
                     />
                 </Field>
 
-                <Field label="Weight (Aprox)" name="riderWeight">
+                <Field label="Weight" name="riderWeight">
                     <Input
                         type="number"
                         suffix="kg"
@@ -46,17 +46,9 @@ import Button from "../../ui/Button.astro";
                         </select>
                     </div>
                 </Field>
-
-                <Field label="Fit Prefence" name="riderFitPreference">
-                    <Input
-                        type="text"
-                        name="riderFitPreference"
-                        id="riderFitPreference"
-                    />
-                </Field>
             </FormSection>
 
-            <FormSection class="section-grid">
+            <FormSection class="section-grid-vertical">
                 <div slot="form-header">
                     <header>
                         <h2>Head & Torso</h2>
@@ -87,66 +79,6 @@ import Button from "../../ui/Button.astro";
                         id="riderHeadCircumference"
                     />
                 </Field>
-
-                <Field label="Chest" name="riderChest">
-                    <Input
-                        type="number"
-                        suffix="kg"
-                        name="riderChest"
-                        id="riderChest"
-                    />
-                </Field>
-
-                <Field label="Waist" name="riderWaistCircumference">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderWaistCircumference"
-                        id="riderWaistCircumference"
-                    />
-                </Field>
-
-                <Field label="Hip" name="riderHipCircumference">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderHipCircumference"
-                        id="riderHipCircumference"
-                    />
-                </Field>
-
-                <Field label="Thigh" name="riderThighCircumference">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderThighCircumference"
-                        id="riderThighCircumference"
-                    />
-                </Field>
-            </FormSection>
-
-            <FormSection class="section-grid">
-                <div slot="form-header">
-                    <header>
-                        <h2>Hands & Palms</h2>
-                    </header>
-                </div>
-                <Field label="Hand" name="riderHandCircumference">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderHandCircumference"
-                        id="riderHandCircumference"
-                    />
-                </Field>
-                <Field label="Palm" name="riderPalmLength">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderPalmLength"
-                        id="riderPalmLength"
-                    />
-                </Field>
             </FormSection>
 
             <FormSection class="section-grid">
@@ -157,24 +89,6 @@ import Button from "../../ui/Button.astro";
                     <!-- <p>Accurate calf and height measurements are essential for custom boot fitting</p> -->
                 </div>
 
-                <Field label="Inside Leg (Inseam)" name="riderInseam">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderInseam"
-                        id="riderInseam"
-                    />
-                </Field>
-
-                <Field label="Calf Width (Widest Point)" name="riderCalfWidth">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderCalfWidth"
-                        id="riderCalfWidth"
-                    />
-                </Field>
-
                 <Field label="Calf Circumference" name="riderCalfCircumference">
                     <Input
                         type="number"
@@ -184,30 +98,12 @@ import Button from "../../ui/Button.astro";
                     />
                 </Field>
 
-                <Field label="Calf Height" name="riderCalfHeight">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderCalfHeight"
-                        id="riderCalfHeight"
-                    />
-                </Field>
-
                 <Field label="Foot Length" name="riderFootLength">
                     <Input
                         type="number"
                         suffix="cm"
                         name="riderFootLength"
                         id="riderFootLength"
-                    />
-                </Field>
-
-                <Field label="Foot Width" name="riderFootWidth">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="riderFootWidth"
-                        id="riderFootWidth"
                     />
                 </Field>
             </FormSection>
@@ -287,11 +183,19 @@ import Button from "../../ui/Button.astro";
         justify-content: space-around;
     }
 
-    .form-panel {
-        width: 50%;
+    .form-panel-container {
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
         overflow-y: auto;
         padding: 40px 60px;
         padding-bottom: 120px;
-        /* Space for footer */
     }
 </style>
+
+<script is:inline type="module">
+
+    import { mountRiderMeasurementsForm } from "./src/components/fitbot/scripts/riderMeasurements";
+    mountRiderMeasurementsForm("rider-measurements-form");
+
+</script>
