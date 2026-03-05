@@ -1,16 +1,109 @@
 ---
+import Products from "../components/ecommerce/Products.astro";
+
 import Layout from "../layouts/Layout.astro";
-import NavBar from "../components/shared/NavBar.astro";
-import Footer from "../components/shared/Footer.astro";
-import Fitbot from "./Fitbot.astro";
-import LoginPage from "./LoginPage.astro";
+
+export const prerender = false;
 ---
 
-<Layout>
-	<NavBar />
+<Layout title="Shop - Home">
+  <main class="home">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-tag">Welcome to</span>
+        <h1 class="hero-title">Equestrian Shop</h1>
+        <p class="hero-subtitle">
+          Find the best products for your horse and equestrian practice
+        </p>
+        <a href="#products" class="hero-cta">View Products</a>
+      </div>
+      <div class="hero-decoration"></div>
+    </section>
 
-	<!-- <LoginPage /> -->
-	 <Fitbot />
+    <Products />
+  </main>
 
-	<Footer />
+  <style>
+    .home {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hero {
+      position: relative;
+      background: linear-gradient(
+        135deg,
+        var(--accent-light-green) 0%,
+        var(--bg-color) 100%
+      );
+      border-radius: 24px;
+      padding: 64px 48px;
+      margin-bottom: 64px;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent-green);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 16px 0;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      margin: 0 0 32px 0;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      background: var(--accent-green);
+      color: white;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .hero-cta:hover {
+      background: var(--brown-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-decoration {
+      position: absolute;
+      right: -50px;
+      top: -50px;
+      width: 300px;
+      height: 300px;
+      background: var(--accent-green);
+      opacity: 0.1;
+      border-radius: 50%;
+    }
+  </style>
 </Layout>

@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model brands {
+  id         String     @id @db.Uuid
+  name       String     @unique @db.VarChar(255)
+  created_at DateTime   @db.Timestamptz(6)
+  updated_at DateTime   @db.Timestamptz(6)
+  products   products[]
+}
+
+model cat_req_measurements {
+  id                  String            @id @db.Uuid
+  sub_category_id     String            @db.Uuid
+  measurement_type_id String            @db.Uuid
+  created_at          DateTime          @db.Timestamptz(6)
+  updated_at          DateTime          @db.Timestamptz(6)
+  measurement_types   measurement_types @relation(fields: [measurement_type_id], references: [id], onDelete: Cascade)
+  sub_categories      sub_categories    @relation(fields: [sub_category_id], references: [id], onDelete: Cascade)
+}
+
+model categories {
+  id             String           @id @db.Uuid
+  name           String           @unique @db.VarChar(255)
+  created_at     DateTime         @db.Timestamptz(6)
+  updated_at     DateTime         @db.Timestamptz(6)
+  sub_categories sub_categories[]
+}
+
+model horse_measurements {
+  id                  String            @id @db.Uuid
+  horse_id            String            @db.Uuid
+  measurement_type_id String            @db.Uuid
+  value               Decimal           @db.Decimal(5, 2)
+  measurement_date    DateTime          @db.Timestamptz(6)
+  created_at          DateTime          @db.Timestamptz(6)
+  updated_at          DateTime          @db.Timestamptz(6)
+  horses              horses            @relation(fields: [horse_id], references: [id], onDelete: Cascade)
+  measurement_types   measurement_types @relation(fields: [measurement_type_id], references: [id], onDelete: Cascade)
+}
+
+model horses {
+  id                 String               @id @db.Uuid
+  name               String               @db.VarChar(255)
+  rider_id           String               @db.Uuid
+  created_at         DateTime             @db.Timestamptz(6)
+  updated_at         DateTime             @db.Timestamptz(6)
+  horse_measurements horse_measurements[]
+  riders             riders               @relation(fields: [rider_id], references: [id], onDelete: Cascade)
+}
+
+model measurement_types {
+  id                   String                            @id @db.Uuid
+  code                 String                            @unique @db.VarChar(255)
+  unit                 String                            @db.VarChar(255)
+  applies_to           enum_measurement_types_applies_to
+  description          String?
+  created_at           DateTime                          @db.Timestamptz(6)
+  updated_at           DateTime                          @db.Timestamptz(6)
+  cat_req_measurements cat_req_measurements[]
+  horse_measurements   horse_measurements[]
+  product_size_ranges  product_size_ranges[]
+  rider_measurements   rider_measurements[]
+}
+
+model product_size_ranges {
+  id                  String            @id @db.Uuid
+  product_id          String            @db.Uuid
+  measurement_type_id String            @db.Uuid
+  size_label          String            @db.VarChar(255)
+  min_value           Float
+  max_value           Float
+  created_at          DateTime          @db.Timestamptz(6)
+  updated_at          DateTime          @db.Timestamptz(6)
+  measurement_types   measurement_types @relation(fields: [measurement_type_id], references: [id], onDelete: Cascade)
+  products            products          @relation(fields: [product_id], references: [id], onDelete: Cascade)
+}
+
+model products {
+  id                  String                @id @db.Uuid
+  name                String                @db.VarChar(255)
+  description         String?
+  price               Decimal               @db.Decimal(10, 2)
+  stock               Int                   @default(0)
+  brand_id            String                @db.Uuid
+  sub_category_id     String                @db.Uuid
+  created_at          DateTime              @db.Timestamptz(6)
+  updated_at          DateTime              @db.Timestamptz(6)
+  product_size_ranges product_size_ranges[]
+  brands              brands                @relation(fields: [brand_id], references: [id], onDelete: Cascade)
+  sub_categories      sub_categories        @relation(fields: [sub_category_id], references: [id], onDelete: Cascade)
+}
+
+model rider_measurements {
+  id                  String            @id @db.Uuid
+  rider_id            String            @db.Uuid
+  measurement_type_id String            @db.Uuid
+  value               Decimal           @db.Decimal(5, 2)
+  measurement_date    DateTime          @db.Timestamptz(6)
+  created_at          DateTime          @db.Timestamptz(6)
+  updated_at          DateTime          @db.Timestamptz(6)
+  measurement_types   measurement_types @relation(fields: [measurement_type_id], references: [id], onDelete: Cascade)
+  riders              riders            @relation(fields: [rider_id], references: [id], onDelete: Cascade)
+}
+
+model riders {
+  id                 String               @id @db.Uuid
+  name               String               @db.VarChar(255)
+  last_name          String               @db.VarChar(255)
+  birth_date         DateTime             @db.Timestamptz(6)
+  gender             enum_riders_gender
+  email              String               @unique @db.VarChar(255)
+  password           String               @db.VarChar(255)
+  created_at         DateTime             @db.Timestamptz(6)
+  updated_at         DateTime             @db.Timestamptz(6)
+  horses             horses[]
+  rider_measurements rider_measurements[]
+}
+
+model sub_categories {
+  id                   String                 @id @db.Uuid
+  name                 String                 @db.VarChar(255)
+  category_id          String                 @db.Uuid
+  created_at           DateTime               @db.Timestamptz(6)
+  updated_at           DateTime               @db.Timestamptz(6)
+  cat_req_measurements cat_req_measurements[]
+  products             products[]
+  categories           categories             @relation(fields: [category_id], references: [id], onDelete: Cascade)
+}
+
+enum enum_measurement_types_applies_to {
+  rider
+  horse
+  other
+}
+
+enum enum_riders_gender {
+  male
+  female
+}

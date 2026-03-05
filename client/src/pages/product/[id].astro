@@ -1,0 +1,374 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getProductById } from "../../services/product.service";
+
+export const prerender = false;
+
+const { id } = Astro.params;
+
+const { data: product, error } = await getProductById(id!);
+
+if (error || product === null) return;
+---
+
+<Layout title={`${product.name} - Equestrian Shop`}>
+  <main class="product-detail">
+    <div class="breadcrumb">
+      <a href="/">Home</a>
+      <span class="separator">/</span>
+      <a href="/#products">Products</a>
+      <span class="separator">/</span>
+      <span class="current">{product.name}</span>
+    </div>
+
+    <div class="product-container">
+      <div class="product-image-section">
+        <div class="image-wrapper">
+          <img src={product.image} alt={product.name} class="product-image" />
+        </div>
+      </div>
+
+      <div class="product-info-section">
+        <h1 class="product-title">{product.name}</h1>
+
+        <div class="price-stock">
+          <span class="product-price">${product.price}</span>
+          <span
+            class={`stock-badge ${product.stock > 5 ? "in-stock" : "low-stock"}`}
+          >
+            {product.stock > 5 ? "In Stock" : `Only ${product.stock} left`}
+          </span>
+        </div>
+
+        <p class="product-description">{product.description}</p>
+
+        <div class="quantity-selector">
+          <label for="quantity">Quantity</label>
+          <div class="quantity-controls">
+            <button class="qty-btn" onclick="decreaseQty()">-</button>
+
+            <input
+              type="number"
+              id="quantity"
+              value="1"
+              min="1"
+              max={product.stock}
+            />
+            <button class="qty-btn" onclick="increaseQty()">+</button>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="add-to-cart-btn">
+            <span class="material-icons">shopping_cart</span>
+            Add to Cart
+          </button>
+          <button class="wishlist-btn">
+            <span class="material-icons">favorite_border</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .product-detail {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    font-size: 0.875rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--accent-green);
+  }
+
+  .breadcrumb .separator {
+    color: var(--text-secondary);
+    font-weight: 300;
+  }
+
+  .breadcrumb .current {
+    color: var(--text-primary);
+    font-weight: 600;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .product-container {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  .image-wrapper {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--card-bg);
+    box-shadow: none;
+  }
+
+  .image-wrapper::before {
+    display: none;
+  }
+
+  .product-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+  }
+
+  .category-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--accent-light-green);
+    color: var(--accent-green);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .product-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .price-stock {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .product-price {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--accent-green);
+    letter-spacing: -0.5px;
+  }
+
+  .stock-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stock-badge.in-stock {
+    background: var(--accent-light-green);
+    color: var(--accent-green);
+  }
+
+  .stock-badge.low-stock {
+    background: #fef3c7;
+    color: #d97706;
+  }
+
+  .product-description {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin: 0 0 32px 0;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .check-icon {
+    color: var(--accent-green);
+    font-weight: 700;
+  }
+
+  .quantity-selector {
+    margin-bottom: 28px;
+  }
+
+  .quantity-selector label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: fit-content;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-color);
+  }
+
+  .qty-btn {
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qty-btn:hover {
+    background: var(--accent-light-green);
+    color: var(--accent-green);
+  }
+
+  .qty-btn:active {
+    background: var(--accent-green);
+    color: white;
+  }
+
+  .quantity-controls input {
+    width: 64px;
+    height: 48px;
+    border: none;
+    border-left: 2px solid var(--border-color);
+    border-right: 2px solid var(--border-color);
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: transparent;
+    -moz-appearance: textfield;
+  }
+
+  .quantity-controls input::-webkit-outer-spin-button,
+  .quantity-controls input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .add-to-cart-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--accent-green);
+    color: white;
+    border: none;
+    padding: 18px 36px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(34, 104, 63, 0.25);
+  }
+
+  .add-to-cart-btn:hover {
+    background: var(--brown-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(34, 104, 63, 0.35);
+  }
+
+  .add-to-cart-btn:active {
+    transform: translateY(-1px);
+  }
+
+  .add-to-cart-btn .material-icons {
+    font-size: 22px;
+  }
+
+  .wishlist-btn {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .wishlist-btn:hover {
+    border-color: #e11d48;
+    background: #fef2f2;
+    transform: translateY(-2px);
+  }
+
+  .wishlist-btn .material-icons {
+    color: var(--text-secondary);
+    font-size: 24px;
+    transition: color 0.3s;
+  }
+
+  .wishlist-btn:hover .material-icons {
+    color: #e11d48;
+  }
+
+  @media (max-width: 900px) {
+    .product-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .product-title {
+      font-size: 1.75rem;
+    }
+
+    .product-price {
+      font-size: 1.75rem;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+
+    .wishlist-btn {
+      width: 100%;
+    }
+  }
+</style>

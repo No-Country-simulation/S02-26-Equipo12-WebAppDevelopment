@@ -1,0 +1,16 @@
+---
+import Login from "../components/shared/Login.astro";
+import Layout from "../layouts/Layout.astro";
+
+const token = Astro.cookies.get("token")?.value;
+
+if (token) {
+  return Astro.redirect("/Fitbot");
+}
+---
+
+<Layout title="Login">
+  <div class="fitbot-root">
+    <Login />
+  </div>
+</Layout>

@@ -1,0 +1,83 @@
+---
+import type { Product } from "../../interfaces/product.interface";
+import ProductCard from "./ProductCard.astro";
+
+interface Props {
+  products: Product[];
+  totalPages: number;
+  page: number;
+}
+
+const { products, totalPages, page } = Astro.props;
+
+function formatProduct(product: Product) {
+  return {
+    ...product,
+    name: product.name || "Sin nombre",
+    price: product.price,
+    image: product?.image ?? "https://placehold.co/400x300?text=Product",
+    category: "General",
+    description: product.description || "Sin descripción",
+  };
+}
+---
+
+<div class="products-grid">
+  {products.map((product) => <ProductCard product={formatProduct(product)} />)}
+</div>
+
+{
+  totalPages > 1 && (
+    <div class="pagination">
+      {page > 1 && (
+        <a href={`?page=${page - 1}`} class="pagination-btn">
+          ← Anterior
+        </a>
+      )}
+      <span class="pagination-info">
+        Página {page} de {totalPages}
+      </span>
+      {page < totalPages && (
+        <a href={`?page=${page + 1}`} class="pagination-btn">
+          Siguiente →
+        </a>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 40px;
+    padding: 20px 0;
+  }
+
+  .pagination-btn {
+    background: var(--accent-green);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .pagination-btn:hover {
+    background: var(--brown-dark);
+  }
+
+  .pagination-info {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+</style>

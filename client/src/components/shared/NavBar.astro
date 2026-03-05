@@ -1,35 +1,347 @@
 ---
+import { getCategories } from "../../services/product.service";
 
+interface Category {
+  id: string;
+  name: string;
+  subCategories?: Category[];
+}
+
+interface CategoryGroup {
+  id: string;
+  name: string;
+  subCategories: Category[];
+}
+
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  jinete: [
+    "calzones",
+    "botas",
+    "calzado",
+    "equipamiento de seguridad",
+    "ropa de equitación",
+    "ropa infantil",
+    "guantes",
+    "calcetines",
+    "accesorios",
+    "látigos",
+    "fustas",
+    "espuelas",
+    "regalos",
+    "juguetes",
+  ],
+  horse: [
+    "alfombras",
+    "caballos",
+    "protección de piernas",
+    "cascos",
+    "mantillas",
+    "bridas",
+    "riendas",
+    "sillas",
+    "cinchas",
+    "estribos",
+    "cabestros",
+    "correas",
+    "bocados",
+    "alimentación",
+    "suplementos",
+    "salud",
+    "entrenamiento",
+    "antimoscas",
+  ],
+};
+
+async function fetchCategoryGroups(): Promise<CategoryGroup[]> {
+  const { data } = await getCategories();
+
+  if (data) {
+    const groups: Record<string, Category[]> = {
+      jinete: [],
+      horse: [],
+    };
+
+    data.forEach((category: Category) => {
+      const nameLower = category.name.toLowerCase();
+
+      const isJinete = CATEGORY_KEYWORDS.jinete.some((keyword) =>
+        nameLower.includes(keyword),
+      );
+
+      const isHorse = CATEGORY_KEYWORDS.horse.some((keyword) =>
+        nameLower.includes(keyword),
+      );
+
+      if (isJinete) {
+        groups.jinete.push(category);
+      } else if (isHorse) {
+        groups.horse.push(category);
+      }
+    });
+
+    return [
+      { id: "jinete", name: "Jinete", subCategories: groups.jinete },
+      { id: "horse", name: "Caballo", subCategories: groups.horse },
+    ];
+  }
+  return [];
+}
+
+const { pathname } = Astro.url;
+
+const NAV_ITEMS = [{ href: "/fitbot", label: "Fitbot AI" }] as const;
+
+const categoryGroups = await fetchCategoryGroups();
 ---
 
-<nav>
-    <ul>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#" class="active">Fitbot AI</a></li>
-        <li><a href="#">Journal</a></li>
-        <li><a href="#">About</a></li>
-    </ul>
+<nav class="navbar">
+  <ul class="nav-list">
+    <li class="nav-item">
+      <a href="/" class="nav-link"> Home </a>
+    </li>
+
+    {
+      categoryGroups.map((group) => (
+        <li class="nav-item has-dropdown" data-group-id={group.id}>
+          <a href="#" class="nav-link">
+            {group.name}
+            <span class="arrow">▾</span>
+          </a>
+
+          {group.subCategories.length > 0 && (
+            <div class="dropdown-panel">
+              <div class="categories-list">
+                {group.subCategories.map((cat) => (
+                  <div class="category-row" data-category-id={cat.id}>
+                    <a href={`/category/${cat.id}`} class="category-link">
+                      {cat.name}
+                      {cat.subCategories && cat.subCategories.length > 0 && (
+                        <span class="arrow-right">›</span>
+                      )}
+                    </a>
+
+                    {cat.subCategories && cat.subCategories.length > 0 && (
+                      <div class="submenu-panel">
+                        {cat.subCategories.map((sub) => (
+                          <a
+                            href={`/subcategory/${sub.id}`}
+                            class="submenu-link"
+                          >
+                            {sub.name}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+
+  <ul class="nav-list">
+    {
+      NAV_ITEMS.map(({ href, label }) => {
+        const isCurrentPath = href === pathname;
+
+        return (
+          <li class:list={["nav-item"]}>
+            <a
+              class:list={["nav-link"]}
+              href={href}
+              aria-current={isCurrentPath ? "page" : undefined}
+            >
+              {label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
 </nav>
 
 <style>
-    nav {
-        border: solid 1px rgb(237, 21, 21);
-    }
+  .navbar {
+    display: none;
+  }
 
-    nav ul {
-        display: flex;
-        gap: 32px;
-        list-style: none;
+  @media (min-width: 768px) {
+    .navbar {
+      display: flex;
     }
+  }
 
-    nav a {
-        font-size: 0.95rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-        transition: color 0.2s;
-    }
+  .nav-list {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
 
-    nav a.active {
-        color: var(--accent-green);
-    }
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #7e7e7e);
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 1rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .nav-link:hover {
+    background: var(--bg-color, #f4f6f3);
+    color: var(--text-primary, #3b2f28);
+  }
+
+  .nav-link.highlight {
+    color: var(--accent-green, #2d3e32);
+    font-weight: 600;
+  }
+
+  .nav-link .arrow {
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+    transition: transform 0.2s;
+  }
+
+  .nav-item:hover > .nav-link .arrow,
+  .nav-item.active > .nav-link .arrow {
+    transform: rotate(180deg);
+    color: var(--accent-green);
+  }
+
+  .nav-item:hover > .dropdown-panel,
+  .nav-item.active > .dropdown-panel {
+    display: block;
+  }
+
+  /* Dropdown Panel */
+  .dropdown-panel {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg-white, #fff);
+    border: 1px solid var(--bg-color, #f4f6f3);
+    box-shadow: 0 8px 32px rgba(45, 62, 50, 0.12);
+    min-width: 240px;
+    z-index: 1000;
+    border-radius: 8px;
+    padding: 0.4rem 0;
+  }
+
+  .categories-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .category-row {
+    position: relative;
+  }
+
+  .category-link {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #5a5a5a);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1.25rem;
+    transition: all 0.15s ease;
+  }
+
+  .category-link:hover {
+    background: var(--bg-color, #f4f6f3);
+    color: var(--accent-green, #2d3e32);
+    font-weight: 500;
+  }
+
+  .category-link .arrow-right {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s;
+  }
+
+  .category-link:hover .arrow-right {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--accent-green);
+  }
+
+  /* Submenu Panel */
+  .submenu-panel {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background: var(--bg-white, #fff);
+    border: 1px solid var(--bg-color, #f4f6f3);
+    box-shadow: 0 8px 32px rgba(45, 62, 50, 0.12);
+    min-width: 220px;
+    display: none;
+    z-index: 1001;
+    border-radius: 8px;
+    padding: 0.5rem 0;
+  }
+
+  .category-row:hover > .submenu-panel {
+    display: block;
+  }
+
+  .submenu-link {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #5a5a5a);
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.15s ease;
+  }
+
+  .submenu-link:hover {
+    background: var(--bg-color, #f4f6f3);
+    color: var(--accent-green, #2d3e32);
+    font-weight: 500;
+  }
 </style>
+
+<script>
+  const navItems = document.querySelectorAll(".nav-item.has-dropdown");
+  let currentTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  navItems.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      if (currentTimeout) {
+        clearTimeout(currentTimeout);
+      }
+
+      document
+        .querySelectorAll(".nav-item.has-dropdown.active")
+        .forEach((el) => {
+          if (el !== item) {
+            el.classList.remove("active");
+          }
+        });
+
+      item.classList.add("active");
+    });
+
+    item.addEventListener("mouseleave", () => {
+      currentTimeout = setTimeout(() => {
+        item.classList.remove("active");
+      }, 150);
+    });
+  });
+</script>
