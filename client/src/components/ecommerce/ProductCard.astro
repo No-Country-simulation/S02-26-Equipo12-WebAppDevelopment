@@ -8,7 +8,7 @@ interface Props {
 const { product } = Astro.props;
 ---
 
-<article class="product-card">
+<article class="product-card" data-product={JSON.stringify(product)}>
   <a href={`/product/${product.id}`} class="product-link">
     <div class="product-image-container">
       <img
@@ -17,7 +17,6 @@ const { product } = Astro.props;
         class="product-image"
         loading="lazy"
       />
-      <!-- <span class="product-category">{product.category}</span> -->
     </div>
     <div class="product-info">
       <h3 class="product-name">{product.name}</h3>
@@ -26,9 +25,9 @@ const { product } = Astro.props;
   </a>
   <div class="product-footer">
     <span class="product-price">${product.price}</span>
-    <button class="add-to-cart">
+    <button class="add-to-cart-btn">
       <span class="material-icons">shopping_cart</span>
-      Add
+      <span class="btn-text">Add</span>
     </button>
   </div>
 </article>
@@ -119,7 +118,7 @@ const { product } = Astro.props;
     color: var(--accent-green);
   }
 
-  .add-to-cart {
+  .add-to-cart-btn {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -134,12 +133,24 @@ const { product } = Astro.props;
     transition: all 0.2s ease;
   }
 
-  .add-to-cart:hover {
+  .add-to-cart-btn:hover {
     background: var(--brown-dark);
   }
 
-  .add-to-cart .material-icons {
+  .add-to-cart-btn .material-icons {
     font-size: 18px;
+  }
+
+  .add-to-cart-btn.added {
+    background: #059669;
+  }
+
+  .add-to-cart-btn.added .btn-text {
+    display: none;
+  }
+
+  .add-to-cart-btn.added::after {
+    content: "Added";
   }
 
   @media (max-width: 768px) {
@@ -157,3 +168,43 @@ const { product } = Astro.props;
     }
   }
 </style>
+
+<script>
+  import { useBoundStore } from "../../context";
+
+  function attachCartHandlers() {
+    document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const card = (e.target as HTMLElement).closest(".product-card");
+        const productData = card?.getAttribute("data-product");
+
+        if (productData) {
+          const product = JSON.parse(productData);
+          useBoundStore.getState().addItem(product, 1);
+
+          // Visual feedback
+          const button = (e.target as HTMLElement).closest(
+            ".add-to-cart-btn"
+          ) as HTMLElement;
+          button.classList.add("added");
+
+          setTimeout(() => {
+            button.classList.remove("added");
+          }, 1500);
+
+          // Dispatch event for cart button update
+          window.dispatchEvent(new CustomEvent("cart-updated"));
+        }
+      });
+    });
+  }
+
+  // Run on initial load
+  attachCartHandlers();
+
+  // Run on each navigation with ClientRouter
+  document.addEventListener("astro:page-load", attachCartHandlers);
+</script>
