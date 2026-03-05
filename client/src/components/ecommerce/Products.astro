@@ -1,6 +1,20 @@
 ---
 import ProductsGrid from "./ProductsGrid.astro";
-import ProductsSkeleton from "./ProductsSkeleton.astro";
+
+import { getProducts } from "../../services/product.service";
+import type { Products } from "../../interfaces/product.interface";
+
+const url = new URL(Astro.request.url);
+const page = parseInt(url.searchParams.get("page") || "1");
+
+const { data: productsResponse, error } = await getProducts(page);
+
+const products = productsResponse?.data || [];
+const totalPages = productsResponse?.totalPages || 1;
+
+if (error) {
+  console.error("Error fetching products:", error);
+}
 ---
 
 <section id="products" class="products-section">
@@ -9,9 +23,7 @@ import ProductsSkeleton from "./ProductsSkeleton.astro";
     <p class="section-subtitle">Explore our selection of quality products</p>
   </div>
 
-  <ProductsGrid server:defer>
-    <ProductsSkeleton slot="fallback" />
-  </ProductsGrid>
+  <ProductsGrid products={products} page={page} totalPages={totalPages} />
 </section>
 
 <style>

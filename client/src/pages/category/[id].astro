@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProductsGrid from "../../components/ecommerce/ProductsGrid.astro";
+import { getProductsByCategoryId } from "../../services/product.service";
+
+export const prerender = false;
+
+const { id } = Astro.params;
+
+const url = new URL(Astro.request.url);
+const page = parseInt(url.searchParams.get("page") || "1");
+
+const { data: productsResponse, error } = await getProductsByCategoryId(id!);
+
+const products = productsResponse?.data || [];
+const totalPages = productsResponse?.totalPages || 1;
+
+if (error) {
+  console.error("Error fetching products:", error);
+}
+---
+
+<Layout title={`Category ${id} - Equestrian Shop`}>
+  <main class="home">
+    <ProductsGrid products={products} totalPages={totalPages} page={page} />
+  </main>
+</Layout>
+
+<style>
+  .home {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 24px;
+  }
+</style>

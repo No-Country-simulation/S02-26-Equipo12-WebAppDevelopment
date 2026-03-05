@@ -1,104 +1,83 @@
 ---
+import type { Product } from "../../interfaces/product.interface";
 import ProductCard from "./ProductCard.astro";
-import { sleep } from "../../utils/sleep";
 
-export const prerender = false;
-
-await sleep();
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  description: string;
+interface Props {
+  products: Product[];
+  totalPages: number;
+  page: number;
 }
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Premium Horse Feed",
-    price: 45.99,
-    image:
-      "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
-    category: "Nutrition",
-    description: "High-quality feed for optimal horse health",
-  },
-  {
-    id: 2,
-    name: "Riding Helmet Pro",
-    price: 129.99,
-    image:
-      "https://images.unsplash.com/photo-1535082623926-b37a8d9f7f86?w=400&h=300&fit=crop",
-    category: "Safety",
-    description: "Certified protection for equestrian sports",
-  },
-  {
-    id: 3,
-    name: "Leather Saddle",
-    price: 899.99,
-    image:
-      "https://images.unsplash.com/photo-1595975342333-39e5c1c2448d?w=400&h=300&fit=crop",
-    category: "Equipment",
-    description: "Handcrafted premium leather saddle",
-  },
-  {
-    id: 4,
-    name: "Horse Brush Set",
-    price: 34.99,
-    image:
-      "https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=400&h=300&fit=crop",
-    category: "Grooming",
-    description: "Complete grooming kit for your horse",
-  },
-  {
-    id: 5,
-    name: "Riding Boots Elite",
-    price: 189.99,
-    image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
-    category: "Apparel",
-    description: "Professional riding boots with ankle support",
-  },
-  {
-    id: 6,
-    name: "Stable Mat",
-    price: 59.99,
-    image:
-      "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400&h=300&fit=crop",
-    category: "Stable",
-    description: "Anti-fatigue stable flooring solution",
-  },
-  {
-    id: 7,
-    name: "Horse Supplements",
-    price: 28.99,
-    image:
-      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=300&fit=crop",
-    category: "Nutrition",
-    description: "Vitamins and minerals supplement pack",
-  },
-  {
-    id: 8,
-    name: "Equestrian Gloves",
-    price: 24.99,
-    image:
-      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=300&fit=crop",
-    category: "Apparel",
-    description: "Breathable riding gloves with grip",
-  },
-];
+const { products, totalPages, page } = Astro.props;
+
+function formatProduct(product: Product) {
+  return {
+    id: product.id,
+    name: product.name || "Sin nombre",
+    price: parseFloat(product.price) || 0,
+    image: "https://placehold.co/400x300?text=Product",
+    category: "General",
+    description: product.description || "Sin descripción",
+  };
+}
 ---
 
 <div class="products-grid">
-  {products.map((product) => <ProductCard product={product} />)}
+  {products.map((product) => <ProductCard product={formatProduct(product)} />)}
 </div>
+
+{
+  totalPages > 1 && (
+    <div class="pagination">
+      {page > 1 && (
+        <a href={`?page=${page - 1}`} class="pagination-btn">
+          ← Anterior
+        </a>
+      )}
+      <span class="pagination-info">
+        Página {page} de {totalPages}
+      </span>
+      {page < totalPages && (
+        <a href={`?page=${page + 1}`} class="pagination-btn">
+          Siguiente →
+        </a>
+      )}
+    </div>
+  )
+}
 
 <style>
   .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 40px;
+    padding: 20px 0;
+  }
+
+  .pagination-btn {
+    background: var(--accent-green);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .pagination-btn:hover {
+    background: var(--brown-dark);
+  }
+
+  .pagination-info {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
   }
 </style>
