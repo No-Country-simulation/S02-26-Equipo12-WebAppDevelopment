@@ -1,12 +1,5 @@
 ---
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  description: string;
-}
+import type { Product } from "../../interfaces/product.interface";
 
 interface Props {
   product: Product;
@@ -24,7 +17,7 @@ const { product } = Astro.props;
         class="product-image"
         loading="lazy"
       />
-      <span class="product-category">{product.category}</span>
+      <!-- <span class="product-category">{product.category}</span> -->
     </div>
     <div class="product-info">
       <h3 class="product-name">{product.name}</h3>
@@ -32,7 +25,7 @@ const { product } = Astro.props;
     </div>
   </a>
   <div class="product-footer">
-    <span class="product-price">${product.price.toFixed(2)}</span>
+    <span class="product-price">${product.price}</span>
     <button class="add-to-cart">
       <span class="material-icons">shopping_cart</span>
       Add

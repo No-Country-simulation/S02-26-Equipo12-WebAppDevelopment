@@ -12,10 +12,10 @@ const { products, totalPages, page } = Astro.props;
 
 function formatProduct(product: Product) {
   return {
-    id: product.id,
+    ...product,
     name: product.name || "Sin nombre",
-    price: parseFloat(product.price) || 0,
-    image: "https://placehold.co/400x300?text=Product",
+    price: product.price,
+    image: product?.image ?? "https://placehold.co/400x300?text=Product",
     category: "General",
     description: product.description || "Sin descripción",
   };
