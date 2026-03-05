@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { RecommendationService } from "../services/recommendation.service";
 import { AIServices } from "../services/ia.services";
+import { Product } from "../models/productModel"
 
 export class RecommendationController {
     private service = new RecommendationService();
@@ -25,11 +26,19 @@ export class RecommendationController {
                 return res.status(400).json({ error: "Missing required parameters" });
             }
 
+            const product = await Product.findByPk(productId);
+
             // Ejecutar service
             const engineResult = await this.service.getRecommendations(riderId, horseId, productId);
 
             //obtener insight de ia
-            const aiInsight = await this.aiService.analyzeRecommendation(engineResult);
+            const aiInsight = await this.aiService.analyzeRecommendation(
+                engineResult,
+                {
+                    productName: product?.name || "equestrian product", 
+                    measurements: {}
+                }
+            );
 
             res.status(200).json({
                 engineResult,

@@ -3,6 +3,8 @@ import { EngineResult, EngineInput, GroupedSize } from "./recommendation.engine"
 import { ProductSizeRange, MeasurementType } from "../models";
 import { RiderMeasurement } from "../models/riderMeasurement";
 import { HorseMeasurement } from "../models/horseMeasurement";
+//import { Product } from "../models/productModel";
+//import { CategoryRequirement } from "../models/categoryRequirement"
 
 export class RecommendationService {
 
@@ -12,27 +14,29 @@ export class RecommendationService {
     productId: string
   ): Promise<EngineResult> {
 
-    // 1️⃣ Obtener medidas requeridas por producto
+    // 1️ Obtener medidas requeridas por producto
     const requiredMeasurementTypes = await this.getRequiredMeasurementTypes(productId);
 
-    // 2️⃣ Obtener medidas del rider y horse
+    // 2️ Obtener medidas del rider y horse
     const measurements = await this.getMeasurementsForProduct(
       riderId,
       horseId,
       requiredMeasurementTypes
     );
 
-    // 3️⃣ Obtener tallas agrupadas con sus rangos
+    // 3️ Obtener tallas agrupadas con sus rangos
     const groupedSizes = await this.getGroupedSizes(productId);
 
-    // 4️⃣ Construir input del engine
+    // 4️ Construir input del engine
+    console.log("requiredMeasurementTypes", requiredMeasurementTypes);
+    console.log("measurements", measurements);
     const input: EngineInput = {
       measurements,
       requiredMeasurementTypes,
       groupedSizes
     };
 
-    // 5️⃣ Ejecutar motor
+    // 5️ Ejecutar motor
     return calculateBestSizes(input);
   }
 
@@ -64,15 +68,15 @@ export class RecommendationService {
     // Buscar medidas del rider
     const riderMeasurements = riderTypeIds.length > 0
       ? await RiderMeasurement.findAll({
-          where: { riderId, measurementTypeId: riderTypeIds }
-        })
+        where: { riderId, measurementTypeId: riderTypeIds }
+      })
       : [];
 
     // Buscar medidas del horse
     const horseMeasurements = horseTypeIds.length > 0
       ? await HorseMeasurement.findAll({
-          where: { horseId, measurementTypeId: horseTypeIds }
-        })
+        where: { horseId, measurementTypeId: horseTypeIds }
+      })
       : [];
 
     // Construir objeto final por code
@@ -80,22 +84,49 @@ export class RecommendationService {
 
     for (const rm of riderMeasurements) {
       const type = measurementTypes.find(t => t.id === rm.measurementTypeId);
-      if (type) result[type.code] = rm.value;
+      if (type) result[type.code] = Number(rm.value);
     }
 
     for (const hm of horseMeasurements) {
       const type = measurementTypes.find(t => t.id === hm.measurementTypeId);
-      if (type) result[type.code] = hm.value;
+      if (type) result[type.code] = Number(hm.value);
     }
 
     return result;
   }
 
-  private async getRequiredMeasurementTypes(_productId: string): Promise<string[]> {
-    // Mock temporal: devuelve todos los MeasurementType existentes
-    const types = await MeasurementType.findAll({ attributes: ['code'] });
-    return types.map(t => t.code);
+  /*private async getRequiredMeasurementTypes(_productId: string): Promise<string[]> {
+
+    const product = await Product.findByPk(_productId);
+
+    if (!product) throw new Error('Product not found');
+ 
+    
+    const requirements = await CategoryRequirement.findAll({
+      where: { subCategoryId: product.subCategoryId },
+      include: [{
+        model: MeasurementType,
+        attributes: ['code']
+      }]
+    });
+
+    
+
+    return requirements.map(r => r.measurementType.code);
   }
+*/
+
+private async getRequiredMeasurementTypes(productId: string): Promise<string[]> {
+
+  const ranges = await ProductSizeRange.findAll({
+    where: { productId },
+    include: [{ model: MeasurementType, attributes: ['code'] }]
+  });
+
+  const codes = ranges.map(r => r.measurementType.code);
+
+  return [...new Set(codes)];
+}
 
   private async getGroupedSizes(_productId: string): Promise<GroupedSize[]> {
 
@@ -112,9 +143,10 @@ export class RecommendationService {
       const measurementCode = range.measurementType.code;
 
       if (!groupedMap[sizeLabel]) {
-        groupedMap[sizeLabel] = { 
+        groupedMap[sizeLabel] = {
           sizeLabel,
-           measurements: {} };
+          measurements: {}
+        };
       }
 
       groupedMap[sizeLabel].measurements[measurementCode] = {
