@@ -32,10 +32,10 @@ export class MeasurementType extends Model {
     declare unit: string;
 
     @Column({
-        type: DataType.ENUM('rider', 'horse', 'other'),
+        type: DataType.ENUM('rider', 'horse'),
         allowNull: false,
     })
-    declare appliesTo: 'rider' | 'horse' | 'other';
+    declare appliesTo: 'rider' | 'horse';
 
     @Column({
         type: DataType.TEXT,

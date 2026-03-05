@@ -7,7 +7,8 @@ import { ProductRoutes } from "./product.routes";
 import { RiderMeasurementsRoutes } from "./riderMeasurements.routes";
 import { HorseRoutes } from "./horse.routes";
 import { HorseMeasurementsRoutes } from "./horseMeasurements.routes";
-//import { AIRoutes } from "./ai.routes";
+import { AIRoutes } from "./ai.routes";
+import { RecommendationRoutes } from "./recommendation.routes"
 
 export class AppRoutes {
   static get routes() {
@@ -32,9 +33,13 @@ export class AppRoutes {
 
     //Horse Measurements
     router.use("/horses", HorseMeasurementsRoutes.routes);
+    
+    // AI
+    router.use("/api/v1/ai", AIRoutes);
 
-    //AI
-    //router.use('/ai', AIRoutes.routes);
-    return router;
+    //Recommendations
+    router.use("/recommendations", RecommendationRoutes.routes);
+
+    return router
   }
 }
