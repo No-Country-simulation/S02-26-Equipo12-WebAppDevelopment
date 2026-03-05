@@ -60,6 +60,8 @@ export function calculateBestSizes(input: EngineInput): EngineResult {
     const compatibleResults: SizeResult[] = [];
 
     //2 evaluar cada talla
+    console.log("INPUT ENGINE", JSON.stringify(input, null, 2));
+    
     for (const size of groupedSizes) {
 
         //validar que la talla tenga todas las medidas reqqueridas
