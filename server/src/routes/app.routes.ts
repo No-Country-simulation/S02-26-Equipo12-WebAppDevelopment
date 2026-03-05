@@ -5,6 +5,9 @@ import { CategoryRoutes } from "./category.routes";
 import { ExampleRoutes } from "./example.routes";
 import { ProductRoutes } from "./product.routes";
 import { RiderMeasurementsRoutes } from "./riderMeasurements.routes";
+import { HorseRoutes } from "./horse.routes";
+import { HorseMeasurementsRoutes } from "./horseMeasurements.routes";
+//import { AIRoutes } from "./ai.routes";
 
 export class AppRoutes {
   static get routes() {
@@ -24,6 +27,14 @@ export class AppRoutes {
     // Categories
     router.use("/categories", CategoryRoutes.routes);
 
+    //Horses
+    router.use("/riders", HorseRoutes.routes);
+
+    //Horse Measurements
+    router.use("/horses", HorseMeasurementsRoutes.routes);
+
+    //AI
+    //router.use('/ai', AIRoutes.routes);
     return router;
   }
 }

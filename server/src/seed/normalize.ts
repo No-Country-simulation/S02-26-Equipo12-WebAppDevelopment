@@ -7,6 +7,7 @@ export type NormalizedProduct = {
   price: number;
   stock: number;
   handle: string;
+  image: string | null;
   sizeRanges: Array<{
     sizeLabel: string;
     minValue: number;
@@ -92,6 +93,9 @@ export const normalizeProduct = (
   const handle = cleanText(product.handle);
   const price = normalizePrice(product);
 
+  const base = variants[0] ?? product;
+  const imageUrl = cleanText(base.product_image) || null;
+
   if (!name || !brand || !handle || price === null) {
     return null;
   }
@@ -107,6 +111,7 @@ export const normalizeProduct = (
     price,
     stock: hasStock ? 1 : 0,
     handle,
+    image: imageUrl,
     sizeRanges,
   };
 };

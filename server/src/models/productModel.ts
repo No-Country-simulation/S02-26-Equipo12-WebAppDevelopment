@@ -22,13 +22,19 @@ export class Product extends Model {
         allowNull: false
     })
     declare name: string;
-    
+
 
     @Column({
         type: DataType.TEXT,
         allowNull: true
     })
-    declare description: string | null  ;
+    declare description: string | null;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: true
+    })
+    declare image: string | null;
 
     @Column({
         type: DataType.DECIMAL(10, 2),
