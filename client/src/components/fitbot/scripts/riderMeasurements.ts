@@ -1,8 +1,13 @@
 type MeasurementsPayload = {
   measurementTypeId: string;
   value: number;
-  measurementDate?: string; 
+  measurementDate?: string;
 };
+
+type ExistingMeasurement = {
+  id: string;
+  measurementTypeId: string;
+}
 
 const API_BASE = import.meta.env.PUBLIC_SERVER_URL;
 
@@ -16,12 +21,53 @@ const MEASUREMENT_TYPE_IDS: Record<string, string> = {
   riderHeadCircumference: "aa1c7861-6260-4ac3-83bd-8563037a711a",
 };
 
+
+async function getMeasurements(riderId: string): Promise<ExistingMeasurement[]> {
+
+  const res = await fetch(`${API_BASE}/riders/${riderId}/measurements`, {
+    headers: { "Accept": "application/json" }
+  });
+
+  if (!res.ok) throw new Error(await res.text());
+
+  return res.json();
+
+  
+}
+
+
+// async function getMeasurements(riderId: string): Promise<ExistingMeasurement[]> {
+//   const url = `${API_BASE}/riders/${riderId}/measurements`;
+
+//   console.log("[GET measurements] riderId =", riderId);
+//   console.log("[GET measurements] url =", url);
+
+//   const res = await fetch(url, { headers: { Accept: "application/json" } });
+
+//   console.log("[GET measurements] status =", res.status);
+
+//   if (!res.ok) throw new Error(await res.text());
+//   return res.json();
+// }
+
+
 async function postMeasurements(body: MeasurementsPayload): Promise<Response> {
   return fetch(`${API_BASE}/riders/${RIDER_ID_DEMO}/measurements`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
+}
+
+
+async function updateMeasurements(riderId: string, measurementId: string, body: Partial<MeasurementsPayload>): Promise<Response> {
+
+  return fetch(`${API_BASE}/riders/${riderId}/measurements/${measurementId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  })
+
 }
 
 export function mountRiderMeasurementsForm(formId = "rider-measurements-form"): void {
@@ -39,12 +85,31 @@ export function mountRiderMeasurementsForm(formId = "rider-measurements-form"): 
       return;
     }
 
+
+    let existingMeasurements: ExistingMeasurement[] = [];
+
+    console.log("[submit] RIDER_ID_DEMO =", RIDER_ID_DEMO);
+
+    try {
+      existingMeasurements = await getMeasurements(RIDER_ID_DEMO);
+
+      console.log("existingMeasurements RAW:", existingMeasurements);
+console.log("first item:", existingMeasurements?.[0]);
+
+    }
+    catch (err) {
+      console.error("No se puede listar measures", err);
+      return;
+    }
+
+    const existingByType = new Map(existingMeasurements.map(m => [m.measurementTypeId, m.id]));
+
     const formData = new FormData(form);
     const payload: Promise<Response>[] = [];
 
     for (const [fieldName, measurementTypeId] of Object.entries(MEASUREMENT_TYPE_IDS)) {
       const rawValue = formData.get(fieldName);
-      if (rawValue== null || String(rawValue).trim() === "") continue;
+      if (rawValue == null || String(rawValue).trim() === "") continue;
 
       const value = Number(rawValue);
       if (!Number.isFinite(value)) {
@@ -52,12 +117,14 @@ export function mountRiderMeasurementsForm(formId = "rider-measurements-form"): 
         return;
       }
 
-    payload.push(
-        postMeasurements({
-          measurementTypeId,
-          value,
-        })
-      );
+      const existingId = existingByType.get(measurementTypeId);
+
+      if (existingId) {
+        payload.push(updateMeasurements(RIDER_ID_DEMO, existingId, { value }))
+      } else {
+        payload.push(postMeasurements({ measurementTypeId, value }));
+      }
+
     }
 
     if (!payload.length) {
@@ -73,9 +140,10 @@ export function mountRiderMeasurementsForm(formId = "rider-measurements-form"): 
       return;
     }
 
-    alert("Measurements saved");
-    form.reset();
-    window.location.assign("/fitbot");
+
+    // alert("Measurements saved");
+    // form.reset();
+    // window.location.assign("/fitbot");
 
   });
 
