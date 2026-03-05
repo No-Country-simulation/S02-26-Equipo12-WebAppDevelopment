@@ -17,6 +17,30 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const token = Astro.cookies.get("token")?.value;
+const isAuthenticated = !!token;
+
+let userData = null;
+if (token) {
+  try {
+    const parts = token.split(".");
+    if (parts.length === 3) {
+      const payload = JSON.parse(
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
+      );
+      userData = {
+        id: payload.id,
+        email: payload.email,
+        name: payload.name,
+        lastname: payload.lastName,
+        gender: payload.gender,
+      };
+    }
+  } catch (e) {
+    // invalid token
+  }
+}
 ---
 
 <!doctype html>
@@ -43,7 +67,7 @@ const { title } = Astro.props;
   </head>
 
   <body>
-    <Header />
+    <Header isAuthenticated={isAuthenticated} />
 
     <slot />
 
@@ -52,7 +76,7 @@ const { title } = Astro.props;
     <Footer />
 
     <Toaster client:load richColors position="top-right" />
-    <AuthProvider client:load />
+    <AuthProvider client:load initialUser={userData} isAuthenticated={isAuthenticated} />
   </body>
 </html>
 
