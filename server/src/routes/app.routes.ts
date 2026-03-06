@@ -8,7 +8,8 @@ import { RiderMeasurementsRoutes } from "./riderMeasurements.routes";
 import { HorseRoutes } from "./horse.routes";
 import { HorseMeasurementsRoutes } from "./horseMeasurements.routes";
 import { AIRoutes } from "./ai.routes";
-import { RecommendationRoutes } from "./recommendation.routes"
+//import { RecommendationRoutes } from "./recommendation.routes"
+import { ChatRoutes } from "./chat.routes"
 
 export class AppRoutes {
   static get routes() {
@@ -38,8 +39,10 @@ export class AppRoutes {
     router.use("/api/v1/ai", AIRoutes);
 
     //Recommendations
-    router.use("/recommendations", RecommendationRoutes.routes);
+   // router.use("/recommendations", RecommendationRoutes.routes);
 
+    //Chat
+    router.use("/chat", ChatRoutes.routes);
     return router
   }
 }
