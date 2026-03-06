@@ -32,17 +32,17 @@ async function getHorseMeasurements(horseId: string): Promise<ExistingMeasuremen
         headers: { "Accept": "application/json" }
     });
 
-    if(!res.ok) throw new Error(await res.text());
+    if (!res.ok) throw new Error(await res.text());
 
     return res.json();
 }
 
 
 //Post
-async function postHorseMeasurements(body: MeasurementsPayload): Promise <Response> {
+async function postHorseMeasurements(body: MeasurementsPayload): Promise<Response> {
     return fetch(`${API_BASE}/horses/${HORSE_ID_DEMO}/measurements`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
     });
 }
@@ -53,13 +53,15 @@ async function updateHorseMeasurements(horseId: string, measurementId: string, b
 
     return fetch(`${API_BASE}/horses/${horseId}/measurements/${measurementId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
     })
 }
 
 
-export function mountHorseMeasurementsForm (formId = "horse-measurements-form") : void {
+export function mountHorseMeasurementsForm(formId = "horse-measurements-form"): void {
+    console.log("hola");
+    console.log("equifit-storage:", localStorage.getItem("equifit-storage"));
 
     const form = document.getElementById(formId);
 
@@ -75,11 +77,11 @@ export function mountHorseMeasurementsForm (formId = "horse-measurements-form") 
             console.error("Set HORSE DEMO")
             return
         }
-        
+
         console.log("[submit] HORSE_DEMO =", HORSE_ID_DEMO)
 
 
-        let horseMeasurementsDb : ExistingMeasurement[] = [];
+        let horseMeasurementsDb: ExistingMeasurement[] = [];
 
         try {
 
@@ -87,22 +89,22 @@ export function mountHorseMeasurementsForm (formId = "horse-measurements-form") 
 
             console.log("Horse Measurements RAW", horseMeasurementsDb);
             console.log("First Item: ", horseMeasurementsDb?.[0]);
-            
+
         } catch (error) {
             console.error("No se puede listar las medidas de horse", error);
 
             return;
         }
 
-        const existingType = new Map(horseMeasurementsDb.map( m => [m.measurementTypeId, m.id]));
+        const existingType = new Map(horseMeasurementsDb.map(m => [m.measurementTypeId, m.id]));
 
         const formData = new FormData(form);
-        const payload : Promise<Response>[] = []
+        const payload: Promise<Response>[] = []
 
         for (const [fieldName, measurementTypeId] of Object.entries(MEASUREMENT_TYPE_IDS)) {
             const rawValue = formData.get(fieldName);
 
-            if(rawValue == null || String(rawValue).trim() === "") continue;
+            if (rawValue == null || String(rawValue).trim() === "") continue;
 
             const value = Number(rawValue);
             if (!Number.isFinite(value)) {
@@ -112,22 +114,22 @@ export function mountHorseMeasurementsForm (formId = "horse-measurements-form") 
 
             const existingMeasurementId = existingType.get(measurementTypeId);
 
-            if(existingMeasurementId) {
+            if (existingMeasurementId) {
                 payload.push(updateHorseMeasurements(HORSE_ID_DEMO, existingMeasurementId, { value }))
             } else {
-                payload.push(postHorseMeasurements({measurementTypeId, value}));
+                payload.push(postHorseMeasurements({ measurementTypeId, value }));
             }
         }
 
-        if(!payload.length) {
+        if (!payload.length) {
             console.log("No measurements")
-        return
-    }
+            return
+        }
 
 
-    alert("Horse Measurements saved");
-    form.reset();
-    window.location.assign("/fitbot");
+        alert("Horse Measurements saved");
+        form.reset();
+        window.location.assign("/fitbot");
 
     })
 }
