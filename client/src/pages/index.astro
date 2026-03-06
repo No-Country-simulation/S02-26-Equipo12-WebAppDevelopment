@@ -1,20 +1,13 @@
 ---
 import Products from "../components/ecommerce/Products.astro";
-
 import Layout from "../layouts/Layout.astro";
-
-import UITest from "./ui-test.astro";
-
 export const prerender = false;
 
 ---
 
 <Layout title="Shop - Home">
-  <div class="fitbot-root">
-    <UITest />
-  </div>
-  
-  <!-- <main class="home">
+
+  <main class="home">
     <section class="hero">
       <div class="hero-content">
         <span class="hero-tag">Welcome to</span>
@@ -26,9 +19,10 @@ export const prerender = false;
     </section>
 
     <Products />
-  </main> -->
+  </main>
 
   <style>
+    
     .home {
       align-items: stretch;
       width: 100%;
