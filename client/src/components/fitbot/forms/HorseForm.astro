@@ -5,6 +5,8 @@ import Field from "../../ui/Form/Field.astro";
 import Input from "../../ui/Form/Input.astro";
 
 import Button from "../../ui/Button.astro";
+
+import "./index.css";
 ---
 
 <div class="form-panel-container">
@@ -14,9 +16,7 @@ import Button from "../../ui/Button.astro";
                 <div slot="form-header">
                     <header>
                         <h2>Horse Measurements</h2>
-                        <p>
-                            Enter the measurements in centimeters.
-                        </p>
+                        <p>Enter the measurements in centimeters.</p>
                     </header>
                 </div>
 
@@ -39,7 +39,6 @@ import Button from "../../ui/Button.astro";
                         placeholder="0.0"
                     />
                 </Field>
-
             </FormSection>
 
             <div class="button-container">
@@ -53,7 +52,23 @@ import Button from "../../ui/Button.astro";
 </div>
 
 <style>
-    /* Estilos conservados tal cual */
+    header {
+        /* background-color: aqua; */
+        display: flex;
+        flex-direction: column;
+    }
+
+    p {
+        margin-top: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
     .select-wrapper {
         position: relative;
         display: flex;
@@ -61,7 +76,10 @@ import Button from "../../ui/Button.astro";
         background-color: var(--bg-white);
         border: 1px solid var(--border-light);
         border-radius: 8px;
-        transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s,
+            background-color 0.2s;
         overflow: hidden;
     }
 
@@ -90,28 +108,15 @@ import Button from "../../ui/Button.astro";
         border-color: var(--primary);
     }
 
-    .how-to {
-        float: right;
-        font-size: 0.8rem;
-        color: var(--text-gray);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .how-to:hover {
-        color: var(--primary-green-hover);
-    }
-
     .button-container {
         display: flex;
         justify-content: space-around;
-        margin-top: 2rem; /* Añadido un poco de espacio arriba de los botones */
+        margin-top: 2rem;
     }
 
     .form-panel-container {
         max-width: 100%;
+        height: 700px;
         display: flex;
         justify-content: center;
         overflow-y: auto;
