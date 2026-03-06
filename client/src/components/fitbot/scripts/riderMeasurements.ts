@@ -35,22 +35,6 @@ async function getMeasurements(riderId: string): Promise<ExistingMeasurement[]> 
   
 }
 
-
-// async function getMeasurements(riderId: string): Promise<ExistingMeasurement[]> {
-//   const url = `${API_BASE}/riders/${riderId}/measurements`;
-
-//   console.log("[GET measurements] riderId =", riderId);
-//   console.log("[GET measurements] url =", url);
-
-//   const res = await fetch(url, { headers: { Accept: "application/json" } });
-
-//   console.log("[GET measurements] status =", res.status);
-
-//   if (!res.ok) throw new Error(await res.text());
-//   return res.json();
-// }
-
-
 async function postMeasurements(body: MeasurementsPayload): Promise<Response> {
   return fetch(`${API_BASE}/riders/${RIDER_ID_DEMO}/measurements`, {
     method: "POST",
