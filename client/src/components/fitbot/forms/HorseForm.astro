@@ -20,22 +20,22 @@ import "./index.css";
                     </header>
                 </div>
 
-                <Field label="Back Length" name="backLength">
+                <Field label="Back Length" name="horseBackLength">
                     <Input
                         type="number"
                         suffix="cm"
-                        name="backLength"
-                        id="backLength"
+                        name="horseBackLength"
+                        id="horseBackLength"
                         placeholder="0.0"
                     />
                 </Field>
 
-                <Field label="Girth Circumference" name="girthCircumference">
+                <Field label="Girth Circumference" name="horseGirthCircumference">
                     <Input
                         type="number"
                         suffix="cm"
-                        name="girthCircumference"
-                        id="girthCircumference"
+                        name="horseGirthCircumference"
+                        id="horseGirthCircumference"
                         placeholder="0.0"
                     />
                 </Field>
@@ -124,3 +124,12 @@ import "./index.css";
         padding-bottom: 120px;
     }
 </style>
+
+
+<script is:inline type="module">
+
+    import { mountHorseMeasurementsForm } from "./src/components/fitbot/scripts/horseMeasurements";
+
+    mountHorseMeasurementsForm("horse-measurements-form");
+
+</script>
