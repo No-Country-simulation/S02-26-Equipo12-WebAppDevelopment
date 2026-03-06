@@ -17,6 +17,8 @@ export const useBoundStore = create<AuthSlice & CartSlice>()(
         storage: createJSONStorage(() => localStorage),
         partialize: (state) => ({
           items: state.items,
+          user: state.user,
+          state: state.state,
         }),
       }
     )
