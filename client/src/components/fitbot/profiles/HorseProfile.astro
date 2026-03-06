@@ -5,7 +5,6 @@ import HorseIcon from "../../ui/Icons/horse.svg";
 import EditLogo from "../../ui/Icons/edit.svg";
 
 const { completed = false } = Astro.props;
-
 ---
 
 <Card completed={completed}>
@@ -21,12 +20,21 @@ const { completed = false } = Astro.props;
         </p>
 
         {
-            completed
-            ? <Button size="md"> Edit Horse Profile <EditLogo/> </Button>
-            : <Button size="md"> Configure Horse <span>&rarr;</span> </Button>
+            completed ? (
+                <a href="/horse">
+                    <Button size="md">
+                        {" "}
+                        Edit Horse Profile <EditLogo />{" "}
+                    </Button>{" "}
+                </a>
+            ) : (
+                <a href="/horse">
+                    <Button size="md">
+                        {" "}
+                        Configure Horse <span>&rarr;</span>{" "}
+                    </Button>{" "}
+                </a>
+            )
         }
-
     </div>
-
 </Card>
-

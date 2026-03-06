@@ -21,15 +21,19 @@ const { completed = false } = Astro.props;
 
         {
             completed ? (
-                <Button size="md">
-                    {" "}
-                    Edit Profile <EditLogo />{" "}
-                </Button>
+                <a href="/rider">
+                    <Button size="md">
+                        {" "}
+                        Edit Profile <EditLogo />{" "}
+                    </Button>
+                </a>
             ) : (
-                <Button size="md">
-                    {" "}
-                    Configure Rider <span>&rarr;</span>{" "}
-                </Button>
+                <a href="/rider">
+                    <Button size="md">
+                        {" "}
+                        Configure Rider <span>&rarr;</span>{" "}
+                    </Button>
+                </a>
             )
         }
     </div>
