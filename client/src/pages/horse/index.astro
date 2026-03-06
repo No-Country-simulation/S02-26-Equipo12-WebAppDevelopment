@@ -1,10 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import HorseForm from "../../components/fitbot/forms/HorseForm.astro";
+
+export const prerender = false;
 ---
 
-<Layout title="FitBot Horse Profile">
-    <div class="fitbot-root">
-        <HorseForm />
-    </div>
+<Layout title="FitBot Perfil de Caballo">
+  <div class="fitbot-root">
+    <HorseForm />
+  </div>
 </Layout>

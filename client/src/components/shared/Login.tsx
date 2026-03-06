@@ -25,7 +25,7 @@ export const Login = () => {
     });
 
     if (!res.ok) {
-      setError("Invalid email or password");
+      setError("Correo electrónico o contraseña inválidos");
       return;
     }
 
@@ -53,25 +53,25 @@ export const Login = () => {
           <span className="logo-text">EquiFit</span>
         </div>
 
-        <h1>Welcome Back</h1>
-        <p className="subtitle">Log in to manage your gear.</p>
+        <h1>Bienvenido de nuevo</h1>
+        <p className="subtitle">Inicia sesión para gestionar tu equipo.</p>
 
         <form action="#" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">Correo electrónico</label>
             <input
               name="email"
               type="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder="Ingresa tu correo electrónico"
               defaultValue="john.doe@example.com"
             />
           </div>
           <div className="form-group">
             <div className="label-row">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Contraseña</label>
               <a href="#" className="forgot-link">
-                Forgot password?
+                ¿Olvidaste tu contraseña?
               </a>
             </div>
             <div className="input-wrapper">
@@ -80,7 +80,7 @@ export const Login = () => {
                 id="password"
                 name="password"
                 defaultValue="ffffff"
-                placeholder="Enter your password"
+                placeholder="Ingresa tu contraseña"
               />
               <div
                 className="eye-icon"
@@ -132,12 +132,12 @@ export const Login = () => {
           </p>
 
           <button type="submit" className="btn-primary">
-            Sign In
+            Iniciar Sesión
           </button>
         </form>
 
         <div className="divider">
-          <span>Or continue with</span>
+          <span>O continúa con</span>
         </div>
 
         <div className="social-buttons">
@@ -182,9 +182,9 @@ export const Login = () => {
         </div>
 
         <div className="signup-text">
-          Don't have an account?{" "}
+          ¿No tienes una cuenta?{" "}
           <a href="#" className="signup-link">
-            Sign up
+            Regístrate
           </a>
         </div>
       </div>
@@ -202,7 +202,7 @@ export const Login = () => {
         >
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
-        <span>Secure equestrian management platform</span>
+        <span>Plataforma segura de gestión ecuestre</span>
       </div>
     </main>
   );

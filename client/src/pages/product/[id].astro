@@ -11,12 +11,12 @@ const { data: product, error } = await getProductById(id!);
 if (error || product === null) return;
 ---
 
-<Layout title={`${product.name} - Equestrian Shop`}>
+<Layout title={`${product.name} - Tienda Ecuestre`}>
   <main class="product-detail">
     <div class="breadcrumb">
-      <a href="/">Home</a>
+      <a href="/">Inicio</a>
       <span class="separator">/</span>
-      <a href="/#products">Products</a>
+      <a href="/#products">Productos</a>
       <span class="separator">/</span>
       <span class="current">{product.name}</span>
     </div>
@@ -36,7 +36,7 @@ if (error || product === null) return;
           <span
             class={`stock-badge ${product.stock > 5 ? "in-stock" : "low-stock"}`}
           >
-            {product.stock > 5 ? "In Stock" : `Only ${product.stock} left`}
+            {product.stock > 5 ? "En Stock" : `Solo quedan ${product.stock}`}
           </span>
         </div>
 

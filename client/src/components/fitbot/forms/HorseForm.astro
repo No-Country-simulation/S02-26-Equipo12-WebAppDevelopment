@@ -10,128 +10,246 @@ import "./index.css";
 ---
 
 <div class="form-panel-container">
-    <Form id="horse-measurements-form" method="POST" action="#">
-        <div>
-            <FormSection class="section-grid">
-                <div slot="form-header">
-                    <header>
-                        <h2>Horse Measurements</h2>
-                        <p>Enter the measurements in centimeters.</p>
-                    </header>
-                </div>
-
-                <Field label="Back Length" name="horseBackLength">
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="horseBackLength"
-                        id="horseBackLength"
-                        placeholder="0.0"
-                    />
-                </Field>
-
-                <Field
-                    label="Girth Circumference"
-                    name="horseGirthCircumference"
-                >
-                    <Input
-                        type="number"
-                        suffix="cm"
-                        name="horseGirthCircumference"
-                        id="horseGirthCircumference"
-                        placeholder="0.0"
-                    />
-                </Field>
-            </FormSection>
-
-            <div class="button-container">
-                <Button type="submit" variant="signin" size="sm">
-                    Enviar
-                </Button>
-                <Button type="reset" variant="primary"> Reset </Button>
-            </div>
+  <Form id="horse-measurements-form" method="POST" action="#">
+    <div>
+      <FormSection class="section-grid">
+        <div slot="form-header">
+          <header>
+            <h2>Medidas del Caballo</h2>
+            <p>Ingresa las medidas en centímetros.</p>
+          </header>
         </div>
-    </Form>
+
+        <Field label="Largo del Lomo" name="horseBackLength">
+          <Input
+            type="number"
+            suffix="cm"
+            name="horseBackLength"
+            id="horseBackLength"
+            value="140"
+            placeholder="0.0"
+          />
+        </Field>
+
+        <Field label="Circunferencia del Pecho" name="horseGirthCircumference">
+          <Input
+            type="number"
+            suffix="cm"
+            name="horseGirthCircumference"
+            id="horseGirthCircumference"
+            value="180"
+            placeholder="0.0"
+          />
+        </Field>
+      </FormSection>
+
+      <div class="button-container">
+        <Button type="submit" variant="signin" size="sm"> Enviar </Button>
+        <Button type="reset" variant="primary"> Reiniciar </Button>
+      </div>
+    </div>
+  </Form>
 </div>
 
 <style>
-    header {
-        /* background-color: aqua; */
-        display: flex;
-        flex-direction: column;
-    }
+  header {
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+  }
 
-    p {
-        margin-top: 0.5rem;
-        color: var(--text-muted);
-        font-size: 0.95rem;
-    }
+  p {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
 
-    h2 {
-        font-size: 2rem;
-        text-align: center;
-    }
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
 
-    .select-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-        background-color: var(--bg-white);
-        border: 1px solid var(--border-light);
-        border-radius: 8px;
-        transition:
-            border-color 0.2s,
-            box-shadow 0.2s,
-            background-color 0.2s;
-        overflow: hidden;
-    }
+  .select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
+    overflow: hidden;
+  }
 
-    .select-field {
-        flex: 1;
-        width: 100%;
-        border: 0;
-        background: transparent;
-        padding: 14px 16px;
-        font-size: 1rem;
-        color: var(--text-main);
-        font-family: inherit;
-        outline: none;
-    }
+  .select-field {
+    flex: 1;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: 14px 16px;
+    font-size: 1rem;
+    color: var(--text-main);
+    font-family: inherit;
+    outline: none;
+  }
 
-    .options {
-        padding-right: 16px;
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        font-weight: 600;
-        pointer-events: none;
-        user-select: none;
-    }
+  .options {
+    padding-right: 16px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    pointer-events: none;
+    user-select: none;
+  }
 
-    .input-field:focus {
-        border-color: var(--primary);
-    }
+  .input-field:focus {
+    border-color: var(--primary);
+  }
 
-    .button-container {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 2rem;
-    }
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
 
-    .form-panel-container {
-        max-width: 100%;
-        height: 600px;
-        display: flex;
+  .form-panel-container {
+    max-width: 100%;
+    height: 600px;
+    display: flex;
 
-        align-items: center;
-        justify-content: center;
-        overflow-y: auto;
-        padding: 40px 60px;
-        padding-bottom: 120px;
-    }
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 40px 60px;
+    padding-bottom: 120px;
+  }
 </style>
 
 <script is:inline type="module">
-    import { mountHorseMeasurementsForm } from "./src/components/fitbot/scripts/horseMeasurements";
+  const HORSE_ID = "63441272-3479-4117-8d35-7faf6e782fd3";
+  const API_BASE = "http://localhost:3000/api/v1";
 
-    mountHorseMeasurementsForm("horse-measurements-form");
+  const MEASUREMENT_TYPE_IDS = {
+    horseBackLength: "2d55ae99-1002-4d70-9c50-7829c64d369c",
+    horseGirthCircumference: "51c574bd-5906-4450-aa88-bcae2c48b1d0",
+  };
+
+  async function getHorseMeasurements(horseId) {
+    const res = await fetch(`${API_BASE}/horses/${horseId}/measurements`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  }
+
+  async function postHorseMeasurements(horseId, body) {
+    return fetch(`${API_BASE}/horses/${horseId}/measurements`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  }
+
+  async function updateHorseMeasurements(horseId, measurementId, body) {
+    return fetch(
+      `${API_BASE}/horses/${horseId}/measurements/${measurementId}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      },
+    );
+  }
+
+  const form = document.querySelector("#horse-measurements-form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const raw = localStorage.getItem("equifit-storage");
+
+    if (!raw) {
+      alert("User not retrieved");
+      window.location.href = "/login";
+      return;
+    }
+
+    const { state } = JSON.parse(raw);
+
+    if (!state?.user?.id) {
+      alert("User is not logged");
+      window.location.href = "/login";
+      return;
+    }
+
+    let horseMeasurementsDb = [];
+
+    try {
+      horseMeasurementsDb = await getHorseMeasurements(HORSE_ID);
+    } catch (error) {
+      console.error("Error fetching horse measurements", error);
+      return;
+    }
+
+    const existingType = new Map(
+      horseMeasurementsDb.map((m) => [m.measurementTypeId, m.id]),
+    );
+
+    const formData = new FormData(form);
+    const payload = [];
+
+    for (const [fieldName, measurementTypeId] of Object.entries(
+      MEASUREMENT_TYPE_IDS,
+    )) {
+      const rawValue = formData.get(fieldName);
+
+      if (rawValue == null || String(rawValue).trim() === "") continue;
+
+      const value = Number(rawValue);
+      if (!Number.isFinite(value)) {
+        console.error(`${fieldName} must be a valid number`);
+        return;
+      }
+
+      const existingMeasurementId = existingType.get(measurementTypeId);
+
+      if (existingMeasurementId) {
+        payload.push(
+          updateHorseMeasurements(HORSE_ID, existingMeasurementId, { value }),
+        );
+      } else {
+        payload.push(
+          postHorseMeasurements(HORSE_ID, {
+            measurementTypeId,
+            value,
+            measurementDate: new Date().toISOString().split("T")[0],
+          }),
+        );
+      }
+    }
+
+    if (!payload.length) {
+      console.log("No hay medidas para guardar");
+      return;
+    }
+
+    try {
+      const results = await Promise.all(payload);
+      const hasError = results.some((res) => !res.ok);
+
+      if (hasError) {
+        alert("Error al guardar algunas medidas");
+        return;
+      }
+
+      alert("¡Medidas del caballo guardadas exitosamente!");
+      form.reset();
+      window.location.href = "/fitbot";
+    } catch (error) {
+      console.error(error);
+      alert("Error al guardar las medidas");
+    }
+  });
 </script>

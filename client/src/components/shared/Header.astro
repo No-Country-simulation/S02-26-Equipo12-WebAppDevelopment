@@ -27,15 +27,15 @@ const { isAuthenticated = false } = Astro.props;
     <a href="/">FitBot</a>
   </div>
 
-  <NavBar />
+  <NavBar isAuthenticated={isAuthenticated} />
 
   <div class="header-actions">
     <CartButton client:load />
 
     {isAuthenticated ? (
-      <a href="/logout" class="btn-signin">Sign Out</a>
+      <a href="/logout" class="btn-signin">Cerrar Sesión</a>
     ) : (
-      <a href="/login" class="btn-signin">Sign In</a>
+      <a href="/login" class="btn-signin">Iniciar Sesión</a>
     )}
   </div>
 </header>

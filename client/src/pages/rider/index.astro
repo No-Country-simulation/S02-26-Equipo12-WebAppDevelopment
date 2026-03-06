@@ -1,12 +1,13 @@
 ---
 import RiderForm from "../../components/fitbot/forms/RiderForm.astro";
-import RiderMeasuresModule from "../../components/fitbot/modules/RiderMeasuresModule.astro";
+
+export const prerender = false;
 
 import Layout from "../../layouts/Layout.astro";
 ---
 
-<Layout title="FitBot Rider Profile">
-    <div class="fitbot-root ">
-        <RiderForm/>
-    </div>
+<Layout title="FitBot Perfil de Jinete">
+  <div class="fitbot-root">
+    <RiderForm />
+  </div>
 </Layout>
