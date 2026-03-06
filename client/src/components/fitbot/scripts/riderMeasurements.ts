@@ -141,9 +141,9 @@ console.log("first item:", existingMeasurements?.[0]);
     }
 
 
-    // alert("Measurements saved");
-    // form.reset();
-    // window.location.assign("/fitbot");
+    alert("Measurements saved");
+    form.reset();
+    window.location.assign("/fitbot");
 
   });
 
