@@ -6,7 +6,7 @@ import type {
   Products,
 } from "../interfaces/product.interface";
 
-const BASE_URL = import.meta.env.SERVER_URL;
+const BASE_URL = import.meta.env.PUBLIC_SERVER_URL;
 
 export const getProducts = async (page = 1) => {
   const { data, error } = await attemp<Products>(async () => {

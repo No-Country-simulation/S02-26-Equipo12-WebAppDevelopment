@@ -1,5 +1,6 @@
 ---
-import Login from "../components/shared/Login.astro";
+import { Login as LoginForm } from "../components/shared/Login";
+
 import Layout from "../layouts/Layout.astro";
 
 const token = Astro.cookies.get("token")?.value;
@@ -11,6 +12,6 @@ if (token) {
 
 <Layout title="Login">
   <div class="fitbot-root">
-    <Login />
+    <LoginForm client:load />
   </div>
 </Layout>
