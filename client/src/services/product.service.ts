@@ -71,6 +71,31 @@ export const getProductsBySubcategoryId = async (
   return { data, error };
 };
 
+export const getRecommendations = async (
+  riderId: string,
+  horseId: string,
+  msg: string,
+) => {
+  const { data, error } = await attemp<Category[]>(async () => {
+    const res = await fetch(`${BASE_URL}/chat/recommend-products`, {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        riderId,
+        horseId,
+        userText: msg,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Error fetching recommedations");
+    }
+
+    return res.json();
+  });
+
+  return { data, error };
+};
 export const getCategories = async () => {
   const { data, error } = await attemp<Category[]>(async () => {
     const res = await fetch(`${BASE_URL}/categories`);

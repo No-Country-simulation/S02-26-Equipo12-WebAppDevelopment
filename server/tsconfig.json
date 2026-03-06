@@ -41,6 +41,7 @@
     "emitDecoratorMetadata": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "prisma.config.ts"
   ]
 }

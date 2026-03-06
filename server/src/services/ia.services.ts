@@ -1,6 +1,6 @@
-import { createGroq } from '@ai-sdk/groq';
-import { generateText } from 'ai';
-import { EngineResult } from './recommendation.engine';
+import { createGroq } from "@ai-sdk/groq";
+import { generateText } from "ai";
+import { EngineResult } from "./recommendation.engine";
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY!,
@@ -10,7 +10,7 @@ export class AIServices {
   private model;
 
   constructor() {
-    this.model = groq('openai/gpt-oss-20b');
+    this.model = groq("openai/gpt-oss-20b");
   }
 
   /** Health check de la IA */
@@ -19,17 +19,18 @@ export class AIServices {
       const result = await Promise.race([
         generateText({
           model: this.model,
-          prompt: 'Respond only with "ok" if you are healthy, otherwise respond with "error".',
+          prompt:
+            'Respond only with "ok" if you are healthy, otherwise respond with "error".',
         }),
         new Promise<{ text: string }>((_, reject) =>
-          setTimeout(() => reject(new Error('AI timeout')), timeout)
-        )
+          setTimeout(() => reject(new Error("AI timeout")), timeout),
+        ),
       ]);
 
       return result.text.trim();
     } catch (err) {
-      console.error('AI health check error:', err);
-      return 'error';
+      console.error("AI health check error:", err);
+      return "error";
     }
   }
 
@@ -39,16 +40,15 @@ export class AIServices {
   async analyzeRecommendationJSON(
     _recommendation: EngineResult,
     products: {
-      productId: string,
-      name: string,
-      recommendedSize: string,
-      image?: string,
-      description?: string
+      productId: string;
+      name: string;
+      recommendedSize: string;
+      image?: string;
+      description?: string;
     }[],
     measurements: Record<string, number>,
-    timeout = 5000
+    timeout = 5000,
   ): Promise<string> {
-
     const prompt = `
 You are an equestrian equipment sizing assistant.
 
@@ -73,20 +73,19 @@ Instructions:
       const result = await Promise.race([
         generateText({
           model: this.model,
-          prompt
+          prompt,
         }),
         new Promise<{ text: string }>((_, reject) =>
-          setTimeout(() => reject(new Error('AI timeout')), timeout)
-        )
+          setTimeout(() => reject(new Error("AI timeout")), timeout),
+        ),
       ]);
 
       // Imprimir respuesta completa de la IA en consola
-      console.log('IA MESSAGE + JSON:', result.text);
+      console.log("IA MESSAGE + JSON:", result.text);
 
       return result.text;
-
     } catch (err) {
-      console.error('AI analyzeRecommendationJSON error:', err);
+      console.error("AI analyzeRecommendationJSON error:", err);
       return `Según tus medidas, te recomiendo estos productos: ${JSON.stringify(products)}`;
     }
   }
@@ -94,51 +93,51 @@ Instructions:
   /**
    * Deducir la subcategoría de producto a partir de un texto libre del usuario
    */
-  async deduceSubCategory(userText: string, timeout = 3000): Promise<string | null> {
+  async deduceSubCategory(
+    userText: string,
+    timeout = 3000,
+  ): Promise<string | null> {
+    const prompt = `
+Eres una IA que clasifica productos ecuestres.
 
- const prompt = `
-You are an AI that classifies equestrian products.
-
-User text:
+Texto de usuario:
 "${userText}"
 
-Task:
-Identify the product subcategory.
+Tarea:
+Identificar la subcategoría del producto.
 
-Output rules (STRICT):
-- Return ONLY the subcategory name
-- Return ONLY ONE WORD or ONE SHORT PHRASE
-- NO JSON
-- NO markdown
-- NO code blocks
-- NO explanations
-- NO extra text
-- If the product cannot be identified return exactly: Desconocido
+Reglas de salida (ESTRICTAS):
+- Devolver SOLO el nombre de la subcategoría
+- Devolver SOLO UNA PALABRA o UNA FRASE CORTA
+- SIN JSON
+- SIN Markdown
+- SIN bloques de código
+- SIN explicaciones
+- SIN texto adicional
+- Si no se puede identificar el producto, devolver exactamente: Desconocido
 
-Valid outputs:
-Helmets
-Boots
-Gloves
-Desconocido
+Salidas válidas:
+Cascos
+Botas
+Alforjas
+Etc.
 `;
-
 
     try {
       const result = await Promise.race([
         generateText({
           model: this.model,
-          prompt
+          prompt,
         }),
         new Promise<{ text: string }>((_, reject) =>
-          setTimeout(() => reject(new Error('AI timeout')), timeout)
-        )
+          setTimeout(() => reject(new Error("AI timeout")), timeout),
+        ),
       ]);
 
       const subCategory = result.text.trim();
       return subCategory === "Desconocido" ? null : subCategory;
-
     } catch (err) {
-      console.error('AI deduceSubCategory error:', err);
+      console.error("AI deduceSubCategory error:", err);
       return null;
     }
   }

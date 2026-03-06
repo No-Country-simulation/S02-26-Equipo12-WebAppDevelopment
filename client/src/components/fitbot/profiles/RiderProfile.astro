@@ -13,23 +13,27 @@ const { completed = false } = Astro.props;
     </div>
 
     <div slot="content">
-        <h2>Rider Profile</h2>
+        <h2>Perfil del Jinete</h2>
         <p>
-            Get perfectly sized breeches, boots, and helmets tailored to your
-            measurements.
+            Obtén breeches, botas y cascos perfectamente adaptados a tus
+            medidas.
         </p>
 
         {
             completed ? (
-                <Button size="md">
-                    {" "}
-                    Edit Profile <EditLogo />{" "}
-                </Button>
+                <a href="/rider">
+                    <Button size="md">
+                        {" "}
+                        Editar Perfil <EditLogo />{" "}
+                    </Button>
+                </a>
             ) : (
-                <Button size="md">
-                    {" "}
-                    Configure Rider <span>&rarr;</span>{" "}
-                </Button>
+                <a href="/rider">
+                    <Button size="md">
+                        {" "}
+                        Configurar Jinete <span>&rarr;</span>{" "}
+                    </Button>
+                </a>
             )
         }
     </div>
