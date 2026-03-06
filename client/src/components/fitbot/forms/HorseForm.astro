@@ -1,135 +1,255 @@
 ---
+import Form from "../../ui/Form/Form.astro";
+import FormSection from "../../ui/Form/FormSection.astro";
+import Field from "../../ui/Form/Field.astro";
+import Input from "../../ui/Form/Input.astro";
 
+import Button from "../../ui/Button.astro";
+
+import "./index.css";
 ---
 
-<div class="panel-right">
-    <div class="form-container">
-        <header style="margin-bottom: 2.5rem;">
-            <span class="tag">Fitbot Assistant</span>
-            <h1 class="form-title">Let's find the perfect fit.</h1>
-            <p class="form-subtitle">
-                Enter your horse's measurements below. Fitbot will analyze the
-                data to recommend the ideal saddle size.
-            </p>
-        </header>
+<div class="form-panel-container">
+  <Form id="horse-measurements-form" method="POST" action="#">
+    <div>
+      <FormSection class="section-grid">
+        <div slot="form-header">
+          <header>
+            <h2>Medidas del Caballo</h2>
+            <p>Ingresa las medidas en centímetros.</p>
+          </header>
+        </div>
 
-        <form>
-            <div class="unit-toggle">
-                <div class="unit-toggle-bg">
-                    <button class="unit-btn active" type="button"
-                        >Imperial (in)</button
-                    >
-                    <button class="unit-btn" type="button">Metric (cm)</button>
-                </div>
-            </div>
+        <Field label="Largo del Lomo" name="horseBackLength">
+          <Input
+            type="number"
+            suffix="cm"
+            name="horseBackLength"
+            id="horseBackLength"
+            value="140"
+            placeholder="0.0"
+          />
+        </Field>
 
-            <div class="input-fields-wrapper">
-                <div class="input-group active">
-                    <div class="input-header">
-                        <label for="back_length">A. Back Length</label>
-                        <span class="material-icons status-icon"
-                            >check_circle</span
-                        >
-                    </div>
-                    <div class="input-wrapper">
-                        <input
-                            class="input-field"
-                            id="back_length"
-                            name="back_length"
-                            placeholder="0.0"
-                            type="number"
-                        />
-                        <span class="input-unit">in</span>
-                    </div>
-                    <p class="input-hint">
-                        Measure from the highest point of the wither to the top
-                        of the tail dock.
-                    </p>
-                </div>
+        <Field label="Circunferencia del Pecho" name="horseGirthCircumference">
+          <Input
+            type="number"
+            suffix="cm"
+            name="horseGirthCircumference"
+            id="horseGirthCircumference"
+            value="180"
+            placeholder="0.0"
+          />
+        </Field>
+      </FormSection>
 
-                <div class="input-group">
-                    <div class="input-header">
-                        <label for="height">B. Height</label>
-                        <span class="material-icons status-icon">circle</span>
-                    </div>
-                    <div class="input-wrapper">
-                        <input
-                            class="input-field"
-                            id="height"
-                            name="height"
-                            placeholder="15.2"
-                            step="0.1"
-                            type="number"
-                        />
-                        <span class="input-unit">hh</span>
-                    </div>
-                    <p class="input-hint">
-                        Enter height in hands (e.g., 16.2).
-                    </p>
-                </div>
-
-                <div class="input-group">
-                    <div class="input-header">
-                        <label for="girth">C. Girth Circumference</label>
-                        <span class="material-icons status-icon">circle</span>
-                    </div>
-                    <div class="input-wrapper">
-                        <input
-                            class="input-field"
-                            id="girth"
-                            name="girth"
-                            placeholder="0.0"
-                            type="number"
-                        />
-                        <span class="input-unit">in</span>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <div class="input-header">
-                        <label for="neck">D. Neck/Head Length</label>
-                        <span class="material-icons status-icon">circle</span>
-                    </div>
-                    <div class="input-wrapper">
-                        <input
-                            class="input-field"
-                            id="neck"
-                            name="neck"
-                            placeholder="0.0"
-                            type="number"
-                        />
-                        <span class="input-unit">in</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ai-insight">
-                <div class="ai-icon-wrapper">
-                    <span class="material-icons">auto_awesome</span>
-                </div>
-                <div class="ai-content">
-                    <h4>Fitbot Prediction</h4>
-                    <p>
-                        Based on current trends, a horse with these dimensions
-                        typically fits a <strong>Medium-Wide</strong> tree. Complete
-                        the form to confirm.
-                    </p>
-                </div>
-            </div>
-
-            <div class="form-actions">
-                <button class="btn-back" type="button">
-                    <span class="material-icons">arrow_back</span>
-                    Go Back
-                </button>
-                <div class="action-group">
-                    <button class="btn-skip" type="button">Skip for now</button>
-                    <button class="btn-primary" type="submit">
-                        Analyze Fit
-                        <span class="material-icons">arrow_forward</span>
-                    </button>
-                </div>
-            </div>
-        </form>
+      <div class="button-container">
+        <Button type="submit" variant="signin" size="sm"> Enviar </Button>
+        <Button type="reset" variant="primary"> Reiniciar </Button>
+      </div>
     </div>
+  </Form>
 </div>
+
+<style>
+  header {
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+  }
+
+  p {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
+    overflow: hidden;
+  }
+
+  .select-field {
+    flex: 1;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: 14px 16px;
+    font-size: 1rem;
+    color: var(--text-main);
+    font-family: inherit;
+    outline: none;
+  }
+
+  .options {
+    padding-right: 16px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .input-field:focus {
+    border-color: var(--primary);
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
+
+  .form-panel-container {
+    max-width: 100%;
+    height: 600px;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 40px 60px;
+    padding-bottom: 120px;
+  }
+</style>
+
+<script is:inline type="module">
+  const HORSE_ID = "63441272-3479-4117-8d35-7faf6e782fd3";
+  const API_BASE = "http://localhost:3000/api/v1";
+
+  const MEASUREMENT_TYPE_IDS = {
+    horseBackLength: "2d55ae99-1002-4d70-9c50-7829c64d369c",
+    horseGirthCircumference: "51c574bd-5906-4450-aa88-bcae2c48b1d0",
+  };
+
+  async function getHorseMeasurements(horseId) {
+    const res = await fetch(`${API_BASE}/horses/${horseId}/measurements`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  }
+
+  async function postHorseMeasurements(horseId, body) {
+    return fetch(`${API_BASE}/horses/${horseId}/measurements`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  }
+
+  async function updateHorseMeasurements(horseId, measurementId, body) {
+    return fetch(
+      `${API_BASE}/horses/${horseId}/measurements/${measurementId}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      },
+    );
+  }
+
+  const form = document.querySelector("#horse-measurements-form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const raw = localStorage.getItem("equifit-storage");
+
+    if (!raw) {
+      alert("User not retrieved");
+      window.location.href = "/login";
+      return;
+    }
+
+    const { state } = JSON.parse(raw);
+
+    if (!state?.user?.id) {
+      alert("User is not logged");
+      window.location.href = "/login";
+      return;
+    }
+
+    let horseMeasurementsDb = [];
+
+    try {
+      horseMeasurementsDb = await getHorseMeasurements(HORSE_ID);
+    } catch (error) {
+      console.error("Error fetching horse measurements", error);
+      return;
+    }
+
+    const existingType = new Map(
+      horseMeasurementsDb.map((m) => [m.measurementTypeId, m.id]),
+    );
+
+    const formData = new FormData(form);
+    const payload = [];
+
+    for (const [fieldName, measurementTypeId] of Object.entries(
+      MEASUREMENT_TYPE_IDS,
+    )) {
+      const rawValue = formData.get(fieldName);
+
+      if (rawValue == null || String(rawValue).trim() === "") continue;
+
+      const value = Number(rawValue);
+      if (!Number.isFinite(value)) {
+        console.error(`${fieldName} must be a valid number`);
+        return;
+      }
+
+      const existingMeasurementId = existingType.get(measurementTypeId);
+
+      if (existingMeasurementId) {
+        payload.push(
+          updateHorseMeasurements(HORSE_ID, existingMeasurementId, { value }),
+        );
+      } else {
+        payload.push(
+          postHorseMeasurements(HORSE_ID, {
+            measurementTypeId,
+            value,
+            measurementDate: new Date().toISOString().split("T")[0],
+          }),
+        );
+      }
+    }
+
+    if (!payload.length) {
+      console.log("No hay medidas para guardar");
+      return;
+    }
+
+    try {
+      const results = await Promise.all(payload);
+      const hasError = results.some((res) => !res.ok);
+
+      if (hasError) {
+        alert("Error al guardar algunas medidas");
+        return;
+      }
+
+      alert("¡Medidas del caballo guardadas exitosamente!");
+      form.reset();
+      window.location.href = "/fitbot";
+    } catch (error) {
+      console.error(error);
+      alert("Error al guardar las medidas");
+    }
+  });
+</script>

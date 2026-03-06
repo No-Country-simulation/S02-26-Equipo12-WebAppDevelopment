@@ -5,7 +5,6 @@ import HorseIcon from "../../ui/Icons/horse.svg";
 import EditLogo from "../../ui/Icons/edit.svg";
 
 const { completed = false } = Astro.props;
-
 ---
 
 <Card completed={completed}>
@@ -14,19 +13,28 @@ const { completed = false } = Astro.props;
     </div>
 
     <div slot="content">
-        <h2>Horse Profile</h2>
+        <h2>Perfil del Caballo</h2>
         <p>
-            Find the perfect tack, saddle fit, and blankets for your equine
-            partner.
+            Encuentra la silla, protección y mantas perfectas para tu compañero
+            equino.
         </p>
 
         {
-            completed
-            ? <Button size="md"> Edit Horse Profile <EditLogo/> </Button>
-            : <Button size="md"> Configure Horse <span>&rarr;</span> </Button>
+            completed ? (
+                <a href="/horse">
+                    <Button size="md">
+                        {" "}
+                        Editar Perfil <EditLogo />{" "}
+                    </Button>{" "}
+                </a>
+            ) : (
+                <a href="/horse">
+                    <Button size="md">
+                        {" "}
+                        Configurar Caballo <span>&rarr;</span>{" "}
+                    </Button>{" "}
+                </a>
+            )
         }
-
     </div>
-
 </Card>
-

@@ -260,17 +260,6 @@ input:focus {
     margin-top: 6px;
 }
 
-.how-to {
-    float: right;
-    font-size: 0.8rem;
-    color: var(--text-gray);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-
 
 /*  HORSE FORM revisar responsive y buttons */
 
@@ -695,7 +684,7 @@ button {
 
 .input-field:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(23, 207, 84, 0.2);
+    /* box-shadow: 0 0 0 3px rgba(23, 207, 84, 0.2); */
 }
 
 .input-unit {

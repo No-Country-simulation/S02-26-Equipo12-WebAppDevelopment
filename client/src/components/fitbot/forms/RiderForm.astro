@@ -1,130 +1,279 @@
 ---
 import "./index.css";
 
+import Form from "../../ui/Form/Form.astro";
+import FormSection from "../../ui/Form/FormSection.astro";
+import Field from "../../ui/Form/Field.astro";
+import Input from "../../ui/Form/Input.astro";
+import Button from "../../ui/Button.astro";
 ---
 
-<div class="form-panel">
-    <div class="form-section">
-        <h2>Basic Info</h2>
-        <div class="row">
-            <div class="col input-group">
-                <label>Total Height</label>
-                <div class="input-wrapper">
-                    <input type="text" placeholder="number" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-            <div class="col input-group">
-                <label>Weight (Approx)</label>
-                <div class="input-wrapper">
-                    <input type="text" placeholder="number" />
-                    <span class="unit">kg</span>
-                </div>
-            </div>
+<div class="form-panel-container">
+  <Form id="rider-measurements-form" method="POST" action="#">
+    <div>
+      <FormSection class="section-grid">
+        <div slot="form-header">
+          <header>
+            <h2>Información Básica</h2>
+          </header>
         </div>
+
+        <Field label="Altura" name="riderHeight">
+          <Input
+            type="number"
+            suffix="cm"
+            name="riderHeight"
+            id="riderHeight"
+            value="170"
+          />
+        </Field>
+
+        <Field label="Peso" name="riderWeight">
+          <Input
+            type="number"
+            suffix="kg"
+            name="riderWeight"
+            id="riderWeight"
+            value="65"
+          />
+        </Field>
+
+        <Field label="Preferencia de Género" name="riderGenderFit">
+          <div class="select-wrapper">
+            <select name="riderGenderFit" class="select-field">
+              <option value="male" class="options"> Masculino </option>
+              <option value="female" class="options"> Femenino </option>
+            </select>
+          </div>
+        </Field>
+      </FormSection>
+
+      <FormSection class="section-grid-vertical">
+        <div slot="form-header">
+          <header>
+            <h2>Cabeza y Torso</h2>
+          </header>
+
+          <span class="how-to">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><circle cx="12" cy="12" r="10"></circle><path
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line
+                x1="12"
+                y1="17"
+                x2="12.01"
+                y2="17"></line></svg
+            >
+            How to measure
+          </span>
+        </div>
+
+        <Field label="Circunferencia de Cabeza" name="riderHeadCircumference">
+          <Input
+            type="number"
+            suffix="cm"
+            name="riderHeadCircumference"
+            id="riderHeadCircumference"
+            value="56"
+          />
+        </Field>
+      </FormSection>
+
+      <FormSection class="section-grid">
+        <div slot="form-header">
+          <header>
+            <h2>Piernas y Pies</h2>
+          </header>
+        </div>
+
+        <Field label="Circunferencia de Pantorrilla" name="riderCalfCircumference">
+          <Input
+            type="number"
+            suffix="cm"
+            name="riderCalfCircumference"
+            id="riderCalfCircumference"
+            value="38"
+          />
+        </Field>
+
+        <Field label="Longitud del Pie" name="riderFootLength">
+          <Input
+            type="number"
+            suffix="cm"
+            name="riderFootLength"
+            id="riderFootLength"
+            value="27"
+          />
+        </Field>
+      </FormSection>
+
+      <div class="button-container">
+        <Button type="submit" variant="signin" size="sm">Enviar</Button>
+        <Button type="reset" variant="primary"> Reiniciar </Button>
+      </div>
     </div>
-
-    <div class="form-section">
-        <h2>Head & Torso</h2>
-        <div class="row">
-            <div class="col input-group">
-                <div style="display:flex; justify-content:space-between;">
-                    <label>Head Circumference</label>
-                    <span class="how-to">
-                        <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            ><circle cx="12" cy="12" r="10"></circle><path
-                                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-                            ></path><line x1="12" y1="17" x2="12.01" y2="17"
-                            ></line></svg
-                        >
-                        How to measure
-                    </span>
-                </div>
-                <div class="input-wrapper">
-                    <input type="text" value="56" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col input-group">
-                <label>Chest</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-            <div class="col input-group">
-                <label>Waist</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-section">
-        <h2>Legs & Feet</h2>
-
-        <div class="alert-box">
-            <h4>Boots Sizing Critical</h4>
-            <p>
-                Accurate calf and height measurements are essential for custom
-                boot fitting
-            </p>
-        </div>
-
-        <div class="row">
-            <div class="col input-group">
-                <label>Inside Leg (Inseam)</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col input-group active">
-                <div
-                    style="display:flex; justify-content:space-between; position:relative;"
-                >
-                    <label>Calf Width (Widest Point)</label>
-                    <span class="measuring-badge">Currently Measuring</span>
-                </div>
-                <div class="input-wrapper">
-                    <input type="text" value="0" autofocus />
-                    <span class="unit">cm</span>
-                </div>
-                <div class="helper-text">
-                    Measure the widest part of your calf muscle while seated.
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col input-group">
-                <label>Foot Length</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-            <div class="col input-group">
-                <label>Foot Width</label>
-                <div class="input-wrapper">
-                    <input type="text" value="0" />
-                    <span class="unit">cm</span>
-                </div>
-            </div>
-        </div>
-    </div>
+  </Form>
 </div>
+
+<style>
+  .select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
+
+    overflow: hidden;
+  }
+
+  .select-field {
+    flex: 1;
+    width: 100%;
+
+    border: 0;
+    background: transparent;
+
+    padding: 14px 16px;
+    font-size: 1rem;
+    color: var(--text-main);
+    font-family: inherit;
+    outline: none;
+  }
+
+  .options {
+    padding-right: 16px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .input-field:focus {
+    border-color: var(--primary);
+    /* box-shadow: 0 0 0 3px rgba(23, 207, 84, 0.2); */
+  }
+
+  .how-to {
+    float: right;
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &:hover {
+      color: var(--primary-green-hover);
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .form-panel-container {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 40px 60px;
+    padding-bottom: 120px;
+  }
+</style>
+
+<script is:inline type="module">
+  const MEASUREMENT_TYPE_IDS = {
+    riderHeight: "9c2871d8-bcf8-4e61-aea5-944ba61e6481",
+    riderWeight: "d45cba75-e1ad-474a-a77a-14fda329a9be",
+    riderFootLength: "019b0f42-55f4-4dcf-a211-19f009d999ad",
+    riderCalfCircumference: "69f5deda-4b3a-40c0-b60c-733bc086b8c3",
+    riderHeadCircumference: "8fc33678-b833-41b3-b714-f6137e0b1aa6",
+  };
+
+  async function createMeasurements(riderId, body) {
+    return fetch(
+      `http://localhost:3000/api/v1/riders/${riderId}/measurements`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      },
+    );
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const raw = localStorage.getItem("equifit-storage");
+
+    if (!raw) {
+      alert("User not retrieved");
+      window.location.href = "/login";
+      return;
+    }
+
+    const { state } = JSON.parse(raw);
+
+    if (!state.user?.id) {
+      alert("User is not logged");
+      window.location.href = "/login";
+      return;
+    }
+
+    const { id } = state.user;
+
+    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+
+    const data = Array.from(formData.entries()).filter(
+      ([_, value]) => value && String(value).trim().length > 0,
+    );
+
+    const payload = data
+      .filter(([name]) => name !== "riderGenderFit")
+      .map(([name, value]) => {
+        return {
+          measurementTypeId: MEASUREMENT_TYPE_IDS[name],
+          value: parseFloat(value),
+        };
+      })
+      .filter((item) => item.measurementTypeId !== undefined);
+
+    try {
+      const results = await Promise.all(
+        payload.map((measurement) => createMeasurements(id, measurement))
+      );
+      
+      const hasError = results.some((res) => !res.ok);
+      
+      if (hasError) {
+        alert("Error al guardar algunas medidas");
+        return;
+      }
+      
+      alert("¡Medidas guardadas exitosamente!");
+      window.location.href = "/fitbot";
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      alert("Error al guardar las medidas");
+    }
+  }
+
+  const form = document.querySelector("#rider-measurements-form");
+  form.addEventListener("submit", handleSubmit);
+</script>
